@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "pretty": true,
+    "sourceMap": false,
+    "target": "ESNext",
+    "outDir": "./dist",
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "experimentalDecorators": true,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "./src/custom.d.ts", "./src/session.d.ts"],
+  "exclude": ["node_modules"]
+}
