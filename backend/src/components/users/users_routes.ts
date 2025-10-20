@@ -28,19 +28,19 @@ export class UserRoutes {
       .put(controller.updateHandler)
       .delete(controller.deleteHandler);
 
-    app.route("/api/login").post(controller.login);
-    app.route("/api/logout").post(controller.logout);
+    app.route("/api/auth/login").post(controller.login);
+    app.route("/api/auth/logout").post(controller.logout);
 
     app
-      .route("/api/refresh_token")
+      .route("/api/auth/refresh_token")
       .get(controller.getAccessTokenFromRefreshToken);
 
     app
-      .route(this.baseEndPoint + "/changePassword/:id")
+      .route(this.baseEndPoint + "/auth/changePassword/:id")
       .post(validate(validatePasswords), controller.changePassword);
 
-    app.route("/api/forgot_password").post(controller.forgotPassword);
+    app.route("/api/auth/forgot_password").post(controller.forgotPassword);
 
-    app.route("/api/reset_password").post(controller.resetPasword);
+    app.route("/api/auth/reset_password").post(controller.resetPasword);
   }
 }
