@@ -1,18 +1,17 @@
-import type { TCart, } from "../types/cart";
 
-export const calculateCartTotal = (cart: TCart[]):number => {
-  const total = cart.reduce((acc: number, item: TCart) => {
+export const calculateCartTotal = (cart):number => {
+  const cartTotal = cart.reduce((acc: number, item) => {
     acc += item.price * item.quantity;
     return acc;
   }, 0);
-  return total;
+  return cartTotal;
 };
 
-export const calculateTotalItems = (cart: TCart[]) => {
-  const total = cart.reduce((acc: number, item: TCart) => {
+export const calculateTotalItems = (cart) => {
+  const totalItemsInCart = cart.reduce((acc: number, item) => {
     acc += item.quantity;
     return acc;
   }, 0);
 
-  return total;
+  return totalItemsInCart;
 };
