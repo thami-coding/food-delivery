@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from "react";
 import AddItem from "./AddItem";
 import ProductCard from "./ProductCard";
 import type { TCategories } from "../types/category";
-import { useGlobalState } from "../hooks/useGlobalState";
 
 const Products = () => {
   const [category, setCategory] = useState<TCategories>("all");
@@ -26,7 +25,6 @@ const Products = () => {
     getNextPageParam: (lastPage) => lastPage.nextPage,
   });
 
-  const { state } = useGlobalState();
   const [product, setProduct] = useState<TProduct | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
