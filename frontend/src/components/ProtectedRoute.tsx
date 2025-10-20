@@ -1,11 +1,18 @@
 import { Navigate, Outlet } from "react-router";
-import { useGlobalState } from "../hooks/useGlobalState";
+import { useUser } from "../hooks/useAuth";
 
 export default function ProtectedRoute() {
-  const { state } = useGlobalState();
-  console.log(state.user);
+  const { user, isError, error, isPending } = useUser();
 
-  if (!state.user) {
+  if (isPending) {
+    return <h2>Loading User Info</h2>;
+  }
+
+  if (isError) {
+    <p>{error?.message}</p>;
+  }
+
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
   return <Outlet />;
