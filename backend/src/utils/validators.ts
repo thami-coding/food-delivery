@@ -13,41 +13,42 @@ export const validateUserInput = [
     .trim()
     .notEmpty()
     .escape()
-    .withMessage("It should be required"),
+    .withMessage("invalid username"),
   body("email")
     .trim()
     .notEmpty()
     .isEmail()
     .escape()
-    .withMessage("It should be valid email address"),
+    .withMessage("Invalid email address"),
   body("password")
     .trim()
     .notEmpty()
-    .isLength({ min: 6, max: 12 })
-    .withMessage("It must be between  and 12 characters in length")
-    .isStrongPassword({
-      minLowercase: 1,
-      minUppercase: 1,
-      minSymbols: 1,
-      minNumbers: 1,
-    })
-    .withMessage(
-      "It should include at least one uppercase letter, one lowercase letter, one special symbol, and one numerical digit."
-    ),
+    // .isLength({ min: 6, max: 12 })
+    .isLength({ min: 5})
+    .withMessage("Password must be at least 5 characters long")
+    // .isStrongPassword({
+    //   minLowercase: 1,
+    //   minUppercase: 1,
+    //   minSymbols: 1,
+    //   minNumbers: 1,
+    // })
+    // .withMessage(
+    //   "It should include at least one uppercase letter, one lowercase letter, one special symbol, and one numerical digit."
+    // ),
 ];
 export const validatePasswords = [
-  body("oldPassword").trim().notEmpty().withMessage("It should be required"),
+  body("oldPassword").trim().notEmpty().withMessage("Please enter your old password"),
   body("newPassword")
-    .isLength({ min: 6, max: 12 })
-    .isStrongPassword({
-      minLowercase: 1,
-      minUppercase: 1,
-      minSymbols: 1,
-      minNumbers: 1,
-    })
-    .withMessage(
-      "Password Must have uppercase, lowercase, number, and symbol."
-    ),
+    .isLength({ min: 5 })
+    // .isStrongPassword({
+    //   minLowercase: 1,
+    //   minUppercase: 1,
+    //   minSymbols: 1,
+    //   minNumbers: 1,
+    // })
+    // .withMessage(
+    //   "Password Must have uppercase, lowercase, number, and symbol."
+    // ),
 ];
 export const validate = (validations: ContextRunner[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
