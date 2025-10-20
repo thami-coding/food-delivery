@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { postAddress } from "../lib/apiClient";
-import { useGlobalState } from "../hooks/useGlobalState";
+
 
 export default function Checkout() {
-  const { state } = useGlobalState();
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [isEditingPayment, setIsEditingPayment] = useState(false);
 
@@ -12,7 +11,7 @@ export default function Checkout() {
     city: "Durban",
     province: "Kwazulu-Natal",
     zip_code: "4037",
-    userId: state.user?.userId || "",
+    userId: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
