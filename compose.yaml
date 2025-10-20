@@ -1,0 +1,61 @@
+services:
+  postgres:
+    container_name: food_app_database
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: food_app
+    volumes:
+      - ./db-init:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    container_name: food_app_redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    # The command tells Redis to start using our specific config file
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - redis_data:/data
+      # Mount our custom config file into the container
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+  backend:
+    container_name: food_app_backend
+    build:
+      context: ./backend
+    command: npm run dev
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DB_NAME: food_app
+      DB_PORT: 5432
+      PORT: 5000 #App port
+      REDIS_URL: redis://redis:6379
+      REDIS_PORT: 6379
+      # REDIS_PASSWORD: ${REDIS_PASSWORD}
+    depends_on:
+      - postgres
+      - redis
+
+  frontend:
+    container_name: food_app_frontend
+    build:
+      context: ./frontend
+    command: npm run dev
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
+
+
