@@ -6,7 +6,7 @@
     "password": "root",
     "host": "127.0.0.1",
     "port": 5432,
-    "dbname": "food-delivery"
+    "dbname": "food_app"
   },
   "email_config": {
     "from": "sainttsquared@gmail.com",
