@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { VscAccount } from "react-icons/vsc";
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, NavLink } from "react-router";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { MdExitToApp } from "react-icons/md";
-import { logout } from "../lib/apiClient";
-import { useGlobalState } from "../hooks/useGlobalState";
+import { useUser } from "../hooks/useAuth";
 
 export default function Login() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const navigate = useNavigate();
-  const { state, dispatch } = useGlobalState();
+  const { user, isPending, error, isError } = useUser();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -23,6 +21,13 @@ export default function Login() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   });
+
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
+  if (isError) {
+    return <p>{error?.message}</p>;
+  }
   return (
     <div ref={dropdownRef}>
       <button
@@ -33,22 +38,17 @@ export default function Login() {
       </button>
       {open && (
         <div className="absolute right-0 w-35  bg-yellow-400 text-black rounded-md z-10">
-          {state.user ? (
+          {user ? (
             <div className="grid p-3">
               <Link
                 to="/profile/edit"
                 className="flex items-center mb-3 hover:underline cursor-pointer"
               >
                 <MdOutlineManageAccounts />
-                <span className="ml-2.5 ">{state.user.username}</span>
+                <span className="ml-2.5 ">{user.username}</span>
               </Link>
               <button
-                onClick={() => {
-                  dispatch({ type: "LOGOUT" });
-                  dispatch({ type: "CLEAR_CART" });
-                  logout();
-                  navigate("/");
-                }}
+                onClick={() => {}}
                 className="flex items-center hover:underline cursor-pointer"
               >
                 <MdExitToApp />
