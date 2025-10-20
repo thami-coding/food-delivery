@@ -5,21 +5,28 @@ import { Link } from "react-router";
 
 import { TiShoppingCart } from "react-icons/ti";
 import { calculateCartTotal } from "../lib/calculateTotal";
-import { useGlobalState } from "../hooks/useGlobalState";
-import { deleteCartItem, updateQuantity } from "../lib/apiClient";
-import { useEffect, useState } from "react";
+import { deleteCartItem } from "../lib/apiClient";
+import { useCart, useUpdateCart } from "../hooks/useCart";
 
 const Cart = () => {
-  // const { data:cart, isPending, error } = useCart()
-  const { state, dispatch } = useGlobalState();
-  const { cart } = state;
-  const [productId, setProductId] = useState("");
+  const { data, isPending, error, isError } = useCart();
+  const { mutate: updateQuantity } = useUpdateCart();
+  const { cart } = data;
 
-  useEffect(() => {
-    if (productId && state.cart.length !== 0) {
-      updateQuantity(state, productId);
-    }
-  }, [productId, state]);
+  const handleQuantityChange = (newQuantity: number, productId: string) => {
+    const updatedItem = cart.map((item) =>
+      item.productId === productId ? { ...item, quantity: newQuantity } : item
+    );
+    updateQuantity(updatedItem);
+  };
+
+  if (isPending) {
+    <p>Loading...</p>;
+  }
+
+  if (isError) {
+    <p>{error?.message}</p>;
+  }
 
   if (cart.length === 0) {
     return (
@@ -33,14 +40,6 @@ const Cart = () => {
     );
   }
 
-  const handleDecrease = async (productId: string) => {
-    dispatch({
-      type: "INCREASE_QUANTITY",
-      payload: productId,
-    });
-    setProductId(productId);
-  };
-
   const cartTotal = calculateCartTotal(cart);
   return (
     <section className="flex justify-center mt-30 max-w-[1359px]">
@@ -49,7 +48,7 @@ const Cart = () => {
         {cart.map((cartItem) => {
           const { name, price, productId, imageUrl } = cartItem;
 
-          const { quantity } = state.cart.find(
+          const { quantity } = cart.find(
             (item) => item.productId === productId
           )!;
           return (
@@ -70,11 +69,7 @@ const Cart = () => {
                       className="text-2xl cursor-pointer"
                       disabled={quantity === 1}
                       onClick={() => {
-                        dispatch({
-                          type: "DECREASE_QUANTITY",
-                          payload: productId,
-                        });
-                        setProductId(productId);
+                        handleQuantityChange(quantity - 1, productId);
                       }}
                     >
                       <CiCircleMinus />
@@ -82,7 +77,9 @@ const Cart = () => {
                     <span className="px-2">{quantity}</span>
                     <button
                       className="text-2xl cursor-pointer"
-                      onClick={() => handleDecrease(productId)}
+                      onClick={() =>
+                        handleQuantityChange(quantity + 1, productId)
+                      }
                     >
                       <CiCirclePlus />
                     </button>
@@ -92,10 +89,6 @@ const Cart = () => {
                   <button
                     className="hover:text-red-600 cursor-pointer"
                     onClick={() => {
-                      dispatch({
-                        type: "REMOVE_FROM_CART",
-                        payload: productId,
-                      });
                       deleteCartItem(productId);
                     }}
                   >
