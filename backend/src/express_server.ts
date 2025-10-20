@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import connectRedis from "connect-redis";
 import session from "express-session";
 import { createClient } from "redis";
+import pinoHttp from "pino-http";
 
 export class ExpressServer {
   public server_config = config;
@@ -13,17 +14,24 @@ export class ExpressServer {
   constructor() {
     const app = express();
     const port = this.server_config.port ?? 3000;
+    const redisUrl = process.env.REDIS_URL;
 
     let redisClient = createClient({
       legacyMode: true,
-      url: "redis://localhost:6379",
+      url:  redisUrl,
     });
 
     redisClient.connect().catch(console.error);
     const RedisStore = connectRedis(session);
-
+    const httpLogger = pinoHttp({
+      transport:
+        process.env.NODE_ENV !== "production"
+          ? { target: "pino-pretty" }
+          : undefined,
+    });
     app.use(cookieParser());
     app.use(express.json());
+    app.use(httpLogger);
 
     app.use(
       session({
