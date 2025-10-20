@@ -2,8 +2,6 @@ import axios from "axios";
 
 import { responseSchema, type ProductQueryKey } from "../types/product";
 import type { QueryFunctionContext } from "@tanstack/react-query";
-import type { TCart } from "../types/cart";
-import type { GlobalState } from "../types/context";
 import type { Address } from "../types/address";
 
 export const AxiosInstance = axios.create({
@@ -28,24 +26,29 @@ export async function fetchProducts({
   };
 }
 
-export async function login(email: string, password: string) {
-  const { data } = await AxiosInstance.post("/login", {
-    email,
-    password,
-  });
+type Credentials = {
+  email: string;
+  password: string;
+};
+export async function login(credentials: Credentials) {
+  const { data } = await AxiosInstance.post("/auth/login", credentials);
   return data;
 }
 
 export async function logout() {
-  await AxiosInstance.post("/logout");
+  await AxiosInstance.post("/auth/logout");
 }
 
-export async function signUp(
-  username: string,
-  email: string,
-  password: string
-) {
-  const { data } = await AxiosInstance.post("/register", {
+export async function signUp({
+  username,
+  email,
+  password,
+}: {
+  username: string;
+  email: string;
+  password: string;
+}) {
+  const { data } = await AxiosInstance.post("/users", {
     username,
     email,
     password,
@@ -71,11 +74,10 @@ export async function deleteCartItem(productId: string) {
   await AxiosInstance.delete(`/cart/${productId}`);
 }
 
-export async function fetchCart() {
+export async function fetchCurrentUsersCart() {
   const { data } = await AxiosInstance.get("/cart");
-  const cart: TCart[] = data.cart;
+  const { cart } = data;
   console.log(cart);
-
   return cart;
 }
 
@@ -96,14 +98,7 @@ export async function deleteAddress(id: string) {
   await AxiosInstance.delete(`/address/${id}`);
 }
 
-export async function updateQuantity(state: GlobalState, productId: string) {
-  const cartItem = state.cart.find((item) => item.productId === productId)!;
-  const { quantity } = cartItem;
-  const userId = state.user?.userId;
-  await AxiosInstance.post("/cart", {
-    productId,
-    quantity,
-    userId,
-  });
-  // console.log(response);
+export async function updateQuantity(updatedItem) {
+  await AxiosInstance.post("/cart", updatedItem);
+  console.log(response);
 }
