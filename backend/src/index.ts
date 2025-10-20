@@ -4,6 +4,9 @@ import { ExpressServer } from "./express_server";
 import { NotificationUtil } from "./utils/notification_util";
 import config from '../server_config.json'
 import { QueueWorker } from "./workers/queue_worker";
+import dotenv from "dotenv"
+
+dotenv.config()
 const server = new ExpressServer();
 new DatabaseUtil();
 

@@ -30,7 +30,7 @@ export class Users {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ length: 10 })
+  @Column({ length: 10, nullable: true })
   phone: string;
 
   @Column({ type: "enum", enum: userRoles, default: userRoles.USER })
