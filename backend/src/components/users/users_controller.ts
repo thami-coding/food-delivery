@@ -12,7 +12,6 @@ import config from "../../../server_config.json";
 import { NotificationUtil } from "../../utils/notification_util";
 import { CacheUtil } from "../../utils/CacheUtil";
 import { type IcacheUser } from "../../utils/config";
-import { log } from "console";
 
 export class usersController extends BaseController {
   public async addHandler(req: Request, res: Response): Promise<void> {
@@ -22,14 +21,13 @@ export class usersController extends BaseController {
       console.log(isEmailRegistered);
 
       if (isEmailRegistered) {
-        res.status(StatusCodes.CONFLICT).json({
-          status: "error",
-          msg: "This email is already in use. Please try logging in or use a different email address.",
+        res.status(StatusCodes.UNAUTHORIZED).json({
+          msg: "Invalid email or password.",
         });
         return;
       }
 
-      user.email = user?.email?.toLowerCase();
+      // user.email = user?.email?.toLowerCase();
       user.username = user.username?.toLowerCase();
       user.password = await encryptString(user.password);
 
@@ -38,8 +36,7 @@ export class usersController extends BaseController {
 
       res.status(StatusCodes.CREATED).json(createdUser);
     } catch (error) {
-      console.log(`Error while adding User: ${error.message}`);
-
+      req.log.error(`Error while adding User: ${error.message}`);
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
       });
@@ -85,7 +82,7 @@ export class usersController extends BaseController {
 
       res.status(StatusCodes.OK).json({ status: "success", user: userInfo });
     } catch (error) {
-      console.log(error);
+      req.log.error(error.messsage);
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ status: "error", message: error.message });
@@ -103,8 +100,9 @@ export class usersController extends BaseController {
     if (!result) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         status: "errror",
-        message: "Something went wrong.Couldn't delete user",
+        message: "Something went wrong.",
       });
+      req.log.error(`Couldn't delete user with id: ${req.params.id}`);
       return;
     }
     CacheUtil.remove("User", req.params.id);
@@ -116,11 +114,11 @@ export class usersController extends BaseController {
   public async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
     const user = await UsersUtil.getUserByEmail(email);
-
+    // TODO: I shouldn't be returning 404 here ith should be 401 I need to try catch the above
     if (!user) {
       res
         .status(StatusCodes.NOT_FOUND)
-        .json({ error: getReasonPhrase(StatusCodes.NOT_FOUND) });
+        .json({ error: "Invalid email or password" });
       return;
     }
 
@@ -151,6 +149,7 @@ export class usersController extends BaseController {
       sameSite: "strict",
       maxAge: 24 * 60 * 60 * 1000,
     });
+
     req.session.userId = user.userId;
     res.cookie("refresh", refreshToken, {
       httpOnly: true,
@@ -238,8 +237,7 @@ export class usersController extends BaseController {
 
     if (!emailPattern.test(email)) {
       res.status(StatusCodes.BAD_REQUEST).json({
-        status: "error",
-        message: getReasonPhrase(StatusCodes.BAD_REQUEST),
+        error: "Invalid email address",
       });
       return;
     }
@@ -248,7 +246,8 @@ export class usersController extends BaseController {
     if (!user) {
       res
         .status(StatusCodes.NOT_FOUND)
-        .json({ status: "error", message: "Invalid Email" });
+        .json({ error: "Could not find a user with that email address" });
+      return;
     }
 
     const resetToken = Jwt.sign({ email: email }, SERVER_CONST.JWTSECRET, {
@@ -344,9 +343,9 @@ export class usersController extends BaseController {
     if (req.session.userId) {
       req.session.destroy((err) => {
         if (err) {
-          console.error("Session destruction error:", err);
+          req.log.error(`Session destruction error ${err}`);
         } else {
-          console.log("Session destroyed successfully");
+          req.log.info("Session destroyed successfully");
         }
       });
     }
