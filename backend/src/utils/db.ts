@@ -23,11 +23,11 @@ export class DatabaseUtil {
         const db_config = this.server_config.db_config;
         const AppSource = new DataSource({
           type: "postgres",
-          host: db_config.host,
+          host: process.env.DB_HOST,
           port: db_config.port,
-          username: db_config.username,
-          password: db_config.password,
-          database: db_config.dbname,
+          username: process.env.DB_USER,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_NAME,
           entities: [Users, Addresses, Products, CartItem],
           synchronize: true,
           poolSize: 10,
