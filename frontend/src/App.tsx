@@ -10,40 +10,9 @@ import DashboardLayout from "./layout/DashboardLayout";
 import { ToastContainer } from "react-toastify";
 import CheckoutPage from "./pages/CheckoutPage";
 import AddressPage from "./pages/AddressPage";
-import { useUser } from "./hooks/useAuth";
-import { useGlobalState } from "./hooks/useGlobalState";
-import { useCart } from "./hooks/useCart";
-import { useEffect } from "react";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
-  const { data: user, isPending, isSuccess: isUserSuccess, error } = useUser();
-  const {
-    data: cart,
-    isSuccess,
-    error: cartError,
-  } = useCart();
-
-  const { dispatch } = useGlobalState();
-
-  useEffect(() => {
-    if (isSuccess && isUserSuccess) {
-      console.log(user);
-
-      dispatch({ type: "SET_CART", payload: cart });
-      dispatch({ type: "SET_USER", payload: user });
-    }
-  }, [cart, dispatch, isSuccess, isUserSuccess, user]);
-
-  if (isPending) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (error || cartError) {
-    if (error) {
-      return <div>{error.message}</div>;
-    }
-    return <div>{cartError?.message}</div>;
-  }
 
   return (
     <Router>
@@ -62,6 +31,7 @@ function App() {
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<AdminPage />} />
         </Route>
+         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
