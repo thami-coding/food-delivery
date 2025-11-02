@@ -57,8 +57,12 @@ export async function signUp({
 }
 
 export async function fetchUser() {
-  const { data } = await AxiosInstance.get("/users/me");
-  return data.user;
+  try {
+    const { data } = await AxiosInstance.get("/users/me");
+    return data.user;
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function addCartItem(cart: {

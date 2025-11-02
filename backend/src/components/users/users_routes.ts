@@ -9,6 +9,7 @@ import {
 
 export class UserRoutes {
   private baseEndPoint = "/api/users";
+  private authBasePoint = "/api/auth";
 
   constructor(app: Express) {
     const controller = new usersController();
@@ -28,19 +29,16 @@ export class UserRoutes {
       .put(controller.updateHandler)
       .delete(controller.deleteHandler);
 
-    app.route("/api/auth/login").post(controller.login);
-    app.route("/api/auth/logout").post(controller.logout);
-
+      // Auhthentication routes
+    app.route(this.authBasePoint +"/login").post(controller.login);
+    app.route(this.authBasePoint +"/logout").post(controller.logout);
     app
-      .route("/api/auth/refresh_token")
+      .route(this.authBasePoint +"/refresh_token")
       .get(controller.getAccessTokenFromRefreshToken);
-
     app
-      .route(this.baseEndPoint + "/auth/changePassword/:id")
+      .route(this.authBasePoint + "/change_password/:id")
       .post(validate(validatePasswords), controller.changePassword);
-
-    app.route("/api/auth/forgot_password").post(controller.forgotPassword);
-
-    app.route("/api/auth/reset_password").post(controller.resetPasword);
+    app.route(this.authBasePoint +"/forgot_password").post(controller.forgotPassword);
+    app.route(this.authBasePoint +"/reset_password").post(controller.resetPasword);
   }
 }

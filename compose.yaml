@@ -27,9 +27,17 @@ services:
     container_name: food_app_backend
     build:
       context: ./backend
-    command: npm run dev
+      args:
+        # Pass the project name variable to the Dockerfile during build
+        - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}  
+    user: root                  
+    command: sh -c "npm install && npm run dev"
     ports:
       - "5000:5000"
+    volumes:
+      -  .:/workspaces/${COMPOSE_PROJECT_NAME}:cached
+      - /workspaces/${COMPOSE_PROJECT_NAME}/backend/node_modules
+    working_dir: /workspaces/${COMPOSE_PROJECT_NAME}/backend
     environment:
       DB_HOST: postgres
       DB_USER: postgres
@@ -48,9 +56,14 @@ services:
     container_name: food_app_frontend
     build:
       context: ./frontend
-    command: npm run dev
+    user: root                  
+    command: sh -c "npm install && npm run dev"
     ports:
       - "5173:5173"
+    volumes:
+      - .:/workspaces/${COMPOSE_PROJECT_NAME}:cached
+      - /workspaces/${COMPOSE_PROJECT_NAME}/frontend/node_modules
+    working_dir: /workspaces/${COMPOSE_PROJECT_NAME}/frontend
     depends_on:
       - backend
 

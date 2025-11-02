@@ -74,7 +74,7 @@ const Products = () => {
         )}
         <div ref={bottomRef} className="h-10" />
         {isFetchingNextPage && <div>Loadingggggg...</div>}
-        {state.isDialogOpen && <AddItem product={product} />}
+        {true && <AddItem product={product} />}
       </div>
     </section>
   );

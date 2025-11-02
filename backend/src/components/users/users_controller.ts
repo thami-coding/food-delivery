@@ -46,7 +46,7 @@ export class usersController extends BaseController {
   public async getAllHandler(req: Request, res: Response): Promise<void> {
     const service = new UsersService();
     const { data } = await service.findAll(req.query);
-
+    // TODO: Remove passwords from the user data before sending the response
     if (data.length > 0) {
       data.forEach((user) => delete user.password);
     }
@@ -55,10 +55,9 @@ export class usersController extends BaseController {
 
   public async getOneHandler(req: Request, res: Response): Promise<void> {
     const userId = req.session.userId;
-    console.log(userId);
 
     if (!userId) {
-      res.status(200).json({ status: "success", user: null });
+      res.status(StatusCodes.UNAUTHORIZED).json({ error: getReasonPhrase(StatusCodes.UNAUTHORIZED) });
       return;
     }
 
@@ -68,8 +67,7 @@ export class usersController extends BaseController {
 
       if (!user) {
         res
-          .status(StatusCodes.NOT_FOUND)
-          .json({ status: "error", message: "User Not Found", user: null });
+        res.status(StatusCodes.NOT_FOUND).json({ error: getReasonPhrase(StatusCodes.NOT_FOUND) });
         return;
       }
 
@@ -99,25 +97,23 @@ export class usersController extends BaseController {
     const result = await service.delete(req.params.id);
     if (!result) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        status: "errror",
-        message: "Something went wrong.",
+        error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)
       });
-      req.log.error(`Couldn't delete user with id: ${req.params.id}`);
       return;
     }
     CacheUtil.remove("User", req.params.id);
     res
       .status(StatusCodes.NO_CONTENT)
-      .json({ status: "success", message: "user successfully deleted" });
+      .json({ status: getReasonPhrase(StatusCodes.NO_CONTENT), message: "user successfully deleted" });
   }
 
   public async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
     const user = await UsersUtil.getUserByEmail(email);
-    // TODO: I shouldn't be returning 404 here ith should be 401 I need to try catch the above
+
     if (!user) {
       res
-        .status(StatusCodes.NOT_FOUND)
+        .status(StatusCodes.UNAUTHORIZED)
         .json({ error: "Invalid email or password" });
       return;
     }
@@ -126,7 +122,7 @@ export class usersController extends BaseController {
     if (!isMatch) {
       res
         .status(StatusCodes.UNAUTHORIZED)
-        .json({ error: "Password is not valid" });
+        .json({ error: "Invalid email or password" });
       return;
     }
     const userDetails = {
@@ -161,7 +157,6 @@ export class usersController extends BaseController {
     res.status(StatusCodes.OK).json({
       status: "success",
       message: "successfully logged in",
-      data: userDetails,
     });
   }
 
@@ -202,12 +197,14 @@ export class usersController extends BaseController {
 
     const service = new UsersService();
     const user = await service.findOne(req.params.id);
+    
     if (!user) {
       res
         .status(StatusCodes.NOT_FOUND)
         .json({ status: "error", message: "User Not Found" });
       return;
     }
+   
 
     try {
       const isMatch = await comparePasswords(oldPassword, user.password);
@@ -328,7 +325,7 @@ export class usersController extends BaseController {
 
       res
         .status(StatusCodes.OK)
-        .json({ status: "success", message: "Password updated successfully" });
+        .json({ status: "success", message: "Password reset successful" });
     } catch (error) {
       console.log(error.message);
       res

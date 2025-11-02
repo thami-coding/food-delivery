@@ -6,7 +6,7 @@ export class NotificationUtil {
   private static transporter;
   private static from: string;
 
-  private static emailQueue = new Queue("emailQueue", "redis://127.0.0.1:6379");
+  private static emailQueue = new Queue("emailQueue", "redis://redis:6379");
 
   constructor(config: IServerConfig) {
     if (!config) {

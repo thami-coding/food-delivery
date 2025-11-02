@@ -1,4 +1,3 @@
-import { useGlobalState } from "../hooks/useGlobalState";
 import type { TProduct } from "../types/product";
 import Ingredients from "./Ingredients";
 
@@ -9,7 +8,6 @@ export default function ProductCard({
   product: TProduct;
   setProduct: (product: TProduct) => void;
 }) {
-  const {  dispatch } = useGlobalState();
   const { imageUrl, price, description, ingredients, id, name } = product;
   return (
     <article

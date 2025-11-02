@@ -45,7 +45,7 @@ export class ExpressServer {
       })
     );
 
-    app.get("/ping", (req, res) => {
+    app.get("/api/ping", (req, res) => {
       res.status(200).send("pong");
     });
 

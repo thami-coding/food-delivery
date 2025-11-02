@@ -3,13 +3,11 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { useGlobalState } from "../hooks/useGlobalState";
 import type { TProduct } from "../types/product";
 import { addCartItem } from "../lib/apiClient";
 
 const AddItem = ({ product }: { product: TProduct | null }) => {
   const [quantity, setQuantity] = useState(1);
-  const { state, dispatch } = useGlobalState();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const notify = () => toast("Item Added!");
@@ -20,13 +18,13 @@ const AddItem = ({ product }: { product: TProduct | null }) => {
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        dispatch({ type: "TOGGLE_DIALOG" });
+    // close dialog logic here
       }
     };
     window.addEventListener("mousedown", handleClickOutside);
 
     return () => window.removeEventListener("mousedown", handleClickOutside);
-  }, [dispatch]);
+  }, []);
 
   if (!product) {
     return <div>Sorry No product!</div>;

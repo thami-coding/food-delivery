@@ -9,7 +9,6 @@ import { In } from "typeorm";
 export class CartController implements BaseController {
   public async addHandler(req: Request, res: Response): Promise<void> {
     const userId = req.session.userId;
-    console.log(req.body);
 
     if (userId) {
       const cartRepo = new DatabaseUtil().getRepository(CartItem);
@@ -58,13 +57,15 @@ export class CartController implements BaseController {
     }
   }
 
-  public async getAllHandler(req: Request, res: Response): Promise<void> {}
+  public async getAllHandler(req: Request, res: Response): Promise<void> { }
 
   public async getOneHandler(req: Request, res: Response): Promise<void> {
     const userId = req.session.userId;
     let cartItems: { productId: string; quantity: number }[];
     const cartItemsRepo = new DatabaseUtil().getRepository(CartItem);
     const productRepo = new DatabaseUtil().getRepository(Products);
+
+
 
     if (userId) {
       cartItems = await cartItemsRepo
@@ -83,6 +84,12 @@ export class CartController implements BaseController {
           `cartItem.quantity AS quantity`,
         ])
         .getRawMany();
+      console.log("###################################");
+      console.log(cartItems);
+      console.log(`user id: ${userId}`);
+      
+
+
     } else {
       const sessionCartItems = req.session.cart || [];
 
