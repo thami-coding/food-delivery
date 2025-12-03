@@ -26,6 +26,7 @@ const Products = () => {
   });
 
   const [product, setProduct] = useState<TProduct | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,7 +52,6 @@ const Products = () => {
         Menu
       </h2>
       <Categories setCategory={setCategory} selectedCategory={category} />
-
       <div
         className={`mt-24 grid grid-cols-3 gap-x-14 text-white max-w-6xljustify-between gap-y-12 min-h-[500px]`}
       >
@@ -62,19 +62,21 @@ const Products = () => {
         ) : (
           data.pages.map((page) =>
             page.products.map((product) => {
+          
               return (
                 <ProductCard
                   key={product.productId}
                   product={product}
                   setProduct={setProduct}
+                  setIsModalVisible={setIsModalVisible}
                 />
               );
             })
           )
         )}
-        <div ref={bottomRef} className="h-10" />
-        {isFetchingNextPage && <div>Loadingggggg...</div>}
-        {true && <AddItem product={product} />}
+      <div ref={bottomRef} className="h-10" />
+        
+        {isModalVisible && <AddItem product={product} setIsModalVisible={setIsModalVisible} />}
       </div>
     </section>
   );

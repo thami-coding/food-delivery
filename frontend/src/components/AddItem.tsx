@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import type { TProduct } from "../types/product";
 import { addCartItem } from "../lib/apiClient";
+import { useUser } from "../hooks/useAuth";
 
-const AddItem = ({ product }: { product: TProduct | null }) => {
+const AddItem = ({ product, setIsModalVisible }: { product: TProduct | null, setIsModalVisible: (value: React.SetStateAction<boolean>) => void }) => {
   const [quantity, setQuantity] = useState(1);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const notify = () => toast("Item Added!");
+  const { user } =  useUser();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -18,7 +20,7 @@ const AddItem = ({ product }: { product: TProduct | null }) => {
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-    // close dialog logic here
+       setIsModalVisible(false);
       }
     };
     window.addEventListener("mousedown", handleClickOutside);
@@ -26,9 +28,6 @@ const AddItem = ({ product }: { product: TProduct | null }) => {
     return () => window.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (!product) {
-    return <div>Sorry No product!</div>;
-  }
 
   const { imageUrl, name, price, productId } = product;
   return (
@@ -49,16 +48,12 @@ const AddItem = ({ product }: { product: TProduct | null }) => {
           {name}
         </h3>
         <div className="flex flex-col -rotate-12  border-3 border-yellow-400  w-fit rounded-full py-3 px-4 absolute top-5 left-5 text-white font-lobster text-[1.2rem]">
-          <span>50%</span>
+          <span>20%</span>
           <span className="-mt-3">OFF</span>
         </div>
         <button
           className="top-1 rounded-full right-1 absolute text-gray-400"
-          onClick={() => {
-            console.log(state.isDialogOpen);
-
-            dispatch({ type: "TOGGLE_DIALOG" });
-          }}
+          onClick={()=> setIsModalVisible(false)}
         >
           <MdOutlineClose className="text-4xl cursor-pointer" />
         </button>
@@ -87,23 +82,13 @@ const AddItem = ({ product }: { product: TProduct | null }) => {
             <button
               className="bg-yellow-400 mt-4 mb-8 rounded-md font-medium text-gray-950 w-full py-1.5 cursor-pointer"
               onClick={() => {
-                dispatch({ type: "TOGGLE_DIALOG" });
-                dispatch({
-                  type: "ADD_TO_CART",
-                  payload: {
-                    productId,
-                    name,
-                    price,
-                    quantity,
-                    imageUrl,
-                  },
-                });
-                notify();
                 addCartItem({
-                  userId: state.user?.userId,
-                  productId: product.productId,
+                  userId: user?.id as string,
+                  productId: productId,
                   quantity,
                 });
+                 notify();
+                 setIsModalVisible(false);
               }}
             >
               <span>ADD ITEM</span>

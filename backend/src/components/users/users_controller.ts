@@ -10,8 +10,7 @@ import { Users } from "./users_entity";
 
 import config from "../../../server_config.json";
 import { NotificationUtil } from "../../utils/notification_util";
-import { CacheUtil } from "../../utils/CacheUtil";
-import { type IcacheUser } from "../../utils/config";
+
 
 export class usersController extends BaseController {
   public async addHandler(req: Request, res: Response): Promise<void> {
@@ -36,7 +35,6 @@ export class usersController extends BaseController {
 
       res.status(StatusCodes.CREATED).json(createdUser);
     } catch (error) {
-      req.log.error(`Error while adding User: ${error.message}`);
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
       });
@@ -54,7 +52,7 @@ export class usersController extends BaseController {
   }
 
   public async getOneHandler(req: Request, res: Response): Promise<void> {
-    const userId = req.session.userId;
+    const userId = req.user?.userId;
 
     if (!userId) {
       res.status(StatusCodes.UNAUTHORIZED).json({ error: getReasonPhrase(StatusCodes.UNAUTHORIZED) });
@@ -80,7 +78,6 @@ export class usersController extends BaseController {
 
       res.status(StatusCodes.OK).json({ status: "success", user: userInfo });
     } catch (error) {
-      req.log.error(error.messsage);
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ status: "error", message: error.message });
@@ -101,7 +98,7 @@ export class usersController extends BaseController {
       });
       return;
     }
-    CacheUtil.remove("User", req.params.id);
+   
     res
       .status(StatusCodes.NO_CONTENT)
       .json({ status: getReasonPhrase(StatusCodes.NO_CONTENT), message: "user successfully deleted" });
@@ -146,7 +143,7 @@ export class usersController extends BaseController {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    req.session.userId = user.userId;
+
     res.cookie("refresh", refreshToken, {
       httpOnly: true,
       secure: false,
@@ -337,16 +334,6 @@ export class usersController extends BaseController {
   public async logout(req: Request, res: Response) {
     res.clearCookie("Authorization");
     res.clearCookie("refreshToken");
-    if (req.session.userId) {
-      req.session.destroy((err) => {
-        if (err) {
-          req.log.error(`Session destruction error ${err}`);
-        } else {
-          req.log.info("Session destroyed successfully");
-        }
-      });
-    }
-
     res
       .status(StatusCodes.NO_CONTENT)
       .json({ status: "success", message: "logged out" });
@@ -368,24 +355,5 @@ export class UsersUtil {
       console.log(error.message);
     }
     return null;
-  }
-
-  public static async cacheAllUsers() {
-    const usersService = new UsersService();
-    try {
-      const { data } = await usersService.findAll({});
-      console.log(data);
-
-      if (data.length > 0) {
-        data.forEach((user) => {
-          CacheUtil.set("User", user.userId, user);
-        });
-        console.log(`All users successfully cached`);
-      } else {
-        console.log(`There are no users in database`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   }
 }

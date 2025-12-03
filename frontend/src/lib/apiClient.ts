@@ -19,6 +19,7 @@ export async function fetchProducts({
     `/products?page=${pageParam}&limit=${10}&category=${category}`
   );
   const { products } = responseSchema.parse(response.data);
+  console.log(products);
 
   return {
     products,
@@ -81,7 +82,6 @@ export async function deleteCartItem(productId: string) {
 export async function fetchCurrentUsersCart() {
   const { data } = await AxiosInstance.get("/cart");
   const { cart } = data;
-  console.log(cart);
   return cart;
 }
 

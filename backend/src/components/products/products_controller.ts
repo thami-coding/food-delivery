@@ -3,7 +3,6 @@ import { BaseController } from "../../utils/base_controller";
 import { ProductsService } from "./products_service";
 import { StatusCodes } from "http-status-codes";
 import { products } from "../../dummy-data";
-import { CacheUtil } from "../../utils/CacheUtil";
 import { QueryParams } from "../../utils/queryParamsType";
 import { Categories } from "./products_entity";
 

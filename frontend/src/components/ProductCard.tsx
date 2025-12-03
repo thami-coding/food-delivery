@@ -4,9 +4,11 @@ import Ingredients from "./Ingredients";
 export default function ProductCard({
   product,
   setProduct,
+  setIsModalVisible
 }: {
   product: TProduct;
   setProduct: (product: TProduct) => void;
+  setIsModalVisible: (value: React.SetStateAction<boolean>) => void;
 }) {
   const { imageUrl, price, description, ingredients, id, name } = product;
   return (
@@ -44,8 +46,8 @@ export default function ProductCard({
           className="w-full mt-8 py-1 tracking-wider text-[1.3rem] rounded-md bg-amber-400 text-black cursor-pointer hover:bg-amber-300 transition-colors ease-in duration-300"
           onClick={() => {
             setProduct(product);
-            dispatch({ type: "TOGGLE_DIALOG" });
-          
+            setIsModalVisible(true)
+
           }}
         >
           Add
