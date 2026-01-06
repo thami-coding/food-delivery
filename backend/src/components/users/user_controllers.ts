@@ -62,7 +62,7 @@ export class UserControllers extends BaseController {
 
       res.status(StatusCodes.OK).json({ user });
     } catch (error) {
-      req.log.error(error.messsage);
+      console.log(error.messsage);
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ status: "error", message: error.message });
@@ -145,7 +145,7 @@ export class UserControllers extends BaseController {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(StatusCodes.OK).json({...userDetails});
+    res.status(StatusCodes.OK).json({ ...userDetails });
   }
 
   public async getAccessTokenFromRefreshToken(
