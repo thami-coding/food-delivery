@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { OrderItem } from "../orders/order_item_entity";
+import { CartItem } from "../cart/cart_item_entity";
 
 export enum Categories {
   BURGERS = "burgers",
@@ -18,7 +21,7 @@ export enum Categories {
 @Entity()
 export class Products {
   @PrimaryGeneratedColumn("uuid")
-  productId: string;
+  id: string;
 
   @Column()
   name: string;
@@ -43,4 +46,10 @@ export class Products {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => OrderItem, item => item.product)
+  orderItems: OrderItem[];
+
+  @OneToMany(() => CartItem, (cartItem) => cartItem.product)
+  cartItems: CartItem[];
 }

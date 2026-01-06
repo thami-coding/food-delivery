@@ -1,11 +1,11 @@
 import { Express } from "express";
-import { ProductsController } from "./products_controller";
+import { ProductControllers } from "./product_controllers";
 import { authenticate, authorize } from "../../utils/auth_util";
 
-export class PoductsRoutes {
+export class PoductRoutes {
   private baseEndPoint = "/api/products";
   constructor(app: Express) {
-    const controller = new ProductsController();
+    const controller = new ProductControllers();
     app.route(this.baseEndPoint + "/seed").post(controller.seedHandler);
     app
       .route(this.baseEndPoint)

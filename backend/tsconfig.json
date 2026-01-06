@@ -17,6 +17,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../frontend/src/socket.ts"],
   "exclude": ["node_modules"]
 }

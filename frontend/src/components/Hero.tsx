@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Img from "../assets/hero-img.png";
 import { GiChickenOven } from "react-icons/gi";
 
@@ -7,7 +8,6 @@ const Hero = () => {
       <div className="flex flex-col text-white">
         <div className="flex  font-lobster text-yellow-400">
           <h2 className="mb-4 text-5xl">Fast Food at Its Best</h2>
-
           <GiChickenOven className="text-5xl ml-2" />
         </div>
 
@@ -16,19 +16,21 @@ const Hero = () => {
           Whether you're in a rush or just hungry for something better, <br />{" "}
           we've got your taste buds covered.
         </p>
-        <div>
-          <a
-            href="#category"
-            className=" mr-5 cursor-pointer text-[1.5rem] font-medium capitalize px-5 bg-amber-400 text-black   rounded-3xl py-1"
+        <div className="mt-3">
+          <Link to="/products"
+            className="px-6 py-3 rounded-lg border-2 border-yellow-400
+                   font-semibold  bg-yellow-400 text-black
+                   transition duration-300 mr-4 capitalize text-[1.2rem]"
           >
             specials
-          </a>
-          <a
-            href="#category"
-            className="border cursor-pointer text-[1.5rem]  font-medium capitalize  px-5 rounded-3xl py-1"
+          </Link>
+          <Link to="/products"
+            className="px-6 py-3 rounded-lg border-2 border-yellow-400
+                   font-semibold hover:bg-yellow-400 hover:text-black
+                   transition duration-300 capitalize text-[1.2rem]"
           >
             Menu
-          </a>
+          </Link>
         </div>
       </div>
       <div>

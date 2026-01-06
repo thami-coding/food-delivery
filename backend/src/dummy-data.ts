@@ -1,4 +1,4 @@
-import { Categories } from "./components/products/products_entity";
+import { Categories } from "./components/products/product_entity";
 
 const { BURGERS, WINGS, DESSERTS, PIZZAS, COMBOS, RIBS } = Categories;
 

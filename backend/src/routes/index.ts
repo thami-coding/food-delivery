@@ -1,8 +1,8 @@
 import { Router, Express } from "express";
-import { UserRoutes } from "../components/users/users_routes";
-import { PoductsRoutes } from "../components/products/products_routes";
+import { UserRoutes } from "../components/users/user_routes";
+import { PoductRoutes } from "../components/products/product_routes";
 import { CartRoutes } from "../components/cart/cart_routes";
-import { AddressesRoutes } from "../components/addresses/addresses_routes";
+import { OrderRoutes } from "../components/orders/order_routes";
 
 export class Routes {
   public router: Router;
@@ -10,9 +10,9 @@ export class Routes {
   constructor(app: Express) {
     const routeClasses = [
       UserRoutes,
-      PoductsRoutes,
+      PoductRoutes,
       CartRoutes,
-      AddressesRoutes,
+      OrderRoutes,
     ];
 
     for (const routeClass of routeClasses) {

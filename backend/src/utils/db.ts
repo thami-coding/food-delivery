@@ -1,10 +1,11 @@
 import { IServerConfig } from "./config";
 import config from "../../server_config.json";
 import { DataSource, Repository } from "typeorm";
-import { Users } from "../components/users/users_entity";
-import { Addresses } from "../components/addresses/addresses_entity";
-import { Products } from "../components/products/products_entity";
+import { Users } from "../components/users/user_entity";
+import { Products } from "../components/products/product_entity";
 import { CartItem } from "../components/cart/cart_item_entity";
+import { OrderItem } from "../components/orders/order_item_entity";
+import { Orders } from "../components/orders/order_entity";
 
 export class DatabaseUtil {
   private server_config: IServerConfig = config;
@@ -28,7 +29,7 @@ export class DatabaseUtil {
           username: process.env.DB_USER,
           password: process.env.DB_PASSWORD,
           database: process.env.DB_NAME,
-          entities: [Users, Addresses, Products, CartItem],
+          entities: [Users, Products, CartItem, OrderItem, Orders],
           synchronize: true,
           poolSize: 10,
         });
@@ -40,6 +41,7 @@ export class DatabaseUtil {
     } catch (error) {
       console.log(error);
 
+      console.log("database connection error");
       console.log("Error connecting to the database");
     }
   }

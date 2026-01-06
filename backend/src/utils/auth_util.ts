@@ -12,12 +12,10 @@ export const encryptString = async (password: string) => {
 
 export const authorize =
   (role: string) => async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.user);
-
     if (req.user.role !== role) {
       res
         .status(StatusCodes.FORBIDDEN)
-        .json({ status: "error", message: "Unauthorized" });
+        .json({ message: "You are unauthorized to access this route" });
       return;
     }
     next();
@@ -41,7 +39,6 @@ export const authenticate = async (
   try {
     const decoded = jwt.verify(token, SERVER_CONST.JWTSECRET);
     req.user = decoded as Object;
-
     next();
   } catch (error) {
     console.error(error.message);

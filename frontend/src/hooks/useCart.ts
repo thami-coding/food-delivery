@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchCurrentUsersCart, updateQuantity } from "../lib/apiClient";
+import { addCartItem, cleartCart, deleteCartItem, fetchCurrentUsersCart, updateCart } from "../lib/apiClient";
 
 export const useCart = () => {
-  const { data, isPending, isError, error } = useQuery({
-    queryKey: ["currentUsersCart"],
+  return useQuery({
+    queryKey: ["cart"],
     queryFn: () => fetchCurrentUsersCart(),
+    retry: false,
+    staleTime: 1000 * 30,
   });
-
-  return { data, isPending, isError, error };
 };
 
 
@@ -15,12 +15,47 @@ export const useUpdateCart = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: updateQuantity,
-    onSuccess: (userData) => {
-      queryClient.setQueryData(["currentUsersCart"], userData);
+    mutationFn: updateCart,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
     onError: (error) => {
       console.error("cart update failed:", error);
     },
   });
 };
+export const useAddCartIem = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: addCartItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: (error) => {
+      console.error("cart update failed:", error);
+    },
+  });
+};
+
+export const useDeletCart = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteCartItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
+};
+
+export const useClearCart = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationKey: ['clearCart'],
+    mutationFn: cleartCart,
+    onSuccess: () => {
+      queryClient.setQueryData(["cart"], null);
+    },
+  })
+}

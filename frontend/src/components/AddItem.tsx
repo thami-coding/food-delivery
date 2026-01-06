@@ -3,6 +3,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+<<<<<<< Updated upstream
 import type { TProduct } from "../types/product";
 import { addCartItem } from "../lib/apiClient";
 import { useUser } from "../hooks/useAuth";
@@ -13,6 +14,38 @@ const AddItem = ({ product, setIsModalVisible }: { product: TProduct | null, set
   const containerRef = useRef<HTMLDivElement>(null);
   const notify = () => toast("Item Added!");
   const { user } =  useUser();
+=======
+import { useProduct } from "../store/productStore";
+import { useDialog } from "../store/dialogStore";
+import { useNavigate } from "react-router";
+import { useUser } from "../hooks/useUser";
+import { useAddCartIem } from "../hooks/useCart";
+
+const AddItem = () => {
+  const [quantity, setQuantity] = useState(1);
+  const product = useProduct((state) => state.product)
+  const toggleDialog = useDialog((state) => state.toggleDialog)
+  const {data:user} = useUser()
+  let navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const notify = () => toast("Item Added!");
+  const { mutate, isPending } = useAddCartIem()
+
+  const handleClick = () => {
+    
+  if (!user) {
+      toggleDialog()
+      navigate("/login");
+      return
+    }
+    mutate({
+      productId: id!,
+      quantity,
+    })
+    notify();
+    toggleDialog()
+  }
+>>>>>>> Stashed changes
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -20,7 +53,11 @@ const AddItem = ({ product, setIsModalVisible }: { product: TProduct | null, set
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
+<<<<<<< Updated upstream
        setIsModalVisible(false);
+=======
+        toggleDialog()
+>>>>>>> Stashed changes
       }
     };
     window.addEventListener("mousedown", handleClickOutside);
@@ -29,9 +66,9 @@ const AddItem = ({ product, setIsModalVisible }: { product: TProduct | null, set
   }, []);
 
 
-  const { imageUrl, name, price, productId } = product;
+  const { imageUrl, name, price = 0, id } = product;
   return (
-    <div>
+    <div className="z-60">
       <div className="absolute inset-0 bg-black/60  backdrop-blur-xs"></div>
       <div
         ref={containerRef}
@@ -53,7 +90,11 @@ const AddItem = ({ product, setIsModalVisible }: { product: TProduct | null, set
         </div>
         <button
           className="top-1 rounded-full right-1 absolute text-gray-400"
+<<<<<<< Updated upstream
           onClick={()=> setIsModalVisible(false)}
+=======
+          onClick={toggleDialog}
+>>>>>>> Stashed changes
         >
           <MdOutlineClose className="text-4xl cursor-pointer" />
         </button>
@@ -81,6 +122,7 @@ const AddItem = ({ product, setIsModalVisible }: { product: TProduct | null, set
             </div>
             <button
               className="bg-yellow-400 mt-4 mb-8 rounded-md font-medium text-gray-950 w-full py-1.5 cursor-pointer"
+<<<<<<< Updated upstream
               onClick={() => {
                 addCartItem({
                   userId: user?.id as string,
@@ -90,10 +132,15 @@ const AddItem = ({ product, setIsModalVisible }: { product: TProduct | null, set
                  notify();
                  setIsModalVisible(false);
               }}
+=======
+              onClick={handleClick}
+>>>>>>> Stashed changes
             >
-              <span>ADD ITEM</span>
-              <span className="px-2">-</span>
-              <span>R {(price * quantity).toFixed(2)}</span>
+              {isPending ? "Loading..." : <>
+                <span>ADD ITEM</span>
+                <span className="px-2">-</span>
+                <span>R {(price * quantity).toFixed(2)}</span>
+              </>}
             </button>
           </div>
         </div>

@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { CartItem } from "../cart/cart_item_entity";
+import { Orders } from "../orders/order_entity";
 
-export enum userRoles {
+export enum UserRoles {
   ADMIN = "admin",
   USER = "user",
 }
@@ -16,13 +16,10 @@ export enum userRoles {
 @Entity()
 export class Users {
   @PrimaryGeneratedColumn("uuid")
-  userId: string;
+  id: string;
 
   @Column({ length: 50, nullable: true })
-  fullname: string;
-
-  @Column({ length: 30, nullable: false, unique: true })
-  username: string;
+  fullName: string;
 
   @Column({ length: 60, nullable: false, unique: true })
   email: string;
@@ -31,14 +28,29 @@ export class Users {
   password: string;
 
   @Column({ length: 10, nullable: true })
-  phone: string;
+  phoneNumber: string;
 
-  @Column({ type: "enum", enum: userRoles, default: userRoles.USER })
+  @Column({ type: "enum", enum: UserRoles, default: UserRoles.USER })
   role: string;
+
+  @Column({ nullable: true, length: 60 })
+  streetAddress: string;
+
+  @Column({ nullable: true, length: 30 })
+  city: string;
+
+  @Column({ nullable: true, length: 60 })
+  suburb: string;
+
+  @Column({ nullable: true, length: 4 })
+  postalCode: string;
 
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Orders, order => order.user)
+  orders: Orders[];
 }

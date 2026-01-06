@@ -2,14 +2,14 @@ import * as z from "zod/v4";
 import type { TCategories } from "./category";
 
 export const productSchema = z.object({
-  productId: z.uuid(),
-  name: z.string(),
-  description: z.string(),
-  price: z.coerce.number(),
-  category: z.string(),
-  imageUrl: z.url(),
-  ingredients: z.string().nullable(),
-  createdAt: z.iso.datetime(),
+  id: z.uuid().optional(),
+  name: z.string().optional(),
+  description: z.string().optional(),
+  price: z.coerce.number().optional(),
+  category: z.string().optional(),
+  imageUrl: z.url().optional(),
+  ingredients: z.string().optional(),
+  createdAt: z.iso.datetime().optional(),
 });
 
 export const productsSchema = z.array(productSchema);

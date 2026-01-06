@@ -1,15 +1,15 @@
 import { Navigate, Outlet } from "react-router";
-import { useUser } from "../hooks/useAuth";
+import { useUser } from "../hooks/useUser";
 
 export default function ProtectedRoute() {
-  const { user, isError, error, isPending } = useUser();
+  const { data: user, isError, error, isPending } = useUser();
 
   if (isPending) {
-    return <h2>Loading User Info</h2>;
+    return <h2>Loading user info...</h2>;
   }
 
   if (isError) {
-    <p>{error?.message}</p>;
+    return <Navigate to="/login" replace />;
   }
 
   if (!user) {

@@ -23,11 +23,11 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
     e.preventDefault();
     let emailErrorMessage = "";
     let passwordErrorMessage = "";
+
     const emailValidation = z.string().email();
     const passwordValidation = z
       .string({ message: "Password field can not be empty" })
       .min(5, { message: "Password must be at least 5 characters long." });
-
     const passwordResult = passwordValidation.safeParse(password);
     const emailResult = emailValidation.safeParse(email);
 
@@ -77,26 +77,24 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
         return;
       }
 
-      const username = email.split("@")[0];
-      signup({ username, email, password });
+      signup({ email, password });
       setError({ passwordError: "", emailError: "" });
-      navigate("/login");
       return;
     }
 
     login({ email, password });
     setError({ passwordError: "", emailError: "" });
   };
-
   return (
     <article className="fixed top-[3rem] left-2/5 border border-white rounded-md text-white p-8 w-[28rem] bg-[#202020] ">
-      <div className="border w-fit mr-auto ml-auto mb-9">
+      <Link to="/" className="border w-fit mr-auto ml-auto mb-9 block">
         <img src={logo} alt="" />
-      </div>
-      <form onSubmit={handleSubmit}>
+      </Link>
+      <form onSubmit={handleSubmit} className="grid gap-y-2">
         <FormInput
           type="email"
           name="email"
+          label="email address"
           value={email}
           errorMessage={error.emailError}
           setValue={setEmail}
@@ -104,23 +102,25 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
         <FormInput
           type="password"
           name="password"
+          label="Password"
           value={password}
           errorMessage={error.passwordError}
           setValue={setPassword}
         />
         {!isSignup && (
           <Link
-            to="/reset-password"
-            className="text-xs block -mt-4 text-left mb-10 hover:underline"
+            to="/forgot-password"
+            className="text-sm block  text-left mb-10 hover:underline"
           >
-            forgotten?
+            forgotten password?
           </Link>
         )}
 
         {isSignup && (
           <FormInput
             type="password"
-            name="confirm password"
+            name="confirmPassword"
+            label="Re-enter Password"
             value={confirmPassword}
             errorMessage=""
             setValue={setConfirmPassword}
@@ -129,9 +129,8 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
 
         <button
           disabled={isLoginPending || isSignupPending}
-          className={`w-full text-black p-1.5 rounded-md cursor-pointer hover:bg-amber-400 ${
-            isLoginPending || isSignupPending ? "bg-gray-500" : "bg-amber-300"
-          }`}
+          className={`w-full text-black py-2.5 rounded-md cursor-pointer hover:bg-amber-400 ${isLoginPending || isSignupPending ? "bg-gray-500" : "bg-amber-300"
+            }`}
         >
           {isSignup ? "Create account" : "Login"}
         </button>

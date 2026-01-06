@@ -1,17 +1,17 @@
 import "reflect-metadata";
 import { DatabaseUtil } from "./utils/db";
 import { ExpressServer } from "./express_server";
-import { NotificationUtil } from "./utils/notification_util";
+// import { NotificationUtil } from "./utils/notification_util";
 import config from '../server_config.json'
-import { QueueWorker } from "./workers/queue_worker";
+// import { QueueWorker } from "./workers/queue_worker";
 import dotenv from "dotenv"
 
 dotenv.config()
 const server = new ExpressServer();
 new DatabaseUtil();
 
-new NotificationUtil(config)
-new QueueWorker().beginProcess()
+// new NotificationUtil(config)
+// new QueueWorker().beginProcess()
 
 // Gracefully handle termination signals
 process.on("SIGINT", () => {

@@ -9,7 +9,7 @@ export const calculateCartTotal = (cart):number => {
 
 export const calculateTotalItems = (cart) => {
   const totalItemsInCart = cart.reduce((acc: number, item) => {
-    acc += item.quantity;
+    acc += item.quantity ;
     return acc;
   }, 0);
 

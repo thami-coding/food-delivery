@@ -1,6 +1,6 @@
 import { ingredientIcons } from "../lib/ingredients";
 
-function Ingredients({ ingredients }: { ingredients: string | null }) {
+function Ingredients({ ingredients }: { ingredients: string | undefined }) {
   const allIngredients = ingredients?.split(",") ?? [];
 
   return (

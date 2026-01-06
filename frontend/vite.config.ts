@@ -7,8 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://backend:5000", // for dokcer
-        // target: "http://localhost:5000", //for local
+        // target: "http://backend:5000", // for dokcer
+        target: "http://localhost:5000", //for local
         changeOrigin: true,
         secure: false,
       },
