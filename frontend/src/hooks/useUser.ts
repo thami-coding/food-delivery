@@ -20,7 +20,6 @@ export function useUpdateUser() {
  return useMutation({
   mutationFn: updateUser,
   onSuccess: () => {
-   notify("Profile updated")
    queryClient.invalidateQueries({queryKey:["user"]})
   },
   onError: () => {
