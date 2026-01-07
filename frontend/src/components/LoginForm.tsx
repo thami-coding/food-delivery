@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import logo from "../assets/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import * as z from "zod";
 import { useLogin, useSignup } from "../hooks/useAuth";
@@ -9,7 +9,7 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { mutate: login, isPending: isLoginPending } = useLogin();
+  const { mutate: login, isPending: isLoginPending, isError, error: errorLogin } = useLogin();
   const { mutate: signup, isPending: isSignupPending } = useSignup();
 
   const [error, setError] = useState({
@@ -18,7 +18,6 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
   });
 
   const isSignup = pathname === "/signup";
-  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let emailErrorMessage = "";
@@ -85,12 +84,20 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
     login({ email, password });
     setError({ passwordError: "", emailError: "" });
   };
+
+  useEffect(() => {
+    if (isError) {
+      console.log(errorLogin);
+
+      setError({ ...error, passwordError: "The email or password you entered is incorrect" })
+    }
+  }, [isError])
   return (
     <article className="fixed top-[3rem] left-2/5 border border-white rounded-md text-white p-8 w-[28rem] bg-[#202020] ">
       <Link to="/" className="border w-fit mr-auto ml-auto mb-9 block">
         <img src={logo} alt="" />
       </Link>
-      <form onSubmit={handleSubmit} className="grid gap-y-2">
+      <form onSubmit={handleSubmit} className="grid gap-y-5">
         <FormInput
           type="email"
           name="email"
@@ -110,7 +117,7 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
         {!isSignup && (
           <Link
             to="/forgot-password"
-            className="text-sm block  text-left mb-10 hover:underline"
+            className="text-sm block text-left hover:underline"
           >
             forgotten password?
           </Link>
@@ -129,7 +136,7 @@ const LoginForm = ({ pathname }: { pathname: string }) => {
 
         <button
           disabled={isLoginPending || isSignupPending}
-          className={`w-full text-black py-2.5 rounded-md cursor-pointer hover:bg-amber-400 ${isLoginPending || isSignupPending ? "bg-gray-500" : "bg-amber-300"
+          className={`w-full text-black py-2.5 rounded-md cursor-pointer hover:bg-amber-400 mt-4 ${isLoginPending || isSignupPending ? "bg-gray-500" : "bg-amber-300"
             }`}
         >
           {isSignup ? "Create account" : "Login"}
