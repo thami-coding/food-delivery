@@ -44,12 +44,12 @@ export default function ResetPasswordPage() {
 
   return (
     <article className="ml-auto mr-auto mt-20 shadow-lg shadow-neutral-900 rounded-md text-white py-12 px-8 w-[28rem] bg-[#202020] ">
-      <Link to="/" className="border w-fit mr-auto ml-auto mb-9 block">
+      <Link to="/" className="border w-fit mr-auto ml-auto mb-8 block">
         <img src={logo} alt="" />
       </Link>
       <h3 className='text-center text-2xl mb-8'>Change your password</h3>
       <p className='text-center mb-6 text-neutral-300'>Enter a new password below to change your password.</p>
-      <form onSubmit={handleResetPassword}>
+      <form onSubmit={handleResetPassword} className='grid gap-y-4 px-4'>
         <FormInput
           type="password"
           name="New Password"
@@ -69,7 +69,7 @@ export default function ResetPasswordPage() {
 
         <button
           disabled={isPending}
-          className={`w-full text-black py-2.5 rounded-md cursor-pointer hover:bg-amber-400 mt-6 ${isPending ? "bg-gray-500" : "bg-amber-300"
+          className={`w-full text-black py-2.5 rounded-md cursor-pointer hover:bg-amber-400 mt-2 ${isPending ? "bg-gray-500" : "bg-amber-300"
             }`}
         >
           Reset password
