@@ -50,7 +50,7 @@ export default function ForgotPaswordPage() {
 
         <button
           disabled={isPending}
-          className={`w-full text-neutral-900 text-[1.2rem] py-2 mt-7 rounded-md cursor-pointer hover:bg-amber-400 ${isPending ? "bg-gray-500" : "bg-amber-300"
+          className={`w-full text-neutral-900 text-[1.2rem] py-2 mt-3 rounded-md cursor-pointer hover:bg-amber-400 ${isPending ? "bg-gray-500" : "bg-amber-300"
             }`}
         >
           Continue
