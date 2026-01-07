@@ -73,8 +73,6 @@ export class UserControllers extends BaseController {
     const id = req.user.id;
     const service = new UserServices();
     const body = req.body
-    console.log(body);
-    console.log(id);
 
     try {
       await service.update(id, { ...body })
@@ -102,21 +100,24 @@ export class UserControllers extends BaseController {
 
   public async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
-    const user = await UsersUtil.getUserByEmail(email);
+    const user = await UsersUtil.getUserByEmail(email.trim());
+    
     if (!user) {
       res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ message: "Invalid email or password" });
+        .json({ message: "The email or password you entered is incorrect" });
       return;
     }
+   
 
     const isMatch = await comparePasswords(password, user.password);
     if (!isMatch) {
       res
         .status(StatusCodes.UNAUTHORIZED)
-        .json({ message: "Password is not valid" });
+        .json({ message: "The email or password you entered is incorrect" });
       return;
     }
+    console.log("here");
     const userDetails = {
       email: user.email,
       id: user.id,
