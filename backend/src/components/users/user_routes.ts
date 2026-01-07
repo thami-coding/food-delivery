@@ -24,7 +24,7 @@ export class UserRoutes {
       .put(authenticate, controller.updateHandler);
 
     app.route("/api/auth/login").post(controller.login);
-    app.route("/api/auth/logout").post(controller.logout);
+    app.route("/api/auth/logout").post(authenticate, controller.logout);
 
     app
       .route("/api/auth/refresh_token")
