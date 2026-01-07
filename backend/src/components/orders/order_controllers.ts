@@ -20,7 +20,7 @@ export class OrderControllers extends BaseController {
    const cartItems = await cartItemRepository.find({
     where: { userId },
     relations: {
-     product: true
+     product: true,
     }
    })
 
@@ -31,6 +31,7 @@ export class OrderControllers extends BaseController {
 
    await orderService.create({
     items: cartItems,
+    user,
     totalAmount: Number(totalAmount.toFixed(2)),
     status: OrderStatus.PENDING,
     deliveryAddress: user.streetAddress,
@@ -59,10 +60,10 @@ export class OrderControllers extends BaseController {
  }
 
  public async getOneHandler(req: Request, res: Response): Promise<void> {
-  const cartItemRepository = new DatabaseUtil().getRepository(Orders);
+  const oderRepository = new DatabaseUtil().getRepository(Orders);
   const userId = req.user.id;
 
-  const orders = await cartItemRepository.findBy({ userId })
+  const orders = await oderRepository.findBy({  })
   res.status(StatusCodes.OK).json({ orders })
  }
  public updateHandler(req: Request, res: Response): void {
