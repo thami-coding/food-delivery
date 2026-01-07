@@ -49,7 +49,7 @@ export default function Login() {
           {!isPending && user ? (
             <div className="grid p-3">
               <Link
-                to="/profile/edit"
+                to="/profile"
                 className="flex items-center mb-3 hover:underline cursor-pointer"
               >
                 <MdOutlineManageAccounts />
@@ -63,7 +63,7 @@ export default function Login() {
                 <span className="ml-2.5">Dashboard</span>
               </Link>}
               <Link
-                to="/history"
+                to="/order/history"
                 className="flex items-center mb-3 hover:underline cursor-pointer"
               >
                 <GrHistory />
