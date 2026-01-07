@@ -16,6 +16,9 @@ import { OrderStatus } from "./order_status.enum";
 export class Orders {
  @PrimaryGeneratedColumn("uuid")
  id: string;
+ 
+ @Column({ type: "uuid", nullable: true })
+ userId: string
 
  @ManyToOne(() => Users, user => user.id, { eager: true })
  user: Users;
