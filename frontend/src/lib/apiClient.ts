@@ -12,19 +12,6 @@ export async function fetchProducts({
   queryKey,
 }: QueryFunctionContext<ProductQueryKey, number>) {
   const [{ category }] = queryKey;
-<<<<<<< Updated upstream
-
-  const response = await AxiosInstance.get(
-    `/products?page=${pageParam}&limit=${10}&category=${category}`
-  );
-  const { products } = responseSchema.parse(response.data);
-  console.log(products);
-
-  return {
-    products,
-    nextPage: products.length === 10 ? pageParam + 1 : undefined,
-  };
-=======
   try {
     const response = await AxiosInstance.get(
       `/products?page=${pageParam}&limit=${10}&category=${category}`
@@ -38,7 +25,6 @@ export async function fetchProducts({
   } catch (error) {
     console.log(error);
   }
->>>>>>> Stashed changes
 }
 
 type Credentials = {

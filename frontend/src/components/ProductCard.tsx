@@ -1,29 +1,14 @@
-<<<<<<< Updated upstream
-=======
+
 import { useDialog } from "../store/dialogStore";
 import { useProduct } from "../store/productStore";
->>>>>>> Stashed changes
 import type { TProduct } from "../types/product";
 import Ingredients from "./Ingredients";
 
 export default function ProductCard({
-<<<<<<< Updated upstream
-  product,
-  setProduct,
-  setIsModalVisible
-}: {
-  product: TProduct;
-  setProduct: (product: TProduct) => void;
-  setIsModalVisible: (value: React.SetStateAction<boolean>) => void;
-}) {
-  const { imageUrl, price, description, ingredients, id, name } = product;
-=======
   name, description, price, imageUrl, ingredients, id
 }: TProduct) {
   const setProduct = useProduct((state) => state.setProduct)
   const toggleDialog = useDialog((state) => state.toggleDialog)
-
->>>>>>> Stashed changes
   return (
     <article
       className="shadow-lg shadow-neutral-950 flex flex-col justify-between  relative rounded-2xl max-w-80 max-h-[40rem]"
@@ -57,18 +42,11 @@ export default function ProductCard({
         <button
           className="w-full mt-8 py-1 tracking-wider text-[1.3rem] rounded-md bg-amber-400 text-black cursor-pointer hover:bg-amber-300 transition-colors ease-in duration-300"
           onClick={() => {
-<<<<<<< Updated upstream
-            setProduct(product);
-            setIsModalVisible(true)
-
-=======
             setProduct({
               imageUrl, name, price, id
             });
             console.log("open modal");
-            
             toggleDialog()
->>>>>>> Stashed changes
           }}
         >
           Add

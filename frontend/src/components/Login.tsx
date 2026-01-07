@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { VscAccount } from "react-icons/vsc";
-<<<<<<< Updated upstream
-import UserProfile from "./UserProfile";
-
-=======
 import { Link, NavLink, useNavigate } from "react-router";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { MdExitToApp } from "react-icons/md";
@@ -11,17 +7,13 @@ import {  useUser } from "../hooks/useUser";
 import { CiGrid41 } from "react-icons/ci";
 import { GrHistory } from "react-icons/gr";
 import { useLogout } from "../hooks/useAuth";
->>>>>>> Stashed changes
 
 export default function Login() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-<<<<<<< Updated upstream
-=======
   const { data: user, isPending, error, isError } = useUser();
   const navigate = useNavigate()
   const { mutate: logout } = useLogout()
->>>>>>> Stashed changes
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -34,9 +26,6 @@ export default function Login() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   });
-
-<<<<<<< Updated upstream
-=======
   if (isError) {
     console.log(error);
   }
@@ -47,7 +36,6 @@ export default function Login() {
     navigate('/')
   }
   
->>>>>>> Stashed changes
   return (
     <div ref={dropdownRef}>
       <button
@@ -57,9 +45,6 @@ export default function Login() {
         <VscAccount />
       </button>
       {open && (
-<<<<<<< Updated upstream
-      <UserProfile />
-=======
         <div className="absolute right-0 w-35  bg-yellow-400 text-black rounded-md z-10">
           {!isPending && user ? (
             <div className="grid p-3">
@@ -103,7 +88,6 @@ export default function Login() {
             </ul>
           )}
         </div>
->>>>>>> Stashed changes
       )}
     </div>
   );
