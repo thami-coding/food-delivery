@@ -1,61 +1,17 @@
+import { TfiDropboxAlt } from "react-icons/tfi";
 import { Error } from "../components/Error";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useFetchUserOrders } from "../hooks/useOrder";
 
 const statusStyles = {
-  Delivered: "bg-green-100 text-green-700",
-  Pending: "bg-yellow-100 text-yellow-700",
-  Cancelled: "bg-red-100 text-red-700",
+  delivered: "bg-green-100 text-green-700",
+  pending: "bg-yellow-100 text-yellow-700",
+  cancelled: "bg-red-100 text-red-700",
 };
 
-const orders = [
-  {
-    id: "ORD-1023",
-    date: "2025-01-12",
-    status: "Delivered",
-    total: 24.99,
-    items: [
-      { name: "Burger", qty: 1 },
-      { name: "Fries", qty: 2 },
-      { name: "Coke", qty: 1 },
-    ],
-  },
-  {
-    id: "ORD-1024",
-    date: "2025-01-20",
-    status: "Pending",
-    total: 18.5,
-    items: [
-      { name: "Pizza", qty: 1 },
-      { name: "Garlic Bread", qty: 1 },
-    ],
-  },
-  {
-    id: "ORD-1024",
-    date: "2025-01-20",
-    status: "Pending",
-    total: 18.5,
-    items: [
-      { name: "Pizza", qty: 1 },
-      { name: "Garlic Bread", qty: 1 },
-    ],
-  },
-  {
-    id: "ORD-1024",
-    date: "2025-01-20",
-    status: "Pending",
-    total: 18.5,
-    items: [
-      { name: "Pizza", qty: 1 },
-      { name: "Garlic Bread", qty: 1 },
-    ],
-  },
-];
-
-   
 const OrderHistoryPage = () => {
 
-  const { isPending, isError,refetch,isFetching} = useFetchUserOrders()
+  const { isPending, isError, refetch, data, isFetching } = useFetchUserOrders()
 
   if (isPending) {
     return <div className="grid place-content-center mt-30 ml-40">
@@ -64,43 +20,57 @@ const OrderHistoryPage = () => {
   }
 
   if (isError) {
-    return <Error refetch={refetch} isFetching={isFetching}/>
+    return <Error refetch={refetch} isFetching={isFetching} />
   }
+
+  const prevOrders = data.orders
+
+  if (prevOrders.length === 0) {
+    return <div className="flex  justify-center mt-32 text-3xl text-white ">
+      <div className="flex flex-col items-center">
+        <TfiDropboxAlt className="text-9xl mb-3" />
+        <span>No Previous Orders</span>
+      </div>
+    </div>
+  }
+
+  console.log(prevOrders);
+
   return (
     <div className="max-w-4xl mx-auto p-4 mt-15">
 
       <div className="space-y-4 mt-15">
-        {orders.map((order) => (
+        {prevOrders.map((orders) => (
           <div
-            key={order.id}
-            className="bg-neutral-800 rounded-lg shadow-sm  p-4"
+            key={orders.id}
+            className="bg-neutral-800 rounded-lg shadow-sm  py-6 px-8"
           >
-            {/* Header */}
             <div className="flex justify-between items-center mb-3">
               <div>
                 <p className="font-medium text-neutral-50">
-                  Order #{order.id}
+                  Order #{orders.id.slice(0, 6)}
                 </p>
-                <p className="text-sm text-neutral-50">{order.date}</p>
+                <p className="font-medium text-neutral-50"><span>Date</span> {orders.createdAt.split("T")[0]}</p>
               </div>
 
               <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${statusStyles[order.status]
+                className={`px-3 py-1 rounded-full text-sm font-medium ${statusStyles[orders.status]
                   }`}
               >
-                {order.status}
+                {orders.status}
               </span>
             </div>
 
-            {/* Items */}
-            <ul className="text-sm text-neutral-50 mb-3">
-              {order.items.map((item, index) => (
-                <li key={index} className="flex justify-between">
+            <h3 className="font-medium text-neutral-50">Meal Ordered</h3>
+            <ul className="text-sm text-neutral-50 mb-6 space-y-0.5">
+              {orders.items.map((item) => {
+                return <li key={item.id} className="flex justify-between">
                   <span>
-                    {item.name} × {item.qty}
+                    {item.product.name} × {item.quantity}
                   </span>
                 </li>
-              ))}
+              }
+              )}
             </ul>
 
             {/* Footer */}
@@ -109,7 +79,7 @@ const OrderHistoryPage = () => {
                 Total
               </span>
               <span className="font-semibold text-neutral-200">
-                R{" "}{order.total.toFixed(2)}
+                R{" "}{orders.totalAmount}
               </span>
             </div>
           </div>
