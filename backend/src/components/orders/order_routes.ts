@@ -8,10 +8,9 @@ export class OrderRoutes {
     const controller = new OrderControllers();
 
     app.route(this.baseEndPoint)
-    .all(authenticate, authorize("admin"))
-      .get(controller.getAllHandler)
+      .all(authenticate)
+      .get(authorize("admin"), controller.getAllHandler)
       .post(controller.addHandler)
-      .put(controller.updateHandler)
       .delete(controller.deleteHandler);
 
     app.route(this.baseEndPoint + "/me")
