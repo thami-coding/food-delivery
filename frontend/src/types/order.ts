@@ -1,0 +1,1 @@
+export type TDateFilter = "today" | "30" | "60" | "90" | "all"
