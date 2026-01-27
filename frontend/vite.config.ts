@@ -1,17 +1,17 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import tailwindcss from "@tailwindcss/vite"
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
+    allowedHosts: ["2d9507fde928.ngrok-free.app"],
     proxy: {
       "/api": {
-        // target: "http://backend:5000", // for dokcer
-        target: "http://localhost:5000", //for local
+        target: "http://localhost:3000",
         changeOrigin: true,
         secure: false,
       },
     },
   },
-});
+})
