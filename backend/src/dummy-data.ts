@@ -1,260 +1,374 @@
-import { Categories } from "./components/products/product_entity";
+import { Categories } from "./entities/product.entity"
 
-const { BURGERS, WINGS, DESSERTS, PIZZAS, COMBOS, RIBS } = Categories;
+
+const { BURGERS, WINGS, DESSERTS, PIZZAS, COMBOS, RIBS } = Categories
 
 export const products = [
   {
     name: "Classic Beef Burger",
     description:
       "Grilled beef patty with lettuce, tomato, and house sauce on a sesame bun.",
-    price: 79.99,
+    price: 79.9,
     category: BURGERS,
     ingredients: "cheese,bacon,jalapeño,beef",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992029/food-images/burgers/beef/classic-burger-removebg-preview_xfrow1.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992029/food-images/burgers/beef/classic-burger-removebg-preview_xfrow1.png",
   },
   {
     name: "Cheese Burger",
     description:
       "Juicy beef patty topped with cheddar cheese, pickles, and onions.",
-    price: 84.99,
+    price: 84.9,
     category: BURGERS,
     ingredients: "cheese,bacon,jalapeño,beef",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992030/food-images/burgers/beef/pexels-natan-machado-fotografia-gastronomica-162809799-15010309-removebg-preview_hibqtd.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992030/food-images/burgers/beef/pexels-natan-machado-fotografia-gastronomica-162809799-15010309-removebg-preview_hibqtd.png",
   },
   {
     name: "Spicy jalapeño Burger",
     description: "Beef burger with jalapeños, spicy sauce, and melted cheese.",
-    price: 89.99,
+    price: 89.9,
     category: BURGERS,
     ingredients: "bacon,jalapeño,beef",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992029/food-images/burgers/beef/pexels-melaudelo-27600007-removebg-preview_w0euve.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992029/food-images/burgers/beef/pexels-melaudelo-27600007-removebg-preview_w0euve.png",
   },
   {
     name: "Veggie Burger",
     description: "Grilled plant-based patty with avocado and vegan mayo.",
-    price: 70.99,
+    price: 70.9,
     category: BURGERS,
     ingredients: "veggie",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992031/food-images/burgers/veg/pexels-groovelanddesigns-3607284-removebg-preview_mgiqyg.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992031/food-images/burgers/veg/pexels-groovelanddesigns-3607284-removebg-preview_mgiqyg.png",
   },
   {
     name: "The Double Trouble Melt",
     description:
       "A mouthwatering monster stacked high with two juicy beef patties, smothered in layers of rich, melted cheddar and mozzarella cheese. Topped with tangy pickles, crispy lettuce, grilled onions, and our signature smoky sauce — all nestled in a toasted brioche bun. It’s cheesy, it’s beefy, it’s double the flavor and double the fun.",
-    price: 82.99,
+    price: 82.9,
     category: BURGERS,
     ingredients: "cheese,eggs,bacon,jalapeño,beef",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992029/food-images/burgers/beef/pexels-lucas-porras-1937324539-28828553-removebg-preview_zw8w8t.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992029/food-images/burgers/beef/pexels-lucas-porras-1937324539-28828553-removebg-preview_zw8w8t.png",
   },
   {
     name: "Stack Attack",
     description:
       "A juicy grilled beef patty layered with melted cheddar cheese, fresh lettuce, and tangy pickles, all tucked inside a toasted bun",
-    price: 90.99,
+    price: 90.9,
     category: BURGERS,
     ingredients: "cheese,beef",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992030/food-images/burgers/beef/pexels-k-patel-1100389468-20722031-removebg-preview_fjmm8o.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992030/food-images/burgers/beef/pexels-k-patel-1100389468-20722031-removebg-preview_fjmm8o.png",
   },
   {
     name: "Cheese Overload",
     description:
       "A gooey, melty masterpiece loaded with triple cheese, grilled to perfection and dripping with flavor in every bite.",
-    price: 95.99,
+    price: 95.9,
     category: BURGERS,
     ingredients: "cheese,chicken",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992030/food-images/burgers/chicken/pexels-enesfilm-8183569-removebg-preview_fben7s.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992030/food-images/burgers/chicken/pexels-enesfilm-8183569-removebg-preview_fben7s.png",
   },
   {
     name: "Margherita Pizza",
     description:
       "Classic pizza with mozzarella, fresh basil, and tomato sauce.",
-    price: 99.99,
+    price: 99.9,
     category: PIZZAS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992031/food-images/pizza/pexels-fira-ergashevv-1784024088-28272163-removebg-preview_tfkmxf.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992031/food-images/pizza/pexels-fira-ergashevv-1784024088-28272163-removebg-preview_tfkmxf.png",
   },
   {
     name: "BBQ Chicken Pizza",
     description: "Grilled chicken, red onions, and BBQ sauce on a cheesy base.",
-    price: 119.99,
+    price: 119.9,
     category: PIZZAS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992031/food-images/pizza/pexels-renestrgar-16890470-removebg-preview_jkvz51.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992031/food-images/pizza/pexels-renestrgar-16890470-removebg-preview_jkvz51.png",
   },
   {
     name: "Pepperoni Pizza",
     description: "Loaded with pepperoni and melted mozzarella cheese.",
-    price: 114.99,
+    price: 114.9,
     category: PIZZAS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992032/food-images/pizza/pexels-mahdi-ahmadi-2149139587-30504707-removebg-preview_g3xcd3.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992032/food-images/pizza/pexels-mahdi-ahmadi-2149139587-30504707-removebg-preview_g3xcd3.png",
   },
   {
     name: "Hawaiian Pizza",
     description: "Ham and pineapple with tangy tomato sauce and mozzarella.",
-    price: 109.99,
+    price: 109.9,
     category: PIZZAS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992034/food-images/pizza/pexels-collab-media-173741945-27582703-removebg-preview_xl5oge.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992034/food-images/pizza/pexels-collab-media-173741945-27582703-removebg-preview_xl5oge.png",
   },
   {
     name: "Four Cheese Pizza",
     description: "Mozzarella, cheddar, feta, and parmesan cheese blend.",
-    price: 124.99,
+    price: 124.9,
     category: PIZZAS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992035/food-images/pizza/pexels-shameel-mukkath-3421394-5639547-removebg-preview_ah5pkn.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992035/food-images/pizza/pexels-shameel-mukkath-3421394-5639547-removebg-preview_ah5pkn.png",
   },
   {
     name: "Oreo Cheesecake",
     description: "Creamy cheesecake with a crunchy Oreo base and topping.",
-    price: 59.99,
+    price: 59.9,
     category: DESSERTS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992034/food-images/dessert/pexels-angela-khebou-259135285-13922386-removebg-preview_i4cfmm.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992034/food-images/dessert/pexels-angela-khebou-259135285-13922386-removebg-preview_i4cfmm.png",
   },
   {
     name: "Double Delight Muffin",
     description: "Vanilla muffin with chocolate toppings",
-    price: 54.99,
+    price: 54.9,
     category: DESSERTS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992034/food-images/dessert/pexels-andrea-perez-2149019055-30387653-removebg-preview_kk3ixw.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992034/food-images/dessert/pexels-andrea-perez-2149019055-30387653-removebg-preview_kk3ixw.png",
   },
   {
     name: "Velvet Cream Cheesecake Slice",
     description:
       "A luxuriously smooth and creamy cheesecake with a buttery graham cracker crust.",
-    price: 54.99,
+    price: 54.9,
     category: DESSERTS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992030/food-images/dessert/pexels-emre-akyol-320381804-17566483-removebg-preview_fqfblx.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992030/food-images/dessert/pexels-emre-akyol-320381804-17566483-removebg-preview_fqfblx.png",
   },
   {
     name: "Beef Burger Combo",
     description: "Classic beef burger served with crispy chips",
-    price: 99.99,
+    price: 99.9,
     category: COMBOS,
     ingredients: "beef,chips",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992033/food-images/burger_combo/pexels-enginakyurt-7479006-removebg-preview_wh9wtk.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992033/food-images/burger_combo/pexels-enginakyurt-7479006-removebg-preview_wh9wtk.png",
   },
   {
     name: "Melt Master Beef Burger",
     description:
       "A succulent beef patty smothered in rich, melted cheddar cheese, topped with fresh lettuce and tangy pickles, all stacked inside a toasted bun.",
-    price: 94.99,
+    price: 94.9,
     category: COMBOS,
     ingredients: "beef,chips",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992033/food-images/burger_combo/pexels-jonathanborba-2983101-removebg-preview_kgiwr9.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992033/food-images/burger_combo/pexels-jonathanborba-2983101-removebg-preview_kgiwr9.png",
   },
   {
     name: "Cheese Burger Combo",
     description: "Cheese burger with seasoned chips and a drink",
-    price: 104.99,
+    price: 104.9,
     category: COMBOS,
     ingredients: "cheese,beef,chips",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992032/food-images/burger_combo/pexels-the-castlebar-3902897-9201333-removebg-preview_l1lkpe.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992032/food-images/burger_combo/pexels-the-castlebar-3902897-9201333-removebg-preview_l1lkpe.png",
   },
   {
     name: "Beef Me Up Burger Combo",
     description: "Cheese burger with seasoned chips and a drink",
-    price: 104.99,
+    price: 104.9,
     category: COMBOS,
     ingredients: "cheese,beef,chips",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992032/food-images/burger_combo/burger-combo-removebg-preview_xfvvz4.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992032/food-images/burger_combo/burger-combo-removebg-preview_xfvvz4.png",
   },
   {
     name: "Cluck & Crunch Combo",
     description:
       "A crispy golden chicken fillet, topped with fresh lettuce, pickles, and creamy mayo, all nestled in a soft toasted bun.",
-    price: 104.99,
+    price: 104.9,
     category: COMBOS,
     ingredients: "cheese,chicken,chips",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992032/food-images/burger_combo/pexels-the-castlebar-3902897-5893970-removebg-preview_jirdrd.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992032/food-images/burger_combo/pexels-the-castlebar-3902897-5893970-removebg-preview_jirdrd.png",
   },
   {
     name: "Classic Beef Deluxe",
     description:
       "A juicy, flame-grilled beef patty stacked with fresh lettuce and ripe tomatoes, topped with a generous dollop of creamy mayo sauce. ",
-    price: 104.99,
+    price: 104.9,
     category: COMBOS,
     ingredients: "cheese,beef,chips",
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992032/food-images/burger_combo/pexels-valeriya-11213787-removebg-preview_yekrhz.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992032/food-images/burger_combo/pexels-valeriya-11213787-removebg-preview_yekrhz.png",
   },
   {
     name: "6-Piece Chicken Wings",
     description:
       "Crispy fried chicken wings tossed in your choice of BBQ, hot, or lemon pepper sauce.",
-    price: 69.99,
+    price: 69.9,
     category: WINGS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992034/food-images/chicken/wings/pexels-valeriya-27668695-removebg-preview_gpuxpj.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992034/food-images/chicken/wings/pexels-valeriya-27668695-removebg-preview_gpuxpj.png",
   },
   {
     name: "12-Piece Chicken Wings",
     description:
       "Crispy fried chicken wings tossed in your choice of BBQ, hot, or lemon pepper sauce.",
-    price: 69.99,
+    price: 69.9,
     category: WINGS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992034/food-images/chicken/wings/pexels-christian-moises-pahati-3856199-5724555-removebg-preview_bhavu3.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992034/food-images/chicken/wings/pexels-christian-moises-pahati-3856199-5724555-removebg-preview_bhavu3.png",
   },
   {
     name: "Crispy Chicken Wings",
     description:
       "crispy wings seasoned with spicy herbs, served with dipping sauce.",
-    price: 74.99,
+    price: 74.9,
     category: WINGS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992033/food-images/chicken/wings/pexels-introspectivedsgn-4061475-removebg-preview_w46rac.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992033/food-images/chicken/wings/pexels-introspectivedsgn-4061475-removebg-preview_w46rac.png",
   },
   {
     name: "Crunch Blaze Wings",
     description:
       "Golden-fried to crispy perfection, these wings deliver a loud crunch with every bite.",
-    price: 65.99,
+    price: 65.9,
     category: WINGS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992033/food-images/chicken/wings/pexels-pixabay-60616-removebg-preview_rik4jt.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992033/food-images/chicken/wings/pexels-pixabay-60616-removebg-preview_rik4jt.png",
   },
   {
     name: "Fire Sticks",
     description:
       "Crispy, juicy chicken wings glazed in a bold, sticky sauce that packs a punch — sweet, smoky, and spicy all at once. ",
-    price: 80.99,
+    price: 80.9,
     category: WINGS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992033/food-images/chicken/wings/pexels-mohamad-sadek-141949763-10361458-removebg-preview_dupx3c.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992033/food-images/chicken/wings/pexels-mohamad-sadek-141949763-10361458-removebg-preview_dupx3c.png",
   },
   {
     name: "Smoke Kissed Wings",
     description:
       "Tender, juicy wings grilled over open flame for that smoky charred flavor ",
-    price: 70.99,
+    price: 70.9,
     category: WINGS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992034/food-images/chicken/wings/pexels-ahmedbhutta11-7169617-removebg-preview_zeykkj.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992034/food-images/chicken/wings/pexels-ahmedbhutta11-7169617-removebg-preview_zeykkj.png",
   },
   {
     name: "Grilled Pork Ribs",
     description:
       "Marinated pork ribs grilled to perfection, served with garlic dip.",
-    price: 84.99,
+    price: 84.9,
     category: RIBS,
     imageUrl:
-      "https://res.cloudinary.com/dgdevmfnd/image/upload/v1750992032/food-images/ribs/pexels-iamabdullahsheik-9650087-removebg-preview_atd7nd.png",
+      "https://res.cloudinary.com/dgdevmfnd/image/upload/w_400,q_auto,f_auto/v1750992032/food-images/ribs/pexels-iamabdullahsheik-9650087-removebg-preview_atd7nd.png",
   },
-];
+]
+
+export const users = [
+  {
+    fullName: "Ava Patel",
+    email: "ava.patel@example.com",
+    password: "AvaP@tel#2026!",
+    phoneNumber: "0821234567",
+    role: "user",
+    streetAddress: "1420 Maple Ave",
+    city: "Seattle",
+    suburb: "Capitol Hill",
+    postalCode: "4037",
+  },
+  {
+    fullName: "Noah Kim",
+    email: "noah.kim@example.com",
+    password: "N0ahK!m_2026",
+    phoneNumber: "0832345678",
+    role: "user",
+    streetAddress: "88 Pine Street",
+    city: "San Francisco",
+    suburb: "SoMa",
+    postalCode: "9410",
+  },
+  {
+    fullName: "Sophia Nguyen",
+    email: "sophia.nguyen@example.com",
+    password: "S0ph!aNg#26",
+    phoneNumber: "0843456789",
+    role: "user",
+    streetAddress: "501 Lakeview Dr",
+    city: "Chicago",
+    suburb: "Lincoln Park",
+    postalCode: "6061",
+  },
+  {
+    fullName: "Ethan Johnson",
+    email: "ethan.johnson@example.com",
+    password: "Eth@nJ0hnson26!",
+    phoneNumber: "0724567890",
+    role: "user",
+    streetAddress: "27 Crescent Rd",
+    city: "Austin",
+    suburb: "South Congress",
+    postalCode: "7870",
+  },
+  {
+    fullName: "Mia Rodriguez",
+    email: "mia.rodriguez@example.com",
+    password: "MiaR0d#2026!!",
+    phoneNumber: "0735678901",
+    role: "user",
+    streetAddress: "910 Orchard Blvd",
+    city: "Denver",
+    suburb: "Capitol Hill",
+    postalCode: "8020",
+  },
+  {
+    fullName: "Liam O'Connor",
+    email: "liam.oconnor@example.com",
+    password: "LiamO'C0nn0r@26",
+    phoneNumber: "0746789012",
+    role: "user",
+    streetAddress: "63 Harbor Way",
+    city: "Boston",
+    suburb: "Seaport",
+    postalCode: "0221",
+  },
+  {
+    fullName: "Isabella Chen",
+    email: "isabella.chen@example.com",
+    password: "Is@bellA_Ch3n26",
+    phoneNumber: "0767890123",
+    role: "user",
+    streetAddress: "155 Sunrise Terrace",
+    city: "Miami",
+    suburb: "Brickell",
+    postalCode: "3313",
+  },
+  {
+    fullName: "Jackson Smith",
+    email: "jackson.smith@example.com",
+    password: "Jacks0nSm!th#26",
+    phoneNumber: "0788901234",
+    role: "user",
+    streetAddress: "402 Forest Lane",
+    city: "Portland",
+    suburb: "Pearl District",
+    postalCode: "9720",
+  },
+  {
+    fullName: "Olivia Brown",
+    email: "olivia.brown@example.com",
+    password: "0liviaBr0wn@2026",
+    phoneNumber: "0799012345",
+    role: "user",
+    streetAddress: "770 Riverbend St",
+    city: "Phoenix",
+    suburb: "Downtown",
+    postalCode: "8500",
+  },
+  {
+    fullName: "William Davis",
+    email: "william.davis@example.com",
+    password: "W!lliamDav1s_26",
+    phoneNumber: "0810123456",
+    role: "user",
+    streetAddress: "19 Meadowbrook Ct",
+    city: "Los Angeles",
+    suburb: "Culver City",
+    postalCode: "9023",
+  },
+]

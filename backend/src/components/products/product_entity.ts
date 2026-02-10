@@ -1,55 +1,48 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from "typeorm";
-import { OrderItem } from "../orders/order_item_entity";
-import { CartItem } from "../cart/cart_item_entity";
+// import {
+//   Column,
+//   CreateDateColumn,
+//   Entity,
+//   OneToMany,
+//   PrimaryGeneratedColumn,
+//   UpdateDateColumn,
+// } from "typeorm"
+// import { OrderItem } from "../orders/order_item_entity"
+// import { CartItem } from "../cart/cart_item_entity"
 
-export enum Categories {
-  BURGERS = "burgers",
-  PIZZAS = "pizzas",
-  DESSERTS = "desserts",
-  WINGS = "wings",
-  COMBOS = "combos",
-  RIBS = "ribs",
-}
 
-@Entity()
-export class Products {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
 
-  @Column()
-  name: string;
+// @Entity()
+// export class Products {
+//   @PrimaryGeneratedColumn("uuid")
+//   id: string
 
-  @Column({ type: "text", nullable: true})
-  ingredients: string;
+//   @Column()
+//   name: string
 
-  @Column({ type: "enum", enum: Categories })
-  category: Categories;
+//   @Column({ type: "text", nullable: true})
+//   ingredients: string
 
-  @Column()
-  description: string;
+//   @Column({ type: "simple-enum", enum: Categories })
+//   category: Categories
 
-  @Column({ type: "decimal", precision: 10, scale: 2 })
-  price: number;
+//   @Column()
+//   description: string
 
-  @Column()
-  imageUrl: string;
+//   @Column({ type: "decimal", precision: 10, scale: 2 })
+//   price: number
 
-  @CreateDateColumn()
-  createdAt: Date;
+//   @Column()
+//   imageUrl: string
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+//   @CreateDateColumn()
+//   createdAt: Date
 
-  @OneToMany(() => OrderItem, item => item.product)
-  orderItems: OrderItem[];
+//   @UpdateDateColumn()
+//   updatedAt: Date
 
-  @OneToMany(() => CartItem, (cartItem) => cartItem.product)
-  cartItems: CartItem[];
-}
+//   @OneToMany(() => OrderItem, item => item.product)
+//   orderItems: OrderItem[]
+
+//   @OneToMany(() => CartItem, (cartItem) => cartItem.product)
+//   cartItems: CartItem[]
+// }

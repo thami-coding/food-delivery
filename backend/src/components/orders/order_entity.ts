@@ -1,57 +1,52 @@
-// orders/order.entity.ts
-import {
- Column,
- CreateDateColumn,
- Entity,
- ManyToOne,
- OneToMany,
- PrimaryGeneratedColumn,
- UpdateDateColumn,
-} from "typeorm";
-import { Users } from "../users/user_entity";
-import { OrderItem } from "./order_item_entity";
-import { OrderStatus } from "./order_status.enum";
+// import {
+//   Column,
+//   CreateDateColumn,
+//   Entity,
+//   ManyToOne,
+//   OneToMany,
+//   PrimaryGeneratedColumn,
+//   UpdateDateColumn,
+// } from "typeorm"
+// import { Users } from "../users/user_entity"
+// import { OrderItem } from "./order_item_entity"
+// import { OrderStatus } from "./order_status.enum"
 
-@Entity()
-export class Orders {
- @PrimaryGeneratedColumn("uuid")
- id: string;
- 
- @Column({ type: "uuid", nullable: true })
- userId: string
+// @Entity()
+// export class Orders {
+//   @PrimaryGeneratedColumn("uuid")
+//   id: string
 
- @ManyToOne(() => Users, user => user.id, { eager: true })
- user: Users;
+//   @Column({ type: "uuid", nullable: true })
+//   userId: string
 
- @OneToMany(() => OrderItem, item => item.order, {
-  cascade: true,
-  eager: true,
- })
- items: OrderItem[];
+//   @ManyToOne(() => Users, (user) => user.orders, { eager: true })
+//   user: Users
 
- @Column({ type: "decimal", precision: 10, scale: 2 })
- totalAmount: number;
+//   @OneToMany(() => OrderItem, (item) => item.order, {
+//     cascade: true,
+//     eager: true,
+//   })
+//   items: OrderItem[]
 
- @Column({
-  type: "enum",
-  enum: OrderStatus,
-  default: OrderStatus.PENDING,
- })
- status: OrderStatus;
+//   @Column({ type: "decimal", precision: 10 })
+//   totalAmount: number
 
- @Column({ length: 255 })
- deliveryAddress: string;
+//   @Column({
+//     type: "simple-enum",
+//     enum: OrderStatus,
+//     default: OrderStatus.PREPARING,
+//   })
+//   status: OrderStatus
 
- @Column({ default: "cash" })
- paymentMethod: string;
+//   @Column({ default: "online" })
+//   paymentMethod: string
 
- @Column({ default: "paid" })
- paymentStatus: string;
+//   @Column({ default: "pending" })
+//   paymentStatus: string
 
- @CreateDateColumn()
- createdAt: Date;
+//   @CreateDateColumn()
+//   createdAt: Date
 
- @UpdateDateColumn()
- updatedAt: Date;
-
-}
+//   @UpdateDateColumn()
+//   updatedAt: Date
+// }

@@ -1,28 +1,42 @@
-import {
- Column,
- CreateDateColumn,
- Entity,
- ManyToOne,
- PrimaryGeneratedColumn,
-} from "typeorm";
-import { Orders } from "./order_entity";
-import { Products } from "../products/product_entity";
+// import {
+//   Column,
+//   Entity,
+//   JoinColumn,
+//   ManyToOne,
+//   PrimaryGeneratedColumn,
+//   CreateDateColumn,
+//   UpdateDateColumn,
+// } from "typeorm"
+// import { Orders } from "./order_entity"
+// import { Products } from "../products/product_entity"
 
-@Entity()
-export class OrderItem {
- @PrimaryGeneratedColumn("uuid")
- id: string;
+// @Entity()
+// export class OrderItem {
+//   @PrimaryGeneratedColumn("uuid")
+//   id: string
 
- @ManyToOne(() => Orders, order => order.items, { onDelete: "CASCADE" })
- order: Orders;
+//   @Column({ type: "uuid", nullable: false, select: false })
+//   orderId: string
 
- @ManyToOne(() => Products, { eager: true })
- product: Products;
+//   @Column({ type: "uuid", nullable: false })
+//   productId: string
 
- @Column({ type: "int", default: 1 })
- quantity: number;
+//   @Column({ type: "int" })
+//   quantity: number
 
- @CreateDateColumn()
- createdAt: Date;
+//   @ManyToOne(() => Orders, (order: Orders) => order.items, {
+//     onDelete: "CASCADE",
+//   })
+//   @JoinColumn({ name: "orderId" })
+//   order: Orders
 
-}
+//   @ManyToOne(() => Products, (product) => product.orderItems, { eager: true })
+//   @JoinColumn({ name: "productId" })
+//   product: Products
+
+//   @CreateDateColumn()
+//   createdAt: Date
+
+//   @UpdateDateColumn()
+//   updatedAt: Date
+// }

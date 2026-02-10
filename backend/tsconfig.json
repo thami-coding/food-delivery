@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "types": [
+      "node",
+      "jest"
+    ],
     "moduleResolution": "node",
     "pretty": true,
     "sourceMap": false,
@@ -17,6 +21,11 @@
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "../frontend/src/socket.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*",
+    "tests/**/*"
+, "jest.setup.ts"  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

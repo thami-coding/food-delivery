@@ -17,10 +17,13 @@ export const errorHandler = (
   })
 
   if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
+    console.log(err)
+
+    res.status(err.statusCode).json({
       status: "error",
       fields: err.fields,
     })
+    return
   }
 
   res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
