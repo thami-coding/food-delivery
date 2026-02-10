@@ -1,7 +1,11 @@
-import { LoginSchema } from "../schemas/login.schema"
-import { SignupSchema } from "../schemas/signup.schema"
+import { LoginSchema, SignupSchema } from "../features/auth/schemas"
+import type { LoginData, SignupData } from "../features/auth/types"
 
-export const validateSignupInputs = ({ email, password, confirmPassword }) => {
+export const validateSignupInputs = ({
+  email,
+  password,
+  confirmPassword,
+}: SignupData) => {
   const result = SignupSchema.safeParse({
     email,
     password,
@@ -17,7 +21,7 @@ export const validateSignupInputs = ({ email, password, confirmPassword }) => {
   return fieldErrors
 }
 
-export const validateLoginInputs = ({ email, password }) => {
+export const validateLoginInputs = ({ email, password }: LoginData) => {
   const result = LoginSchema.safeParse({
     email,
     password,

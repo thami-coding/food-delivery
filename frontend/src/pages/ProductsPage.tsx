@@ -1,82 +1,34 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Categories } from "../components/Categories";
-import { fetchProducts } from "../lib/apiClient";
+import { Categories } from "../features/products/components/Categories"
+import { useState } from "react"
+import { useDialog } from "../features/products/dialogStore"
+import { ErrorAlert } from "../components/ErrorAlert"
+import { useQueryErrorResetBoundary } from "@tanstack/react-query"
+import Products from "../features/products/components/Products"
+import type { Category } from "../features/products/types"
+import { ErrorBoundary } from "react-error-boundary"
+import Product from "../features/products/components/Product"
 
-import { useEffect, useRef, useState } from "react";
-import ProductCard from "../components/ProductCard";
-import type { TCategories } from "../types/category";
-import { useDialog } from "../store/dialogStore";
-import AddItem from "../components/AddItem";
-
-const Products = () => {
-  const [category, setCategory] = useState<TCategories>("all");
-
-  const {
-    error,
-    isPending,
-    data,
-    isFetchingNextPage,
-    hasNextPage,
-    fetchNextPage,
-  } = useInfiniteQuery({
-    queryKey: [{ queryIdentifier: "products", category: category }] as const,
-    queryFn: fetchProducts,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage?.nextPage,
-  });
+const ProductsPage = () => {
+  const [category, setCategory] = useState<Category>("all")
   const isDialogOpen = useDialog((state) => state.isDialogOpen)
-
-  const bottomRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!hasNextPage || !bottomRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      {
-        threshold: 1,
-      }
-    );
-    observer.observe(bottomRef.current);
-
-    return () => observer.disconnect();
-  }, [fetchNextPage, hasNextPage]);
-
+  const { reset } = useQueryErrorResetBoundary()
+  
   return (
-    <section className="grid place-items-center relative bg-[#202020] ">
-      <div className="mt-30 z-30 bg-[#202020] w-full  ">
-      <Categories setCategory={setCategory} selectedCategory={category} />
+    <section className="grid place-items-center relative ">
+      <div className="mt-30 z-30 w-full  ">
+        <Categories setCategory={setCategory} selectedCategory={category} />
       </div>
-
-      <div
-        className={`mt-30 grid grid-cols-3 gap-x-14 text-white max-w-6xljustify-between gap-y-12 min-h-[500px]`}
-      >
-        {error ? (
-          <div>Opps Something went wrong...{error.message}</div>
-        ) : isPending ? (
-          <div>Loading...</div>
-        ) : (
-          data.pages.map((page) =>
-            page?.products.map((product) => {
-              
-              return (
-                <ProductCard
-                  key={product.id}
-                  {...product}
-                />
-              );
-            })
-          )
+      <ErrorBoundary
+        onReset={reset}
+        fallbackRender={({ resetErrorBoundary }) => (
+          <ErrorAlert retry refetch={() => resetErrorBoundary()} />
         )}
-        <div ref={bottomRef} className="h-10" />
-        {isFetchingNextPage && <div>Loading...</div>}
-        {isDialogOpen && <AddItem />}
-      </div>
+      >
+        <Products category={category} />
+      </ErrorBoundary>
+      {isDialogOpen && <Product />}
     </section>
-  );
-};
+  )
+}
 
-export default Products;
+export default ProductsPage

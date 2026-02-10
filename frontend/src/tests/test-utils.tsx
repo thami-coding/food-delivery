@@ -1,19 +1,19 @@
-// src/test/test-utils.tsx
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { type ReactNode } from 'react'
 
 export function createTestQueryClient() {
  return new QueryClient({
-  defaultOptions: {
-   queries: {
-    retry: false,
-    gcTime: 0,
+   defaultOptions: {
+     queries: {
+       retry: false,
+       gcTime: 0,
+     },
+     mutations: { retry: false },
    },
-  },
  })
 }
 
-export function TestQueryProvider({ children }: { children: ReactNode }) {
+export function QueryTestProvider({ children }: { children: ReactNode }) {
  const queryClient = createTestQueryClient()
 
  return (

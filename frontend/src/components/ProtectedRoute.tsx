@@ -1,19 +1,26 @@
-import { Navigate, Outlet } from "react-router";
-import { useUser } from "../hooks/useUser";
+import { Navigate, Outlet } from "react-router"
+import { ErrorAlert } from "./ErrorAlert"
+import LoadingSpinner from "./LoadingSpinner"
+import { useUser } from "../features/user/hooks"
 
 export default function ProtectedRoute() {
-  const { data: user, isError, error, isPending } = useUser();
+  const { data, isPending, isError, error } = useUser()
 
   if (isPending) {
-    return <h2>Loading user info...</h2>;
+    return (
+      <div className="grid place-items-center h-screen">
+        <LoadingSpinner />
+      </div>
+    )
+  }
+  
+  if (isError && error?.statusCode >= 500) {
+    return <ErrorAlert />
   }
 
-  if (isError) {
-    return <Navigate to="/login" replace />;
+  if (isError || !data.user) {
+    return <Navigate to="/login" replace />
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-  return <Outlet />;
+  return <Outlet />
 }

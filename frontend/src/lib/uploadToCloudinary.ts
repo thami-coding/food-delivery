@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const uploadToCloudinary = async (file: File) => {
- console.log(file);
 
  const formData = new FormData();
  formData.append("file", file);

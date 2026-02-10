@@ -1,7 +1,13 @@
-import UserProfileForm from '../components/UserProfileForm'
+import LoadingSpinner from "../components/LoadingSpinner"
+import ProfileForm from "../features/user/components/ProfileForm"
+import { useUser } from "../features/user/hooks"
 
 export default function ProfilePage() {
- return (
-  <UserProfileForm />
- )
+  const { isPending, data } = useUser()
+
+  if (isPending) {
+    return <LoadingSpinner />
+  }
+
+  return <ProfileForm user={data?.user} />
 }

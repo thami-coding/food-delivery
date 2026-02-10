@@ -2,12 +2,12 @@ import { Link, useNavigate } from "react-router"
 import { useEffect, useState } from "react"
 
 import FormInput from "../components/FormInput"
-import { useSignup } from "../hooks/useAuth"
-import Loading from "../components/Loading"
 import { ErrorAlert } from "../components/ErrorAlert"
 import { useQueryClient } from "@tanstack/react-query"
 import logo from "../assets/logo.png"
 import { validateSignupInputs } from "../lib/validators"
+import { useSignup } from "../features/auth/hooks"
+import Button from "../components/Button"
 
 const SignupPage = () => {
   const [email, setEmail] = useState("")
@@ -76,7 +76,9 @@ const SignupPage = () => {
             name="password"
             id="password"
             labelText="Password"
-            message={errors.password || errors.confirmPassword || fieldErrors?.password}
+            message={
+              errors.password || errors.confirmPassword || fieldErrors?.password
+            }
             value={password}
             placeholder="Enter Password"
             setValue={setPassword}
@@ -85,17 +87,17 @@ const SignupPage = () => {
             name="confirmPassword"
             id="confirmPassword"
             labelText="Re-enter password"
-            message={errors.confirmPassword ||fieldErrors?.password}
+            message={errors.confirmPassword || fieldErrors?.password}
             value={confirmPassword}
             placeholder="Re-enter Password"
             setValue={setConfirmPassword}
           />
-          <button
-            disabled={isPending}
-            className="w-full text-black py-2.5 rounded-md flex justify-center capitalize mt-6 disabled:opacity-50 bg-yellow-300 hover:bg-yellow-400 cursor-pointer"
-          >
-            {isPending ? <Loading /> : "Register"}
-          </button>
+          <Button
+            handleClick={handleSubmit}
+            type="submit"
+            buttonText="Register"
+            isPending={isPending}
+          />
         </form>
         <p className="text-xs text-center mt-2">
           <>

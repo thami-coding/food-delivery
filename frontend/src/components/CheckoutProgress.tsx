@@ -7,16 +7,19 @@ const steps = [
 ]
 
 export default function CheckoutProgress() {
-  const { currentStep } = useStep();
+  const { currentStep } = useStep()
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 mt-8">
       <div className="flex items-center">
         {steps.map((step, index) => {
-          const isCompleted = step.id < currentStep;
+          const isCompleted = step.id < currentStep
 
           return (
-            <div key={step.id} className="flex items-center flex-1 last:flex-none">
+            <div
+              key={step.id}
+              className="flex items-center flex-1 last:flex-none"
+            >
               {/* Step */}
               <div className="flex flex-col items-center shrink-0">
                 <div
@@ -45,9 +48,9 @@ export default function CheckoutProgress() {
                 </div>
               )}
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
