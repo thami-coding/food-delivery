@@ -4,7 +4,7 @@ import { ErrorWithFieldsSchema } from "../../lib/errors/error.schema"
 export const ProductSchema = z.object({
   id: z.string(),
   name: z.string(),
-  ingredients: z.string(),
+  ingredients: z.string().nullish(),
   category: z.enum([
     "all",
     "burgers",
