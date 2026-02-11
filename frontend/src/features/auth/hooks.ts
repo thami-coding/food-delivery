@@ -28,6 +28,10 @@ export const useLogout = () => {
 export const useForgotPassword = () => {
   return useMutation({
     mutationFn: forgotPassword,
+    onError: (error) => {
+      toast.warn(error?.message)
+
+    }
   })
 }
 
