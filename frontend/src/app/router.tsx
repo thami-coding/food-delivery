@@ -12,10 +12,12 @@ import CheckoutLayout from "../layouts/CheckoutLayout"
 import PaymentPage from "../pages/PaymentPage"
 import { adminRoutes } from "../features/admin/adminRoutes"
 import OrderStatusPage from "../pages/OrderStatusPage"
+import ForgotPaswordPage from "../pages/ForgotPasswordPage"
 
 export const router = createBrowserRouter([
   { path: "login", element: <LoginPage /> },
   { path: "signup", element: <SignupPage /> },
+  { path: "forgot-password", element: <ForgotPaswordPage /> },
   {
     element: <MainLayout />,
     children: [
