@@ -125,6 +125,7 @@ export const handlers = [
    "code": 200
   })
  }),
+ 
  http.get('/api/products', async() => {
   await delay("infinite")
   return HttpResponse.json([{
