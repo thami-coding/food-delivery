@@ -2,6 +2,9 @@ import jwt from "jsonwebtoken"
 import { RegisterBody } from "../../../schemas/validation/auth.validation.schema"
 import { randomUUID } from "crypto"
 import bcrypt from "bcryptjs"
+import { Resend } from "resend"
+
+import { AuthPayload, ExpiresIn, UserRole } from "../../../types/common.types"
 import {
   BadRequestError,
   ConflictError,
@@ -11,14 +14,12 @@ import {
   refreshTokenRepository,
   userRepository,
 } from "../../../repositories/repos"
-import { AuthPayload, ExpiresIn, UserRole } from "../../../types/common.types"
 import {
   comparePasswords,
   generateAccessToken,
   generateRefreshToken,
   hashPassword,
 } from "../../../utils/auth.utils"
-
 export const login = async ({ password, email }) => {
   const userRepo = userRepository()
   const refreshTokenRepo = refreshTokenRepository()
@@ -89,12 +90,15 @@ export const signup = async (data: RegisterBody) => {
 }
 
 export const forgotPassword = async (email: string) => {
-  const { Resend } = await import("resend")
   const userRepo = userRepository()
   const user = await userRepo.findOne({ where: { email } })
+console.log(user);
 
-  const resetToken = jwt.sign({ email: email }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN as ExpiresIn,
+  if (!user) {
+    return
+  }
+  const resetToken = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1h",
   })
 
   const resetLink = `${process.env.FRONT_END_URL}/reset-password?token=${resetToken}`
