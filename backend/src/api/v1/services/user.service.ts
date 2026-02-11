@@ -10,6 +10,7 @@ export const remove = async (userId: string) => {
   const userRepo = userRepository()
   return await userRepo.delete(userId)
 }
+
 export const findAllUsers = async () => {
   const userRepo = userRepository()
   return await userRepo.find()
