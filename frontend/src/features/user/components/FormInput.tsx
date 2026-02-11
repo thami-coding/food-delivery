@@ -1,9 +1,18 @@
-
-export default function FromInput({handleChange, value, name, placeholder, labelText, type}) {
+export default function FromInput({
+  handleChange,
+  value,
+  name,
+  placeholder,
+  labelText,
+  type,
+}) {
   return (
     <div>
-      <label className="block text-sm text-gray-300 mb-1 ml-2">{labelText}</label>
+      <label htmlFor={name} className="block text-sm text-gray-300 mb-1 ml-2">
+        {labelText}
+      </label>
       <input
+        id={name}
         onChange={handleChange}
         value={value}
         name={name}
