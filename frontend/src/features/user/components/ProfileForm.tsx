@@ -4,17 +4,16 @@ import { useUpdateUser } from "../hooks"
 import FormInput from "./FormInput"
 import Button from "../../../components/Button"
 import ValidationError from "./ValidationError"
-import { useLocation } from "react-router"
 
 export default function ProfileForm({ user }) {
   const { mutate, isSuccess, isPending, error, isError } = useUpdateUser()
   const [formData, setFormData] = useState({
-    fullName: user.fullName,
-    phoneNumber: user.phoneNumber,
-    streetAddress: user.streetAddress,
-    city: user.city,
-    suburb: user.suburb,
-    postalCode: user.postalCode,
+    fullName: user?.fullName ?? "",
+    phoneNumber: user?.phoneNumber ?? "",
+    streetAddress: user?.streetAddress ?? "",
+    city: user?.city ?? "",
+    suburb: user?.suburb ?? "",
+    postalCode: user?.postalCode ?? "",
   })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +27,7 @@ export default function ProfileForm({ user }) {
   }
 
   if (isSuccess) {
-    return <ProfileUpdated />
+    return <ProfileUpdated  />
   }
 
   return (
@@ -72,7 +71,7 @@ export default function ProfileForm({ user }) {
             name="city"
             type="text"
             placeholder="City"
-            labelText="Street Address"
+            labelText="city"
           />
         </div>
         <div className="flex gap-x-8 mb-7">

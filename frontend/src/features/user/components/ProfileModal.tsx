@@ -39,7 +39,7 @@ export default function Login() {
     logout()
   }
   const user = data?.user
-  // const user = undefined
+
   return (
     <div ref={dropdownRef}>
       <button

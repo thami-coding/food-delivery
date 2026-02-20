@@ -4,7 +4,9 @@ import { Link, useLocation } from "react-router"
 export default function ProfileUpdated() {
   const location = useLocation()
   const from = location.state?.from
-  
+  console.log(from)
+
+  // TODO FIX Conditional
   return (
     <article className="ml-auto mr-auto mt-20 py-15  shadow-lg shadow-neutral-900 rounded-md text-white px-8 w-md bg-[#202020] ">
       <FaRegCircleCheck className="text-green-600 text-7xl ml-auto mr-auto mb-6 block" />
