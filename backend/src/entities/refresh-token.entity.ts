@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   Index,
 } from "typeorm"
-import { User } from "../entities/user.entity"
+import { User } from "./user.entity"
 
 @Entity({ name: "refresh_tokens" })
 export class RefreshToken {
@@ -27,7 +27,7 @@ export class RefreshToken {
   hashedToken: string
 
   @Index()
-  @Column({ name: "expires_at"})
+  @Column({ name: "expires_at" })
   expiresAt: Date
 
   @Index()

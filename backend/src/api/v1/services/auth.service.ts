@@ -81,7 +81,6 @@ export const signup = async (data: RegisterBody) => {
       password: "Passwords don't match",
     })
   }
-
   data.password = await hashPassword(data.password)
   const newUser = userRepo.create(data)
   const { email, role, id } = await userRepo.save(newUser)

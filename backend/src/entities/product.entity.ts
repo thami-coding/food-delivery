@@ -18,7 +18,7 @@ export enum Categories {
   RIBS = "ribs",
 }
 
-@Entity()
+@Entity("products")
 export class Product {
   @PrimaryGeneratedColumn("uuid")
   id: string
@@ -26,7 +26,7 @@ export class Product {
   @Column()
   name: string
 
-  @Column({ type: "text", nullable: true})
+  @Column({ type: "text", nullable: true })
   ingredients: string
 
   @Column({ type: "simple-enum", enum: Categories })
@@ -47,7 +47,7 @@ export class Product {
   @UpdateDateColumn()
   updatedAt: Date
 
-  @OneToMany(() => OrderItem, item => item.product)
+  @OneToMany(() => OrderItem, (item) => item.product)
   orderItems: OrderItem[]
 
   @OneToMany(() => Cart, (cart) => cart.product)

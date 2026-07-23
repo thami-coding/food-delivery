@@ -18,12 +18,7 @@ export const createOrder = async (body) => {
   const cartItems = await cartRepo
     .createQueryBuilder("cart")
     .leftJoin("cart.product", "product")
-    .select([
-      "cart.userId",
-      "cart.productId",
-      "cart.quantity",
-      "product.price",
-    ])
+    .select(["cart.userId", "cart.productId", "cart.quantity", "product.price"])
     .where("cart.userId = :userId", { userId })
     .getMany()
   const deliveryPrice = convertToCents(20)

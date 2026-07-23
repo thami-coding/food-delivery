@@ -1,6 +1,5 @@
 import { Categories } from "./entities/product.entity"
 
-
 const { BURGERS, WINGS, DESSERTS, PIZZAS, COMBOS, RIBS } = Categories
 
 export const products = [

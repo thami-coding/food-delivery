@@ -46,7 +46,6 @@ export const authenticate = async (
     req.user = { id: userId, role, tokenId }
     next()
   } catch (error) {
-    // console.log(error)
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "Invalid or expired token",

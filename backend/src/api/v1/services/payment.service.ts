@@ -12,10 +12,10 @@ export const generatePaymentSignature = (body) => {
 
   const myData = {
     // Merchant details
-    merchant_id: process.env.MERCHANT_ID,
-    merchant_key: process.env.MERCHANT_KEY,
-    return_url: process.env.RETURN_URL,
-    notify_url: process.env.NOTIFY_URL,
+    merchant_id: process.env.PAYFAST_MERCHATN_ID,
+    merchant_key: process.env.PAYFAST_MERCHATN_KEY,
+    return_url: process.env.PAYFAST_RETURN_URL,
+    notify_url: process.env.PAYFAST_NOTIFY_URL,
     name_first: name,
     email_address: email,
     // Transaction details
@@ -24,7 +24,7 @@ export const generatePaymentSignature = (body) => {
     item_name: "food",
   }
 
-  const passPhrase = process.env.PASS_PHRASE
+  const passPhrase = process.env.PAYFAST_PASS_PHRASE
   const signature = generateSignature(myData, passPhrase)
   return signature
 }
@@ -43,7 +43,7 @@ export const completePayment = async (req) => {
 
   // Remove last ampersand
   pfParamString = pfParamString.slice(0, -1)
-  const passPhrase = process.env.PASS_PHRASE
+  const passPhrase = process.env.PAYFAST_PASS_PHRASE
   const amount = req.body.amount_gross
   const check1 = pfValidSignature(pfData, pfParamString, passPhrase)
   const check2 = await pfValidIP(req)

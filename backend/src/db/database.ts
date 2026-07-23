@@ -11,9 +11,7 @@ export class Database {
   private static dataSource: DataSource
 
   public static async initialize(): Promise<void> {
-    if (this.dataSource && this.dataSource.isInitialized) {
-      return
-    }
+    if (this.dataSource && this.dataSource.isInitialized) return
 
     this.dataSource = new DataSource({
       type: "postgres",

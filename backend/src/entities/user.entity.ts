@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
 } from "typeorm"
 
-@Entity()
+@Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string
@@ -28,7 +28,7 @@ export class User {
   phoneNumber: string
 
   @Column({
-    default: "user",
+    default: "admin",
     select: false,
   })
   role: UserRole
