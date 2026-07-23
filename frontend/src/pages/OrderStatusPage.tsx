@@ -80,7 +80,6 @@ const OrderStatusPage = () => {
       </div>
     )
   }
-  console.log(order)
 
   const status = order.status as "done" | "delivery" | "preparing"
 

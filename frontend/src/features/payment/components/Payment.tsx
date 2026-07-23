@@ -22,8 +22,12 @@ export default function Payment({ order }) {
   }
 
   return (
-    <div className="min-h-[70vh] grid place-content-center px-4 mt-10">
-      <form action="https://sandbox.payfast.co.za/eng/process" method="post">
+    <div className="min-h-[70vh] grid place-content-center  mt-10">
+      <form
+        action="https://sandbox.payfast.co.za/eng/process"
+        method="post"
+        className="w-[95vw] max-w-md"
+      >
         {isPending ? (
           <LoadingSpinner />
         ) : (

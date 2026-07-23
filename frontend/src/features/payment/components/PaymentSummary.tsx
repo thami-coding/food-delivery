@@ -2,7 +2,7 @@ import { formatCurrency } from "../../../lib/formatCurrency"
 
 export default function PaymentSummary({ order, delivery }) {
   return (
-    <div className="w-full max-w-lg min-w-md rounded-2xl shadow-xl border border-zinc-800 p-8 space-y-6 bg-neutral-800">
+    <div className="rounded-2xl shadow-xl border border-zinc-900 p-8 space-y-6 bg-neutral-800">
       <h2 className="text-2xl font-semibold text-center text-white">
         Proceed to Payment
       </h2>

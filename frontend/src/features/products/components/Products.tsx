@@ -22,7 +22,7 @@ export default function Products({ category }: ProductsProps) {
 
   return (
     <div
-      className={`mt-30 grid grid-cols-3 gap-x-14 text-white max-w-6xl justify-between gap-y-12 min-h-125`}
+      className={`mt-30 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-14 text-white max-w-6xl justify-between gap-y-12 min-h-125`}
     >
       {data?.pages.map((page) => {
         return page.products.map((product) => {

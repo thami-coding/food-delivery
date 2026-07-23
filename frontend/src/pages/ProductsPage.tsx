@@ -14,8 +14,8 @@ const ProductsPage = () => {
   const { reset } = useQueryErrorResetBoundary()
   
   return (
-    <section className="grid place-items-center relative ">
-      <div className="mt-30 z-30 w-full  ">
+    <section className="grid place-items-center relative">
+      <div className="mt-30 z-30 w-full">
         <Categories setCategory={setCategory} selectedCategory={category} />
       </div>
       <ErrorBoundary

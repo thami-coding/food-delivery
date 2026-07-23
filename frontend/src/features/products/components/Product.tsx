@@ -42,12 +42,12 @@ export default function Product() {
   } = product ?? { imageUrl: "", name: "", price: 0, id: "" }
 
   return (
-    <div className="z-60">
+    <div className="z-60 flex justify-center">
       <div className="absolute inset-0 bg-black/60  backdrop-blur-xs"></div>
       <div
         ref={containerRef}
-        data-testid="product-modal"
-        className="w-md  border rounded-md overflow-hidden fixed top-10 left-1/3 bg-gray-950"
+        className="w-[95vw] max-w-140 border rounded-md overflow-hidden fixed top-30 bg-gray-950"
+        // className="w-md border rounded-md overflow-hidden fixed top-10 left-1/3 bg-gray-950"
       >
         <div className="bg-linear-to-br from-black/20 to-[#3b3b3b]">
           <img

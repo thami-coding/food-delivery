@@ -19,7 +19,7 @@ export default function CartItems({ cart }: { cart: DetailedCart[] }) {
         const productId = id as string
 
         return (
-          <div key={productId} className="p-5  hover:bg-gray-600 rounded-sm">
+          <div key={productId} className="py-5 px-2  hover:bg-gray-600 rounded-sm">
             <div className="border-b grid grid-cols-3 w-fit pb-3">
               <div className="h-27 border rounded-md border-transparent overflow-hidden bg-linear-to-br from-black/20 to-[#3b3b3b]">
                 <img

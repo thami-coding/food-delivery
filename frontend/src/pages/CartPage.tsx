@@ -31,9 +31,9 @@ export default function CartPage() {
   const cartTotal = calculateCartTotal(cart)
 
   return (
-    <section className="flex justify-center mt-30 max-w-339.75">
-      <div className="  text-white mr-10 overflow-y-auto w-125 h-110 rounded-md ">
-        <h2 className="text-2xl font-bold pl-5 fixed top-20">Cart Items</h2>
+    <section className="mt-30 w-screen flex px-2.5 flex-col gap-y-10 lg:flex-row md:px-5 md:gap-x-10 items-center lg:justify-between lg:items-start">
+      <div className="text-white overflow-y-auto rounded-md max-w-140">
+        <h2 className="text-2xl font-bold  fixed top-20">Cart Items</h2>
         <CartItems cart={cart} />
         <CartTotal cartTotal={cartTotal} />
       </div>

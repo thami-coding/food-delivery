@@ -2,7 +2,7 @@ import Img from "../../../assets/hero-img.png"
 
 export default function Promo() {
   return (
-    <div>
+    <div className="hidden lg:block">
       <div className="w-lg relative rounded-2xl py-3.5">
         <h3 className="font-lobster text-4xl text-center text-yellow-400">
           Beef Me Up Combo

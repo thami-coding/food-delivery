@@ -39,7 +39,7 @@ export default function CheckoutPage() {
 
   if (isPendingCart) {
     return (
-      <div className="h-dvh grid place-content-center ">
+      <div className="h-dvh grid place-content-center">
         <LoadingSpinner />
       </div>
     )
@@ -68,7 +68,7 @@ export default function CheckoutPage() {
 
   return (
     <section className="grid mt-10 justify-center">
-      <div className="border text-gray-100 mx-auto w-lg px-5 py-8">
+      <div className="border text-gray-100 w-[95vw] max-w-lg px-5 py-8">
         <div className="flex justify-between">
           <h2 className=" tracking-wide text-gray font-bold">
             Delivery Address

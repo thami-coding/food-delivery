@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`py-3 px-12 fixed top-0  w-full z-40 ${
+      className={`py-3 px-12 fixed top-0 w-full z-40 ${
         scrolled && "bg-[#1b1919]"
       }`}
     >

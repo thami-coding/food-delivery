@@ -6,7 +6,7 @@ export default function OrderSummarry({ cartTotal }: OrderSummarryProps) {
   const deliveryPrice = toCents(20)
   
   return (
-    <div className="border border-white h-min p-4 ml-20  min-w-90 ">
+    <div className="border border-white p-4 w-[95vw] max-w-114">
       <h2 className="uppercase mb-3 text-yellow-400 font-bold">
         Order Summary
       </h2>

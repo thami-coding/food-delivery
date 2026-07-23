@@ -5,21 +5,21 @@ import Promo from "../features/home/components/Promo"
 
 export default function HomePage() {
   return (
-    <section className="pt-4 h-screen">
-      <div className="flex items-center  justify-around h-[calc(100vh-1rem)]">
+    <section className="pt-4 h-screen px-3.5 md:p-0">
+      <div className="flex items-center justify-around h-[calc(100vh-1rem)]">
         <div className="flex flex-col text-white">
           <div className="flex  font-lobster text-yellow-400">
-            <h2 className="mb-4 text-5xl">Fast Food at Its Best</h2>
+            <h2 className="mb-4 text-4xl md:text-5xl">Fast Food at Its Best</h2>
             <GiChickenOven className="text-5xl ml-2" />
           </div>
-          <h3 className="mb-4 text-3xl">
+          <h3 className="mb-4 text-2xl md:text-3xl">
             Hungry? We’ve got what you’re craving
           </h3>
-          <p className="mb-7 text-[1.2rem] ">
-            Whether you're in a rush or just hungry for something better, <br />{" "}
+          <p className="mb-7 text-[1.2rem] border-amber-1 max-w-120">
+            Whether you're in a rush or just hungry for something better,
             we've got your taste buds covered.
           </p>
-          <div className="mt-3">
+          <div className="mt-3 flex justify-center md:justify-start">
             <HeroButton title="Specials" />
             <HeroButton title="Menu" isTransparent={true} />
           </div>
