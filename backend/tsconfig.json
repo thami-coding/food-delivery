@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "nodenext",
     "types": [
       "node",
       "jest"
     ],
-    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "nodenext",
     "pretty": true,
     "sourceMap": false,
     "target": "ESNext",
-    "outDir": "./dist",
     "noImplicitAny": false,
     "esModuleInterop": true,
     "removeComments": true,
@@ -22,9 +23,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*",
-    "tests/**/*"
-, "jest.setup.ts"  ],
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules"
   ]
