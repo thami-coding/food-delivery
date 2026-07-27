@@ -1,8 +1,11 @@
 import axios from "axios"
 import { queryClient } from "./queryClient"
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+const isDev = import.meta.env.DEV
+
 export const AxiosInstance = axios.create({
-  baseURL: "/api/v1",
+  baseURL: isDev ? "/api/v1" : `${BACKEND_URL}/api/v1`,
   timeout: 10000,
   withCredentials: true,
 })
