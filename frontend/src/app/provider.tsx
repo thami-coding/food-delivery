@@ -4,7 +4,7 @@ import { queryClient } from "./queryClient"
 import { router } from "./router"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { ToastContainer } from "react-toastify"
-import  ConfirmDialog from "../components/ConfirmDialog"
+import ConfirmDialog from "../components/ConfirmDialog"
 
 type Props = {
   children?: React.ReactNode
@@ -21,5 +21,3 @@ export function AppProviders({ children }: Props) {
     </QueryClientProvider>
   )
 }
-
-
