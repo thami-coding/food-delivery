@@ -9,7 +9,6 @@ import { ErrorAlert } from "../../../components/ErrorAlert"
 import type { Order } from "../../admin/schemas"
 
 export default function Payment({ order }: { order: Order }) {
-  console.log(order);
   
   const { isPending, isError, data: signature } = usePaymentSignature(order)
   const { setCurrentStep } = useStep()

@@ -17,12 +17,12 @@ export default function PaymentHiddenInputs({ order, signature, totalAmount }:Pa
       <input
         type="hidden"
         name="return_url"
-        value="https://db85-168-210-105-91.ngrok-free.app/order-status"
+        value="https://fd5e-168-210-105-91.ngrok-free.app/order-status"
       />
       <input
         type="hidden"
         name="notify_url"
-        value="https://db85-168-210-105-91.ngrok-free.app/api/payment/complete"
+        value="https://fd5e-168-210-105-91.ngrok-free.app/api/payment/complete"
       />
       <input type="hidden" name="name_first" value={order.user.fullName!} />
       {/*TODO: fix fullName and others optional state  */}
