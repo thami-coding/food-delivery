@@ -11,6 +11,13 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/api/v1", v1Routes)
 app.use(errorHandler)
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "Food Delivery API is running In Production!",
+  })
+})
+
 export const startServer = (port: number) => {
   Database.initialize()
     .then(() => {
