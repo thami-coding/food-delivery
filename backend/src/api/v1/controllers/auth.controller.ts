@@ -11,19 +11,21 @@ import {
   generateRefreshToken,
 } from "../../../utils/auth.utils"
 
+const isProduction = process.env.NODE_ENV === "production"
+
 export const login = async (req: Request, res: Response) => {
   const { accessToken, refreshToken, user } = await authService.login(req.body)
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: false, // CHange to true for production
-    sameSite: "lax", //TODO: Change to strict for production
+    secure: isProduction,
+    sameSite: isProduction ? "strict" : "lax",
   })
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    secure: false, // CHange to true for production
-    sameSite: "lax", //TODO: Change to strict for production
+    secure: isProduction,
+    sameSite: isProduction ? "strict" : "lax",
   })
 
   res.status(StatusCodes.OK).json({ status: "success", user })
@@ -32,6 +34,7 @@ export const login = async (req: Request, res: Response) => {
 export const refreshToken = async (req: Request, res: Response) => {
   const refreshRepo = refreshTokenRepository()
   const refreshToken = req.cookies.refreshToken
+  const isProduction = process.env.NODE_ENV === "production"
 
   if (!refreshToken) {
     res.status(401).json({ message: "No refresh token" })
@@ -41,12 +44,16 @@ export const refreshToken = async (req: Request, res: Response) => {
   try {
     const decoded = jwt.verify(
       refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
+      process.env.REFRESH_TOKEN_SECRET as string,
     ) as AuthPayload
 
     const storedToken = await refreshRepo.findOne({
       where: { id: decoded.tokenId },
     })
+
+    if (!decoded.tokenId || !decoded.userId) {
+      throw new Error("Invalid token payload: missing token ID or userId")
+    }
 
     if (!storedToken || storedToken.revoked) {
       await refreshRepo.update(decoded.userId, { revoked: true })
@@ -85,28 +92,21 @@ export const refreshToken = async (req: Request, res: Response) => {
 
     res.cookie("refreshToken", newRefreshToken, {
       httpOnly: true,
-      secure: false, // CHange to true for production
-      sameSite: "lax", //TODO: Change to strict for production
-    })
-
-    res.cookie("refreshToken", newRefreshToken, {
-      httpOnly: true,
-      secure: false, // CHange to true for production
-      sameSite: "lax", //TODO: Change to strict for production
+      secure: isProduction,
+      sameSite: isProduction ? "strict" : "lax",
     })
 
     res.clearCookie("accessToken")
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
-      secure: false, // CHange to true for production
-      sameSite: "lax", //TODO: Change to strict for production
+      secure: isProduction,
+      sameSite: isProduction ? "strict" : "lax",
     })
 
     res.json({ status: "sucess", message: "token refreshed" })
     return
   } catch (err) {
     console.log(err)
-
     res.status(403).json({ message: "Invalid refresh token" })
   }
 }

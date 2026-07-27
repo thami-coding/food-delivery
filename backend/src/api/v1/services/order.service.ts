@@ -6,6 +6,7 @@ import {
   orderRepository,
   userRepository,
 } from "../../../repositories/repos"
+import { NotFoundError } from "../../../errors/AppError"
 
 export const createOrder = async (body) => {
   const cartRepo = cartRepository()
@@ -21,6 +22,7 @@ export const createOrder = async (body) => {
     .select(["cart.userId", "cart.productId", "cart.quantity", "product.price"])
     .where("cart.userId = :userId", { userId })
     .getMany()
+
   const deliveryPrice = convertToCents(20)
   const totalAmountInCents: number = cartItems.reduce(
     (sum, item) => sum + convertToCents(item.product.price) * item.quantity,
@@ -105,6 +107,11 @@ export const updateOrder = async (body) => {
   const oderRepo = orderRepository()
   const { status, id } = body
   const order = await oderRepo.findOneBy({ id })
+
+  if (!order) {
+    throw new NotFoundError()
+  }
+  
   order.status = status
   const updatedOrder = await oderRepo.save(order)
   return updatedOrder

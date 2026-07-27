@@ -8,7 +8,7 @@ export const generatePaymentSignature = async (req: Request, res: Response) => {
 }
 
 export const completePayment = async (req, res: Response) => {
-  const isPaymentComplete = paymentService.completePayment(req)
+  const isPaymentComplete = await paymentService.completePayment(req)
 
   if (isPaymentComplete) {
     res

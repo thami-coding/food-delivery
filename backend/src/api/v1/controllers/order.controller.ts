@@ -4,7 +4,7 @@ import { Request, Response } from "express"
 
 export const createOrder = async (req: Request, res: Response) => {
   const body = req.body
-  const userId = req.user.id
+  const userId = req.user?.id
   const order = await orderSercive.createOrder({ ...body, userId })
   res.status(StatusCodes.CREATED).json({ status: "success", order })
 }
@@ -15,12 +15,12 @@ export const getAllOrders = async (req: Request, res: Response) => {
 }
 
 export const getUserOrders = async (req: Request, res: Response) => {
-  const orders = await orderSercive.getUserOrders(req.user.id)
+  const orders = await orderSercive.getUserOrders(req.user?.id!) // TODO: FIX
   res.status(StatusCodes.OK).json({ status: "success", orders })
 }
 
 export const getLatestOrder = async (req: Request, res: Response) => {
-  const latestOrder = await orderSercive.getLatestOrder(req.user.id)
+  const latestOrder = await orderSercive.getLatestOrder(req.user?.id!) // TODO: FIX
   const order = latestOrder[0]
   res.status(StatusCodes.OK).json({ status: "success", order })
 }

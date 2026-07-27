@@ -13,30 +13,30 @@ import { Product } from "./product.entity"
 @Entity()
 export class OrderItem {
   @PrimaryGeneratedColumn("uuid")
-  id: string
+  id!: string
 
   @Column({ type: "uuid", nullable: false, select: false })
-  orderId: string
+  orderId!: string
 
   @Column({ type: "uuid", nullable: false })
-  productId: string
+  productId!: string
 
   @Column({ type: "int" })
-  quantity: number
+  quantity!: number
 
   @ManyToOne(() => Order, (order: Order) => order.items, {
     onDelete: "CASCADE",
   })
   @JoinColumn({ name: "orderId" })
-  order: Order
+  order!: Order
 
   @ManyToOne(() => Product, (product) => product.orderItems, { eager: true })
   @JoinColumn({ name: "productId" })
-  product: Product
+  product!: Product
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt!: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt!: Date
 }

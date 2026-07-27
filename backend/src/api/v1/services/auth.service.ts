@@ -8,6 +8,7 @@ import { AuthPayload, ExpiresIn, UserRole } from "../../../types/common.types"
 import {
   BadRequestError,
   ConflictError,
+  NotFoundError,
   UnauthorizedError,
 } from "../../../errors/AppError"
 import {
@@ -91,14 +92,18 @@ export const signup = async (data: RegisterBody) => {
 export const forgotPassword = async (email: string) => {
   const userRepo = userRepository()
   const user = await userRepo.findOne({ where: { email } })
-console.log(user);
+  console.log(user)
 
   if (!user) {
     return
   }
-  const resetToken = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "1h",
-  })
+  const resetToken = jwt.sign(
+    { email: email },
+    process.env.ACCESS_TOKEN_SECRET as string,
+    {
+      expiresIn: "1h",
+    },
+  )
 
   const resetLink = `${process.env.FRONT_END_URL}/reset-password?token=${resetToken}`
   const resend = new Resend(process.env.RESEND_API_KEY)
@@ -121,10 +126,14 @@ export const resetPasword = async (data) => {
   const userRepo = userRepository()
   const { resetToken, password, confirmPassword } = data
   try {
-    const decode = jwt.verify(resetToken, process.env.JWT_SECRET)
+    const decode = jwt.verify(resetToken, process.env.JWT_SECRET as string)
     const email = decode["email"]
     const user = await userRepo.findOne({ where: { email } })
     const isMatch = password === confirmPassword
+
+    if (!user) {
+      throw new NotFoundError({ error: "User Not Found!" })
+    }
 
     if (!isMatch) {
       throw new BadRequestError({

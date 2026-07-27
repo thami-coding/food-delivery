@@ -1,13 +1,13 @@
 import { StatusCodes } from "http-status-codes"
 
 export abstract class AppError extends Error {
-  public readonly statusCode: number
-  public readonly fields: Record<string, string>
+  public readonly statusCode?: number
+  public readonly fields?: Record<string, string>
 
   constructor(
     fields?: Record<string, string>,
     message?: string,
-    statusCode?: number,
+    statusCode?: number, //TODO: check if I can't make some fields required
   ) {
     super(message)
     this.statusCode = statusCode
@@ -30,7 +30,7 @@ export class UnauthorizedError extends AppError {
 }
 
 export class NotFoundError extends AppError {
-  constructor(fields: Record<string, string>, message = "Resource not found") {
+  constructor(fields?: Record<string, string>, message = "Resource not found") {
     super(fields, message, StatusCodes.NOT_FOUND)
   }
 }

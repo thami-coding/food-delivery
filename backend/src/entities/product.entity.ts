@@ -21,35 +21,35 @@ export enum Categories {
 @Entity("products")
 export class Product {
   @PrimaryGeneratedColumn("uuid")
-  id: string
+  id!: string
 
   @Column()
-  name: string
+  name!: string
 
   @Column({ type: "text", nullable: true })
-  ingredients: string
+  ingredients!: string
 
   @Column({ type: "simple-enum", enum: Categories })
-  category: Categories
+  category!: Categories
 
   @Column()
-  description: string
+  description!: string
 
   @Column({ type: "decimal", precision: 10, scale: 2 })
-  price: number
+  price!: number
 
   @Column()
-  imageUrl: string
+  imageUrl!: string
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt!: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt!: Date
 
   @OneToMany(() => OrderItem, (item) => item.product)
-  orderItems: OrderItem[]
+  orderItems!: OrderItem[]
 
   @OneToMany(() => Cart, (cart) => cart.product)
-  cart: Cart[]
+  cart!: Cart[]
 }

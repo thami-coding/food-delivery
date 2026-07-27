@@ -12,7 +12,7 @@ export const hashPassword = async (password: string) => {
 
 export const authorize =
   (role: string) => async (req: Request, res: Response, next: NextFunction) => {
-    if (req.user.role !== role) {
+    if (req.user?.role !== role) {
       res
         .status(StatusCodes.FORBIDDEN)
         .json({ message: "You are Unauthorized to access this route" })
@@ -39,7 +39,7 @@ export const authenticate = async (
   try {
     const decoded = jwt.verify(
       accessToken,
-      process.env.ACCESS_TOKEN_SECRET,
+      process.env.ACCESS_TOKEN_SECRET as string,
     ) as AuthPayload
     
     const { userId, role, tokenId } = decoded
@@ -62,13 +62,13 @@ export const comparePasswords = async (
 }
 
 export const generateAccessToken = (payload: AuthPayload) => {
-  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET as string, {
     expiresIn: "30m",
   })
 }
 
 export const generateRefreshToken = (payload: AuthPayload) => {
-  return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+  return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET as string, {
     expiresIn: "7d",
   })
 }

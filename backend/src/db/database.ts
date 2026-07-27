@@ -34,7 +34,7 @@ export class Database {
     this.dataSource = testDataSource
   }
 
-  public static getRepository<T>(entity: ObjectType<T>): Repository<T> {
+  public static getRepository<T>(entity: ObjectType<T>) {
     if (!this.dataSource || !this.dataSource.isInitialized) {
       throw new Error(
         "Database is not initialized! Call Database.initialize() first.",

@@ -1,14 +1,16 @@
 import { Request, Response } from "express"
-import { generateSignature } from "../../utils/payment_utils"
+
+
+import { StatusCodes } from "http-status-codes"
 import {
+  pfValidSignature,
   pfValidIP,
   pfValidPaymentData,
   pfValidServerConfirmation,
-  pfValidSignature,
-} from "../../utils/payment_notification"
-import { DatabaseUtil } from "../../db/database"
-import { Orders } from "../orders/order_entity"
-import { StatusCodes } from "http-status-codes"
+  generateSignature,
+} from "../../utils/payment.utiils"
+import { Order } from "../../entities"
+import { Database } from "../../db/database"
 
 export const generatePaymentSignature = async (
   req: Request,
@@ -62,7 +64,7 @@ export const updatePaymentStatus = async (
   if (check1 && check2 && check3 && check4) {
     // All checks have passed, the payment is successful
     console.log("in success")
-    const oderRepository = new DatabaseUtil().getRepository(Orders)
+    const oderRepository =  Database.getRepository(Order)
     const id = req.body.m_payment_id
     await oderRepository.update({ id }, { paymentStatus: "paid" })
     res.status(StatusCodes.OK).json({ message: "payment successful!" })

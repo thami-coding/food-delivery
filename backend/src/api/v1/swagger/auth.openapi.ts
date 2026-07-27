@@ -1,6 +1,6 @@
 import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi"
 import { UserResponseSchema } from "../../../schemas/response/user.response.schema"
-import { AuthResponseSchema } from "../../../schemas/response/auth.response.schema"
+import { LoginResponseSchema } from "../../../schemas/response/auth.response.schema"
 import {
   ForgotPasswordSchema,
   ResetPasswordSchema,
@@ -38,7 +38,7 @@ authRegister.registerPath({
       description: "success",
       content: {
         "application/json": {
-          schema: AuthResponseSchema,
+          schema: LoginResponseSchema,
         },
       },
     },

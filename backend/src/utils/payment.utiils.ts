@@ -5,7 +5,7 @@ import dns from "dns"
 export const pfValidSignature = (
   pfData,
   pfParamString,
-  pfPassphrase = null,
+  pfPassphrase: null | string = null,
 ) => {
   // Calculate security signature
   let tempParamString = ""
@@ -40,8 +40,9 @@ export const pfValidIP = async (req) => {
     "w2w.payfast.co.za",
   ]
 
-  let validIps = []
-  const pfIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress
+  let validIps:string[] = []
+  const pfIp: string =
+    req.headers["x-forwarded-for"] || req.connection.remoteAddress
 
   try {
     for (let key in validHosts) {
@@ -52,6 +53,8 @@ export const pfValidIP = async (req) => {
   } catch (err) {
     console.error(err)
   }
+  console.log(validIps)
+  console.log(pfIp)
 
   const uniqueIps = [...new Set(validIps)]
 
@@ -79,7 +82,7 @@ export const pfValidServerConfirmation = async (pfHost, pfParamString) => {
   return result === "VALID"
 }
 
-export const generateSignature = (data, passPhrase = null) => {
+export const generateSignature = (data, passPhrase: null | string = null) => {
   // Create parameter string
   let pfOutput = ""
   for (let key in data) {
@@ -95,7 +98,6 @@ export const generateSignature = (data, passPhrase = null) => {
   if (passPhrase !== null) {
     getString += `&passphrase=${encodeURIComponent(passPhrase.trim()).replace(/%20/g, "+")}`
   }
-  console.log(getString)
 
   return crypto.createHash("md5").update(getString).digest("hex")
 }

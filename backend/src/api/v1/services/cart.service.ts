@@ -1,3 +1,4 @@
+import { NotFoundError } from "../../../errors/AppError"
 import { cartRepository } from "../../../repositories/repos"
 
 export const getDetailedCart = async (userId: string) => {
@@ -45,6 +46,10 @@ export const deleteCartItem = async ({ userId, productId }) => {
 export const updateCart = async ({ productId, userId, quantity }) => {
   const cartRepo = cartRepository()
   const cartItem = await cartRepo.findOneBy({ productId, userId })
+
+  if (!cartItem) {
+    throw new NotFoundError()
+  }
   
   cartItem.quantity = quantity
   await cartRepo.save(cartItem)

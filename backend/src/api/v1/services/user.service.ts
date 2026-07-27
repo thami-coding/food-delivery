@@ -3,7 +3,7 @@ import { userRepository } from "../../../repositories/repos"
 
 export const update = async (data: Partial<User>) => {
   const userRepo = userRepository()
-  return await userRepo.update(data.id, data)
+  return await userRepo.update(data.id!, data) // TODO FIX
 }
 
 export const remove = async (userId: string) => {

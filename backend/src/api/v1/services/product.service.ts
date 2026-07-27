@@ -1,4 +1,5 @@
 import { products as allProducts } from "../../../dummy-data"
+import { NotFoundError } from "../../../errors/AppError"
 import { productRepository } from "../../../repositories/repos"
 
 export const createProducts = async () => {
@@ -52,6 +53,8 @@ export const editProduct = async (productId: string, body) => {
   const productRepo = productRepository()
   const product = await productRepo.findOneBy({ id: productId })
 
+  if(!product) throw new NotFoundError()
+    
   product.name = body.name
   product.description = body.description
   product.category = body.category

@@ -52,12 +52,10 @@ export const completePayment = async (req) => {
 
   if (check1 && check2 && check3 && check4) {
     // All checks have passed, the payment is successful
-    console.log("in success")
     const id = req.body.m_payment_id
     await orderRepo.update({ id }, { paymentStatus: "paid" })
     return true
   } else {
-    console.log("in failure")
     // Some checks have failed, check payment manually and log for investigation
     return false
   }

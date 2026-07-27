@@ -10,18 +10,18 @@ import { Product } from "./product.entity"
 @Entity()
 export class Cart {
   @PrimaryGeneratedColumn("uuid")
-  id: string
+  id!: string
 
   @Column({ type: "uuid", nullable: false })
-  userId: string
+  userId!: string
 
   @Column({ type: "uuid", nullable: true })
-  productId: string
+  productId!: string
 
   @Column()
-  quantity: number
+  quantity!: number
 
   @ManyToOne(() => Product, (product) => product.cart, { eager: false })
   @JoinColumn({ name: "productId" })
-  product: Product
+  product!: Product
 }

@@ -20,39 +20,39 @@ export enum OrderStatus {
 @Entity("orders")
 export class Order {
   @PrimaryGeneratedColumn("uuid")
-  id: string
+  id!: string
 
   @Column({ type: "uuid", nullable: true, select: false })
-  userId: string
+  userId!: string
 
   @ManyToOne(() => User, (user) => user.orders, { eager: true })
-  user: User
+  user!: User
 
   @OneToMany(() => OrderItem, (item) => item.order, {
     cascade: true,
     eager: true,
   })
-  items: OrderItem[]
+  items!: OrderItem[]
 
   @Column({ type: "decimal", precision: 10 })
-  totalAmount: number
+  totalAmount!: number
 
   @Column({
     type: "simple-enum",
     enum: OrderStatus,
     default: OrderStatus.PREPARING,
   })
-  status: OrderStatus
+  status!: OrderStatus
 
   @Column({ default: "online" })
-  paymentMethod: string
+  paymentMethod!: string
 
   @Column({ default: "pending" })
-  paymentStatus: string
+  paymentStatus!: string
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt!: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt!: Date
 }

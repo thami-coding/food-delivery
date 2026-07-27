@@ -27,10 +27,7 @@ export class User {
   @Column({ length: 10, nullable: true })
   phoneNumber: string
 
-  @Column({
-    default: "admin",
-    select: false,
-  })
+  @Column({ default: "user" })
   role: UserRole
 
   @Column({ nullable: true, length: 60 })

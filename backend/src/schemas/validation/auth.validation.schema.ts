@@ -4,8 +4,7 @@ export const LoginSchema = z.object({
   body: z.object({
     email: z.email("Invalid email address"),
     password: z
-      .string("Password is required")
-      .min(8, "Password must be at least 8 characters"),
+      .string("Password is required"),
   }),
 })
 
@@ -20,7 +19,7 @@ export const RegisterSchema = z.object({
 
       confirmPassword: z
         .string("Confirm password is required")
-        .min(8, "Confirm must be at least 8 characters"),
+        .min(8, "Password must be at least 8 characters"),
     })
     .refine((data) => data.password === data.confirmPassword, {
       path: ["confirmPassword"],
