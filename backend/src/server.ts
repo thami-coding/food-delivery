@@ -14,7 +14,7 @@ app.use(errorHandler)
 app.get("/", (req, res) => {
   res.status(200).json({
     status: "success",
-    message: "Food Delivery API is running In Production!",
+    message: "Food Delivery API is running In Production!!",
   })
 })
 
