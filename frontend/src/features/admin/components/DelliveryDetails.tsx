@@ -1,11 +1,18 @@
-import { useRealTime, useUpdateOrder } from "../hooks"
+import type { User } from "../../user/types"
+import {useUpdateOrder } from "../hooks"
 
+interface DelliveryDetailsProps {
+  user: User
+  status: "done" | "preparing" | "delivery" // TOD: refactor to a single type
+  orderId: string
+  searchParams: URLSearchParams
+}
 export default function DelliveryDetails({
   user,
   status,
   orderId,
   searchParams,
-}) {
+}: DelliveryDetailsProps) {
   const { mutate } = useUpdateOrder(searchParams)
   const markAsDone = () => {
     mutate({ id: orderId, status: "done" })
@@ -15,7 +22,7 @@ export default function DelliveryDetails({
     <div className="flex items-center justify-between bg-[#1a1a1a] p-4 rounded-xl">
       <div>
         <div className="grid gap-y-1.5">
-          <p className="text-yellow-300 text-[1.2rem]">Noma {user.name}</p>
+          <p className="text-yellow-300 text-[1.2rem]">{user.fullName}</p>
           <p className="text-yellow-300 text-[1.2rem]">{user.phoneNumber}</p>
           <p className="text-[1rem]">{user.streetAddress}</p>
           <p className="text-[1rem]">{user.suburb}</p>

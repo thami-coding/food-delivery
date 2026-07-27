@@ -31,20 +31,6 @@ const AddProductsPage = () => {
     }
   }, [imagePreview])
 
-  useEffect(() => {
-    if (productMutation.isSuccess) {
-      toast.success("Product Added")
-      setForm({
-        name: "",
-        description: "",
-        category: "",
-        price: "",
-      })
-      setImageFile(null)
-      setImagePreview(null)
-    }
-  }, [productMutation.isSuccess])
-
   const handleImageChange = (file: File | null) => {
     if (!file) return
 
@@ -61,27 +47,44 @@ const AddProductsPage = () => {
       price: form.price,
       imageFile,
     })
-
+    
     if (!result.success) {
       const fieldErrors: Record<string, string> = {}
       result.error.issues.forEach((err) => {
         fieldErrors[err.path[0] as string] = err.message
       })
+      console.log(fieldErrors)
       setErrors(fieldErrors)
       setIsLoading(false)
       return
     }
-
+    
     try {
+
       const imageUrl = await uploadToCloudinary(imageFile!)
 
-      productMutation.mutate({
-        name: result.data.name,
-        description: result.data.description,
-        category: result.data.category,
-        price: result.data.price,
-        imageUrl,
-      })
+      productMutation.mutate(
+        {
+          name: result.data.name,
+          description: result.data.description,
+          category: result.data.category,
+          price: result.data.price,
+          imageUrl,
+        },
+        {
+          onSuccess: () => {
+            toast.success("Product Added")
+            setForm({
+              name: "",
+              description: "",
+              category: "",
+              price: "",
+            })
+            setImageFile(null)
+            setImagePreview(null)
+          },
+        },
+      )
       setIsLoading(false)
     } catch (err) {
       log.warn(err)

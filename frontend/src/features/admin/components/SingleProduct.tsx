@@ -1,10 +1,13 @@
-import { EditDelete } from './EditDelete'
+import { EditDelete } from "./EditDelete"
 
-export default function SingleProduct({imageUrl, id}) {
+interface SingleProductProps {
+  imageUrl: string
+  id: string
+}
+
+export default function SingleProduct({ imageUrl, id }: SingleProductProps) {
   return (
-    <div
-      className="relative group shadow-lg shadow-neutral-950 transition-transform duration-300 rounded-2xl max-w-70 max-h-160  cursor-pointer"
-    >
+    <div className="relative group shadow-lg shadow-neutral-950 transition-transform duration-300 rounded-2xl max-w-70 max-h-160  cursor-pointer">
       <div className="max-w-full h-65 rounded-2xl bg-gray-950 overflow-hidden">
         <img
           src={imageUrl}

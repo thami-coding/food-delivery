@@ -1,7 +1,7 @@
 import type z from "zod"
-import type { CartSchema, CartSchemaDetailed } from "./schemas"
+import type { CartItemSchema, CartSchemaDetailed } from "./schemas"
 
-export type CartItem = z.infer<typeof CartSchema>
+export type CartItem = z.infer<typeof CartItemSchema>
 export type DetailedCart = z.infer<typeof CartSchemaDetailed>
 export type UpdateQuantity = {
   quantity: number

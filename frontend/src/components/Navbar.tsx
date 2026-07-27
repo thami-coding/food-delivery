@@ -4,13 +4,11 @@ import Login from "../features/user/components/ProfileModal"
 import { useEffect, useState } from "react"
 import { IoCartOutline } from "react-icons/io5"
 import { calculateItems } from "../lib/calculateTotal"
-import { useUser } from "../features/user/hooks"
 import { useCart } from "../features/cart/hooks"
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
-  const { data: response } = useUser()
-  const { data, isError, isPending } = useCart(response?.user)
+  const { data, isError, isPending } = useCart()
 
   const handleScroll = () => {
     if (window.scrollY > 100) {

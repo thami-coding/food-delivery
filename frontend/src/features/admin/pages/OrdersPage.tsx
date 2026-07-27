@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react"
-
+import { useEffect } from "react"
 import { ErrorAlert } from "../../../components/ErrorAlert"
 import DateRangeFilter from "../components/DateFilter"
-import {
-  useQueryClient,
-  useQueryErrorResetBoundary,
-} from "@tanstack/react-query"
 import { ErrorBoundary } from "react-error-boundary"
 import Orders from "../components/Orders"
 import { useSearchParams } from "react-router"
 import { supabase } from "../../../lib/supabaseClient"
+import {
+  useQueryClient,
+  useQueryErrorResetBoundary,
+} from "@tanstack/react-query"
 
 const OrdersPage = () => {
-  const [open, setOpen] = useState(false)
   const { reset } = useQueryErrorResetBoundary()
   const queryClient = useQueryClient()
   const [searchParams, setSearchParams] = useSearchParams({
@@ -56,8 +54,6 @@ const OrdersPage = () => {
     }
   }, [queryClient])
   const dateRangeProps = {
-    open,
-    setOpen,
     setSearchParams,
     searchParams,
   }

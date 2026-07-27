@@ -15,6 +15,7 @@ import {
   updateProduct,
 } from "./api"
 import { toast } from "react-toastify"
+import type { Filters, PaginatedOrders, PaginatedProducts } from "./schemas"
 
 export const useRealTime = () => {
   const queryClient = useQueryClient()
@@ -100,21 +101,21 @@ export const useDeleteProduct = () => {
 
       const prevProducts = context.client.getQueryData(["products", "all"])
       // Optimistically update cart
-      context.client.setQueryData(["products", "all"], (oldProducts = []) => {
-        // Update quantity
-        console.log(oldProducts)
-
-        if (!oldProducts) return oldProducts
-        return {
-          ...oldProducts,
-          pages: oldProducts.pages.map((page) => ({
-            ...page,
-            products: page.products.filter(
-              (product) => product.id !== productId,
-            ),
-          })),
-        }
-      })
+      context.client.setQueryData(
+        ["products", "all"],
+        (oldData: PaginatedProducts) => {
+          if (!oldData) return oldData
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page) => ({
+              ...page,
+              products: page.products.filter(
+                (product) => product.id !== productId,
+              ),
+            })),
+          }
+        },
+      )
 
       return { prevProducts }
     },
@@ -132,15 +133,15 @@ export const useDeleteProduct = () => {
   })
 }
 
-export function useInfiniteOrders(searchParams?) {
-  const dateRange = searchParams?.get("dateRange")
-  const status = searchParams?.get("status")
-  const filters = { dateRange, status }
+export function useInfiniteOrders(searchParams?: URLSearchParams) {
+  const dateRange = searchParams?.get("dateRange") ?? ""
+  const status = searchParams?.get("status") ?? ""
+  const filters: Filters = { dateRange, status }
 
   return useInfiniteQuery({
     queryKey: ["orders", filters],
     queryFn: ({ pageParam }) =>
-      fetchOrders({ page: pageParam as number, limit: 30, filters }),
+      fetchOrders({ page: pageParam, limit: 30, filters }),
     initialPageParam: 1,
     gcTime: 1000 * 60 * 60,
     getNextPageParam: (lastPage) =>
@@ -148,7 +149,7 @@ export function useInfiniteOrders(searchParams?) {
   })
 }
 
-export function useUpdateOrder(searchParams) {
+export function useUpdateOrder(searchParams: URLSearchParams) {
   const dateRange = searchParams?.get("dateRange")
   const status = searchParams?.get("status")
   const filters = { dateRange, status }
@@ -160,12 +161,14 @@ export function useUpdateOrder(searchParams) {
 
       const previousOrders = context.client.getQueryData(["orders", filters])
 
-      context.client.setQueryData(["orders", filters], (old) => {
-        if (!old) return old
+      context.client.setQueryData(["orders", filters], (oldOrders:PaginatedOrders) => {
+        console.log(oldOrders);
+        
+        if (!oldOrders) return oldOrders
 
         return {
-          ...old,
-          pages: old.pages.map((page) => ({
+          ...oldOrders,
+          pages: oldOrders.pages.map((page) => ({
             ...page,
             orders: page.orders.map((order) =>
               order.id === newOrder.id
@@ -185,9 +188,8 @@ export function useUpdateOrder(searchParams) {
       )
     },
     // Always refetch after error or success:
-    onSettled: (_data, _error, _variables, _onMutateResult, context) =>{
+    onSettled: (_data, _error, _variables, _onMutateResult, context) => {
       context.client.invalidateQueries({ queryKey: ["orders", filters] })
-
-    }
+    },
   })
 }

@@ -1,14 +1,14 @@
 import { Link, NavLink } from "react-router"
 import { MdOutlineManageAccounts } from "react-icons/md"
 import { MdExitToApp } from "react-icons/md"
-
-import { useUser } from "../../../hooks/useUser"
+import { useUser } from "../hooks"
 
 function UserProfile() {
-  const { data: user, isPending, isError } = useUser()
+  const { data, isPending, isError } = useUser()
 
   if (isPending) {
     return (
+      // TODO: This is spinner component
       <div className="absolute right-0 w-35  bg-yellow-400 text-black rounded-md z-10 p-3 flex justify-center items-center">
         <div className="h-4 w-4 animate-spin rounded-full border-2 border-solid border-black border-t-transparent"></div>
       </div>
@@ -22,9 +22,10 @@ function UserProfile() {
       </div>
     )
   }
+
   return (
     <div className="absolute right-0 w-35  bg-yellow-400 text-black rounded-md z-10">
-      {user ? (
+      {data ? (
         <div className="grid p-3">
           <Link
             to="/profile/edit"
@@ -32,7 +33,7 @@ function UserProfile() {
           >
             <MdOutlineManageAccounts />
             <span className="ml-2.5 ">
-              {isPending ? "Loading..." : user.username}
+              {isPending ? "Loading..." : data.user?.fullName}
             </span>
           </Link>
           <button

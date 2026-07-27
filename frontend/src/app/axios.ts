@@ -10,8 +10,6 @@ export const AxiosInstance = axios.create({
 AxiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error)
-
     const originalRequest = error.config
     const status = error.response?.status
 
@@ -44,6 +42,7 @@ AxiosInstance.interceptors.response.use(
     if (status === 401 || status === 403) {
       cleanupAndRedirect()
     }
+    console.log(error)
 
     return Promise.reject(error)
   },

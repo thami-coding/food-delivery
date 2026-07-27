@@ -1,5 +1,8 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import type { SetURLSearchParams } from "react-router"
+import type { DateRange } from "../types"
 
+// TODO: Not sure if to move inside component
 const options = [
   { label: "Today", dateRange: "today" },
   { label: "Last 30 days", dateRange: "30" },
@@ -8,22 +11,26 @@ const options = [
   { label: "All time", dateRange: "all" },
 ]
 
+interface DateRangeFilterProps {
+  searchParams: URLSearchParams
+  setSearchParams: SetURLSearchParams
+}
+
 export default function DateRangeFilter({
-  open,
-  setOpen,
   searchParams,
-  setSearchParams
-}) {
+  setSearchParams,
+}: DateRangeFilterProps) {
+  const [open, setOpen] = useState(false)
   const divRef = useRef<HTMLDivElement | null>(null)
-    const dateRange = searchParams.get("dateRange")
-    console.log(dateRange)
+  const dateRange = searchParams.get("dateRange")
+  console.log(dateRange)
   const selectedLabel =
     options.find((o) => o.dateRange === dateRange)?.label || "Last 30 days"
 
-  const handleSelect = (dateRange) => {
+  const handleSelect = (dateRange: DateRange) => {
     setSearchParams({
       dateRange,
-      status: dateRange !== "today" ? "done" : "preparing",
+      status: dateRange !== "today" ? "done" : "preparing", //TODO: confusing fix this
     })
     setOpen(false)
   }
@@ -72,7 +79,7 @@ export default function DateRangeFilter({
             {options.map((option) => (
               <button
                 key={option.dateRange}
-                onClick={() => handleSelect(option.dateRange)}
+                onClick={() => handleSelect(option.dateRange as DateRange)}
                 className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-zinc-800 cursor-pointer"
               >
                 <span

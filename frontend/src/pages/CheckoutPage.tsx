@@ -15,7 +15,7 @@ import { useCreateOrder } from "../features/order/hooks"
 
 export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("online")
-  const userQuery = useUser()
+  const { data } = useUser()
   const order = useCreateOrder()
   const { setCurrentStep } = useStep()
   const navigate = useNavigate()
@@ -58,7 +58,7 @@ export default function CheckoutPage() {
   const orderTotal = formatCurrency(calculateCartTotal(cart) + deliveryPrice)
 
   const handleClick = async () => {
-    const address = userQuery?.data?.user?.streetAddress
+    const address = data?.user?.streetAddress
     if (!address) {
       navigate("/profile")
       return
@@ -73,9 +73,9 @@ export default function CheckoutPage() {
           <h2 className=" tracking-wide text-gray font-bold">
             Delivery Address
           </h2>
-          <ChangeAddress {...userQuery} />
+          <ChangeAddress />
         </div>
-        <Address {...userQuery} />
+        <Address />
         <PaymentMethod
           setPaymentMethod={setPaymentMethod}
           paymentMethod={paymentMethod}

@@ -1,10 +1,10 @@
 export class HttpError extends Error {
-  statusCode?: number
+  statusCode: number
   fields?: Record<string, string>
 
   constructor(
     message: string,
-    statusCode?: number,
+    statusCode: number,
     fields?: Record<string, string>,
   ) {
     super(message)

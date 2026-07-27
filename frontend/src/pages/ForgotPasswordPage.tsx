@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from "react"
 import isEmail from "validator/lib/isEmail"
-import { toast } from "react-toastify"
 import { Link } from "react-router"
 import logo from "../assets/logo.png"
 import EmailSent from "../features/user/components/EmailSent"
@@ -10,8 +9,7 @@ import ErrorMessage from "../components/ErrorMessage"
 export default function ForgotPaswordPage() {
   const [email, setEmail] = useState("")
   const [emailError, setEmailError] = useState("")
-  const { mutate, isPending, isSuccess, isError, error, data } =
-    useForgotPassword()
+  const { mutate, isPending, isSuccess } = useForgotPassword()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,13 +22,10 @@ export default function ForgotPaswordPage() {
     mutate(email)
   }
 
-
-  if (isSuccess) {
-    return <EmailSent email={email} />
-  }
+  if (isSuccess) return <EmailSent email={email} />
 
   return (
-    <article className="ml-auto mr-auto mt-10 py-15  rounded-md text-neutral-50 px-8 w-[28rem] bg-[#202020] ">
+    <article className="ml-auto mr-auto mt-10 py-15  rounded-md text-neutral-50 px-8 w-md bg-[#202020] ">
       <Link to="/" className="border w-fit mr-auto ml-auto mb-10 block">
         <img src={logo} alt="" />
       </Link>

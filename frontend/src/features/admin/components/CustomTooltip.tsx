@@ -1,4 +1,3 @@
- "feat"
 import type { TooltipContentProps } from 'recharts';
 
 // #endregion

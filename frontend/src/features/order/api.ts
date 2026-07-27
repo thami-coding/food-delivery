@@ -1,4 +1,6 @@
 import { AxiosInstance } from "../../app/axios"
+import { validateOrThrow } from "../../lib/errors/error.utils"
+import { orderSchema } from "../admin/schemas"
 
 export const fetchUserOrders = async () => {
   const { data } = await AxiosInstance.get("/orders/me")
@@ -7,7 +9,9 @@ export const fetchUserOrders = async () => {
 
 export const fetchOrder = async () => {
   const { data } = await AxiosInstance.get("/orders/new")
-  return data.order
+ 
+  const order = validateOrThrow(orderSchema, data.order)
+  return order
 }
 
 export const createOrder = async (paymentMethod: string) => {

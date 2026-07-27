@@ -1,9 +1,9 @@
 import { AxiosInstance } from "../../app/axios"
 import { fromCents } from "../../lib/formatCurrency"
+import type { Order } from "../admin/schemas"
 
-
-
-export const generateSignature = async (order) => {
+export const generateSignature = async (order:Order) => {
+  
   const payload = {
     totalAmount: fromCents(order.totalAmount),
     name: order.user.fullName,

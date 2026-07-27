@@ -6,4 +6,4 @@ export const formatCurrency = (cents: number, currency = "ZAR") => {
 };
 
 export const toCents = (amount: number) => Math.round(Number(amount) * 100);
-export const fromCents = (cents: number) => (cents / 100)
+export const fromCents = (cents: string) => (Number(cents) / 100)

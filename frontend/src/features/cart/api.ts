@@ -1,5 +1,4 @@
 import { AxiosInstance } from "../../app/axios"
-import { HttpError } from "../../lib/errors/HttpError"
 import { CartDetailedResponseSchema, CartResponseSchema } from "./schemas"
 import type { CartItem, UpdateQuantity } from "./types"
 import {
@@ -12,11 +11,7 @@ export async function addCartItem(cartItem: CartItem) {
     const { data } = await AxiosInstance.post("/cart", cartItem)
     const parsed = validateOrThrow(CartResponseSchema, data)
 
-    if (parsed.status === "error") {
-      throw new HttpError(parsed.message)
-    }
-
-    return data.cart
+    return parsed.cart
   } catch (err) {
     throwHttpErrorFromAxios(err)
   }
@@ -26,9 +21,6 @@ export async function fetchCurrentUsersCart() {
   try {
     const { data } = await AxiosInstance.get("/cart")
     const parsed = validateOrThrow(CartDetailedResponseSchema, data)
-    if (parsed.status === "error") {
-      throw new HttpError(parsed.message)
-    }
 
     return parsed.cart
   } catch (err) {
@@ -44,10 +36,7 @@ export const updateCart = async (payload: UpdateQuantity) => {
   const { data } = await AxiosInstance.patch("/cart", payload)
   try {
     const parsed = validateOrThrow(CartResponseSchema, data)
-    if (parsed.status === "error") {
-      throw new HttpError(parsed.message)
-    }
-    return data
+    return parsed
   } catch (err) {
     throwHttpErrorFromAxios(err)
   }

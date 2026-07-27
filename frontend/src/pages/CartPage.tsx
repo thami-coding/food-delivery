@@ -7,10 +7,13 @@ import CartItems from "../features/cart/components/CartItems"
 import { useCart } from "../features/cart/hooks"
 import { ErrorAlert } from "../components/ErrorAlert"
 import CartTotal from "../features/cart/components/CartTotal"
+import type { HttpError } from "../lib/errors/HttpError"
+
 
 export default function CartPage() {
   const { data: cart, isPending, error, isError } = useCart()
   const { setCurrentStep } = useStep()
+  const err = error as HttpError
 
   useEffect(() => {
     setCurrentStep(2)
@@ -20,7 +23,7 @@ export default function CartPage() {
     return
   }
 
-  if (isError && error?.statusCode >= 500) {
+  if (isError && err?.statusCode >= 500) {
     return <ErrorAlert />
   }
 

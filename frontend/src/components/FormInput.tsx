@@ -7,7 +7,7 @@ interface Props {
   type?: string
   value: string
   name?: string
-  message?:string
+  errorMessage?: string
   labelText?: string
   placeholder?: string
   id: string
@@ -17,7 +17,7 @@ export default function FormInput({
   type,
   value,
   name,
-  message,
+  errorMessage,
   setValue,
   placeholder,
   id,
@@ -36,8 +36,10 @@ export default function FormInput({
         id={id}
         onChange={(e) => setValue(e.target.value)}
       />
-      {(name === "password" || name === "confirmPassword") && <ViewPassword setIsView={setIsView} isView={isView} />}
-      <ErrorMessage message={message} />
+      {(name === "password" || name === "confirmPassword") && (
+        <ViewPassword setIsView={setIsView} isView={isView} />
+      )}
+      <ErrorMessage message={errorMessage} />
     </div>
   )
 }

@@ -1,13 +1,15 @@
 import moment from "moment"
 import OrderButtons from "./OrderButtons"
+import type { OrderItems } from "../schemas"
 
 type OrderDetailsProps = {
   orderId: string
-  orderedItems: [] // TODO come backe to type this
+  orderedItems: OrderItems // TODO: come backe to type this
   status: string
   createdAt: string
   searchParams: URLSearchParams
 }
+
 export default function OrderDetails({
   orderId,
   orderedItems,

@@ -1,5 +1,5 @@
 import { AxiosInstance } from "../../app/axios"
-import type { DateRange } from "./types"
+import type { DateRange } from "../admin/types"
 
 type Params = {
   page: number

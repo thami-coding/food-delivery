@@ -20,8 +20,9 @@ export default function Orders({ searchParams }: OrdersProps) {
       </div>
     )
   }
+console.log(data);
 
-  const orders = data?.pages[0]?.orders
+  const orders = data?.pages[0]?.orders || []
 
   if (orders.length === 0) {
     return (

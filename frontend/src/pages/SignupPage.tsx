@@ -8,6 +8,7 @@ import logo from "../assets/logo.png"
 import { validateSignupInputs } from "../lib/validators"
 import { useSignup } from "../features/auth/hooks"
 import Button from "../components/Button"
+import type { HttpError } from "../lib/errors/HttpError"
 
 const SignupPage = () => {
   const [email, setEmail] = useState("")
@@ -33,15 +34,13 @@ const SignupPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setEmail("")
-      setPassword("")
-      setConfirmPassword("")
       queryClient.setQueryData(["user"], { user: data?.user })
       navigate("/login", { replace: true })
     }
   }, [data?.user, isSuccess, navigate, queryClient])
 
-  if (isError && error?.statusCode >= 500) {
+  const err = error as HttpError
+  if (isError && err?.statusCode >= 500) {
     return (
       <div className="grid place-content-center mt-15">
         <ErrorAlert
@@ -52,7 +51,7 @@ const SignupPage = () => {
     )
   }
 
-  const fieldErrors = error?.fields
+  const fieldErrors = err?.fields
 
   return (
     <section className="relative min-h-screen bg-[url(/grill-background.jpg)] bg-cover bg-center bg-no-repeat pt-8">
@@ -67,7 +66,7 @@ const SignupPage = () => {
             name="email"
             id="email"
             labelText="Email"
-            message={errors.email || fieldErrors?.email}
+            errorMessage={errors.email || fieldErrors?.email}
             placeholder="Enter Email"
             value={email}
             setValue={setEmail}
@@ -76,7 +75,7 @@ const SignupPage = () => {
             name="password"
             id="password"
             labelText="Password"
-            message={
+            errorMessage={
               errors.password || errors.confirmPassword || fieldErrors?.password
             }
             value={password}
@@ -87,7 +86,7 @@ const SignupPage = () => {
             name="confirmPassword"
             id="confirmPassword"
             labelText="Re-enter password"
-            message={errors.confirmPassword || fieldErrors?.password}
+            errorMessage={errors.confirmPassword || fieldErrors?.password}
             value={confirmPassword}
             placeholder="Re-enter Password"
             setValue={setConfirmPassword}

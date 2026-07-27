@@ -1,3 +1,14 @@
+import type { ChangeEvent } from "react"
+
+interface FormInputProps {
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+  value: string
+  name: string
+  placeholder: string
+  labelText: string
+  type: string
+}
+
 export default function FromInput({
   handleChange,
   value,
@@ -5,7 +16,7 @@ export default function FromInput({
   placeholder,
   labelText,
   type,
-}) {
+}: FormInputProps) {
   return (
     <div>
       <label htmlFor={name} className="block text-sm text-gray-300 mb-1 ml-2">

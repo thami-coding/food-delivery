@@ -1,4 +1,12 @@
-export default function PaymentHiddenInputs({ order, signature, totalAmount }) {
+import type { Order } from "../../admin/schemas"
+
+interface PaymentHiddenInputsProps {
+  order: Order
+  signature:string
+  totalAmount:string
+}
+
+export default function PaymentHiddenInputs({ order, signature, totalAmount }:PaymentHiddenInputsProps) {
   const merchantId = import.meta.env.VITE_PAYFAST_MERCHATN_ID
   const merchantKey = import.meta.env.VITE_PAYFAST_MERCHATN_KEY
 
@@ -16,7 +24,8 @@ export default function PaymentHiddenInputs({ order, signature, totalAmount }) {
         name="notify_url"
         value="https://db85-168-210-105-91.ngrok-free.app/api/payment/complete"
       />
-      <input type="hidden" name="name_first" value={order.user.fullName} />
+      <input type="hidden" name="name_first" value={order.user.fullName!} />
+      {/*TODO: fix fullName and others optional state  */}
       <input type="hidden" name="email_address" value={order.user.email} />
       <input type="hidden" name="m_payment_id" value={order.id} />
       <input type="hidden" name="amount" value={totalAmount} />

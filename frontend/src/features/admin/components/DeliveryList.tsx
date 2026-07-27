@@ -6,7 +6,7 @@ import { InfiniteScrollTrigger } from "../../../components/InfiniteScrollTrigger
 import { useSearchParams } from "react-router"
 
 export default function DeliveryList() {
-  const [searchParams, setSeachParams] = useSearchParams({
+  const [searchParams] = useSearchParams({
     dateRange: "today",
     status: "delivery",
   })
@@ -22,8 +22,9 @@ export default function DeliveryList() {
     )
   }
 
-  const orders = data?.pages[0].orders
-  if (orders?.length === 0) {
+  const orders = data?.pages[0].orders || []
+
+  if (orders.length === 0) {
     return (
       <div className="text-center text-3xl grid place-content-center min-h-screen">
         <TfiDropboxAlt className="text-9xl  mb-3" />

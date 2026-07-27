@@ -1,12 +1,15 @@
 import { useMutation } from "@tanstack/react-query"
 import { forgotPassword, login, logout, resetPassword, signUp } from "./api"
 import { toast } from "react-toastify"
+import type { HttpError } from "../../lib/errors/HttpError"
 
 export const useLogin = () => {
   return useMutation({
     mutationFn: login,
     onError: (error) => {
-      if (error?.statusCode >= 500) {
+      const err = error as HttpError
+      
+      if (err?.statusCode >= 500) {
         toast.warn("Something went wrong. Try again")
       }
     },

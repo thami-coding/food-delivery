@@ -7,7 +7,8 @@ type ProductCardProps = {
   name: string
   price: string
   imageUrl: string
-  ingredients: string
+  ingredients?: string | null // TODO: Fix this 
+  
 }
 export default function ProductCard({
   id,
@@ -22,6 +23,7 @@ export default function ProductCard({
     setProduct({ imageUrl, name, price, id })
     toggleDialog()
   }
+
   return (
     <article className="shadow-lg shadow-neutral-950 flex flex-col justify-between relative rounded-2xl max-w-80 max-h-160">
       <span className="absolute top-2 left-2 font-lobster text-2xl text-black tracking-wide bg-yellow-400 p-1 rounded-2xl">

@@ -7,6 +7,7 @@ import { validateLoginInputs } from "../lib/validators"
 import logo from "../assets/logo.png"
 import { useLogin } from "../features/auth/hooks"
 import Button from "../components/Button"
+import type { HttpError } from "../lib/errors/HttpError"
 
 const LoginPage = () => {
   const queryClient = useQueryClient()
@@ -16,7 +17,7 @@ const LoginPage = () => {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const { isPending, isSuccess, isError, error, data, mutate } = useLogin()
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     setErrors({})
 
@@ -32,15 +33,14 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setEmail("")
-      setPassword("")
       navigate("/products", { replace: true })
     }
   }, [data, isSuccess, navigate, queryClient])
 
-  const fieldErrors = error?.fields
-  const isBlocked = isError && error?.statusCode === 429
-
+  const err = error as HttpError
+  const fieldErrors = err?.fields
+  const isBlocked = isError && err?.statusCode === 429
+  
   return (
     <section className="relative min-h-screen bg-[url(/grill-background.jpg)] bg-cover bg-center bg-no-repeat pt-8">
       <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -54,7 +54,7 @@ const LoginPage = () => {
             name="email"
             id="email"
             labelText="Email"
-            message={errors.email || fieldErrors?.email}
+            errorMessage={errors.email || fieldErrors?.email}
             placeholder="Enter Email"
             value={email}
             setValue={setEmail}
@@ -64,9 +64,7 @@ const LoginPage = () => {
             name="password"
             id="password"
             labelText="Password"
-            message={
-              errors.password || errors.confirmPassword || fieldErrors?.password
-            }
+            errorMessage={errors.password || fieldErrors?.password}
             value={password}
             placeholder="Enter Password"
             setValue={setPassword}

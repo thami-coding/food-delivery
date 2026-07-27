@@ -1,7 +1,6 @@
 import { AxiosInstance } from "../../app/axios"
-import { HttpError } from "../../lib/errors/HttpError"
 import { AuthResponseSchema } from "./schemas"
-import type { LoginData, ResetPasswordData, SignupData } from "./types"
+import type { LoginData, ResetPasswordPayload, SignupData } from "./types"
 import {
   throwHttpErrorFromAxios,
   validateOrThrow,
@@ -12,11 +11,10 @@ export async function login(payload: LoginData) {
     const { data } = await AxiosInstance.post("/auth/login", payload, {
       skipAuth: true,
     })
-    const parsed = validateOrThrow(AuthResponseSchema, data)
-    if (parsed.status === "error") {
-      throw new HttpError(parsed.message)
-    }
-    return { user: parsed.user }
+    console.log(data);
+    
+    const { user } = validateOrThrow(AuthResponseSchema, data)
+    return { user }
   } catch (error) {
     throwHttpErrorFromAxios(error)
   }
@@ -28,9 +26,6 @@ export async function signUp(payload: SignupData) {
       skipAuth: true,
     })
     const parsed = validateOrThrow(AuthResponseSchema, data)
-    if (parsed.status === "error") {
-      throw new HttpError(parsed.message, Number(parsed.status))
-    }
     return { user: parsed.user }
   } catch (error) {
     throwHttpErrorFromAxios(error)
@@ -56,7 +51,7 @@ export const forgotPassword = async (email: string) => {
   }
 }
 
-export const resetPassword = async (payload: ResetPasswordData) => {
+export const resetPassword = async (payload: ResetPasswordPayload) => {
   try {
     const { data } = await AxiosInstance.post("/auth/reset-password", payload)
     return data

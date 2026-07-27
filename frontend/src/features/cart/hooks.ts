@@ -7,14 +7,18 @@ import {
   fetchCurrentUsersCart,
   updateCart,
 } from "./api"
+import type { DetailedCart } from "./types"
+import { useUser } from "../user/hooks"
 
-export const useCart = (user?) => {
+export const useCart = () => {
+  const { data, isLoading } = useUser()
+
   return useQuery({
     queryKey: ["cart"],
     queryFn: fetchCurrentUsersCart,
     retry: false,
     staleTime: 1000 * 30,
-    enabled: user != null,
+    enabled: !isLoading && data !== undefined,
   })
 }
 
@@ -27,7 +31,7 @@ export const useUpdateCart = () => {
       // Snapshot previous cart
       const previousCart = context.client.getQueryData(["cart"])
       // Optimistically update cart
-      context.client.setQueryData(["cart"], (oldCart = []) => {
+      context.client.setQueryData(["cart"], (oldCart: DetailedCart[]) => {
         // Update quantity
         console.log(
           oldCart.map((item) => {
@@ -65,7 +69,7 @@ export const useUpdateCart = () => {
 export const useAddCartItem = () => {
   const queryClient = useQueryClient()
   const toggleDialog = useDialog((state) => state.toggleDialog)
-  
+
   return useMutation({
     mutationFn: addCartItem,
     onSuccess: () => {
@@ -89,7 +93,7 @@ export const useDeletCart = () => {
       const previousCart = queryClient.getQueryData(["cart"])
 
       // Optimistically remove item
-      queryClient.setQueryData(["cart"], (oldCart = []) =>
+      queryClient.setQueryData(["cart"], (oldCart: DetailedCart[]) =>
         oldCart.filter((item) => item.product.id !== productId),
       )
 

@@ -1,6 +1,14 @@
 import { formatCurrency } from "../../../lib/formatCurrency"
+import type { Order } from "../../admin/schemas"
 
-export default function PaymentSummary({ order, delivery }) {
+interface PaymentSummaryProps {
+  order: Order
+  delivery: number
+}
+export default function PaymentSummary({
+  order,
+  delivery,
+}: PaymentSummaryProps) {
   return (
     <div className="rounded-2xl shadow-xl border border-zinc-900 p-8 space-y-6 bg-neutral-800">
       <h2 className="text-2xl font-semibold text-center text-white">
@@ -9,7 +17,7 @@ export default function PaymentSummary({ order, delivery }) {
       <div className="rounded-lg bg-[#484646c6] p-4 space-y-2 text-sm text-white">
         <div className="flex justify-between">
           <span>Items ({order.items.length})</span>
-          <span>{formatCurrency(order.totalAmount - delivery)}</span>
+          <span>{formatCurrency(Number(order.totalAmount) - delivery)}</span>
         </div>
         <div className="flex justify-between">
           <span>Delivery Fee</span>
@@ -17,7 +25,7 @@ export default function PaymentSummary({ order, delivery }) {
         </div>
         <div className="border-t pt-2 flex justify-between font-medium">
           <span>Total</span>
-          <span>{formatCurrency(order.totalAmount)}</span>
+          <span>{formatCurrency(Number(order.totalAmount))}</span>
         </div>
       </div>
       <div className="flex items-start gap-3 text-sm text-zinc-600">

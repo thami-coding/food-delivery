@@ -1,5 +1,4 @@
 import { z } from "zod"
-import { ErrorWithFieldsSchema } from "../../lib/errors/error.schema"
 
 export const SignupSchema = z
   .object({
@@ -24,6 +23,7 @@ export const ResetPasswordSchema = z
     confirmPassword: z
       .string("Confirm Password is required")
       .min(8, "Password must be at least 8 characters long."),
+    resetToken: z.string().nullable(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -32,12 +32,10 @@ export const ResetPasswordSchema = z
 
 export const LoginSchema = z.object({
   email: z.email("Email is invalid"),
-  password: z
-    .string("Password is required")
-    .min(8, "Password must be at least 8 characters long."),
+  password: z.string("Password is required"),
 })
 
-export const SuccessSchema = z.object({
+export const AuthResponseSchema = z.object({
   status: z.literal("success"),
   user: z.object({
     id: z.uuidv4(),
@@ -45,8 +43,3 @@ export const SuccessSchema = z.object({
     role: z.enum(["user", "admin"]),
   }),
 })
-
-export const AuthResponseSchema = z.discriminatedUnion("status", [
-  SuccessSchema,
-  ErrorWithFieldsSchema,
-])

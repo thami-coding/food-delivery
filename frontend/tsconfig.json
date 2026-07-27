@@ -9,3 +9,6 @@
     { "path": "./tsconfig.node.json" }
   ]
 }
+// Note: tsconfig.json is usually just a "solution" file that points 
+// to these two sub-configs via the "references" array, so modifying the sub-configs 
+// is what changes the actual build behavior.

@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from "react"
-import { useResetPassword } from "../hooks/useAuth"
+
 import FormInput from "../components/FormInput"
 import { toast } from "react-toastify"
-import { Link, useNavigate, useSearchParams } from "react-router"
+import { Link, useSearchParams } from "react-router"
 
 import logo from "../assets/logo.png"
 import PasswordChanged from "../features/user/components/PasswordChanged"
+import { useResetPassword } from "../features/auth/hooks"
 export default function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -17,13 +18,14 @@ export default function ResetPasswordPage() {
     isPending,
     isSuccess,
   } = useResetPassword()
-  const [searchParams, setSearchParams] = useSearchParams()
+ 
+  const [searchParams] = useSearchParams()
   const notify = (message: string) => toast(message)
   const token = searchParams.get("token")
 
   const handleResetPassword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-// TODO: USE SCHEMA
+    // TODO: USE SCHEMA
     if (newPassword.length < 5) {
       setPasswordError("Password needs to be at least 6 characters")
       return
@@ -34,7 +36,7 @@ export default function ResetPasswordPage() {
       return
     }
     setPasswordError("")
-    resetPassword({ newPassword, token })
+    resetPassword({ password: newPassword, confirmPassword, resetToken: token })
   }
 
   if (isError) {
@@ -46,7 +48,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <article className="ml-auto mr-auto mt-20 shadow-lg shadow-neutral-900 rounded-md text-white py-12 px-8 w-[28rem] bg-[#202020] ">
+    <article className="ml-auto mr-auto mt-20 shadow-lg shadow-neutral-900 rounded-md text-white py-12 px-8 w-md bg-[#202020] ">
       <Link to="/" className="border w-fit mr-auto ml-auto mb-8 block">
         <img src={logo} alt="" />
       </Link>
@@ -57,6 +59,7 @@ export default function ResetPasswordPage() {
       <form onSubmit={handleResetPassword} className="grid gap-y-4 px-4">
         <FormInput
           type="password"
+          id="password"
           name="New Password"
           placeholder="New password *"
           value={newPassword}
@@ -64,6 +67,7 @@ export default function ResetPasswordPage() {
           setValue={setNewPassword}
         />
         <FormInput
+          id="reset password"
           type="password"
           name="*"
           value={confirmPassword}

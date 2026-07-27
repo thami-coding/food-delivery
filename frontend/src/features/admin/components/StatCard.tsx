@@ -3,7 +3,7 @@ export default function StatCard({
   value,
 }: {
   title: string
-  value: string
+  value: number | undefined
 }) {
   return (
     <div className="bg-[#1a1a1a] rounded-xl p-6">

@@ -1,5 +1,4 @@
 import { AxiosInstance } from "../../app/axios"
-import { HttpError } from "../../lib/errors/HttpError"
 import { ProductsResponseSchema } from "./schemas"
 import {
   throwHttpErrorFromAxios,
@@ -19,10 +18,6 @@ export async function fetchProducts(params: {
     )
 
     const parsed = validateOrThrow(ProductsResponseSchema, data)
-    if (parsed.status === "error") {
-      throw new HttpError(parsed.message)
-    }
-
     return parsed
   } catch (err) {
     throwHttpErrorFromAxios(err)

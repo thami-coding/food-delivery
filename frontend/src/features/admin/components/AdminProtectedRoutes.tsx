@@ -2,10 +2,12 @@ import { Navigate, Outlet } from "react-router"
 import { ErrorAlert } from "../../../components/ErrorAlert"
 import LoadingSpinner from "../../../components/LoadingSpinner"
 import { useUser } from "../../user/hooks"
+import type { HttpError } from "../../../lib/errors/HttpError"
 
 export default function AdminProtectedRoutes() {
   const { data, isPending, isError, error } = useUser()
   const user = data?.user
+  const err = error as HttpError
   
   if (isPending) {
     return (
@@ -15,7 +17,7 @@ export default function AdminProtectedRoutes() {
     )
   }
 
-  if (isError && error?.statusCode >= 500) {
+  if (isError && err.statusCode >= 500) {
     return <ErrorAlert />
   }
 

@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { ErrorWithMessageSchema } from "../../lib/errors/error.schema"
+
 import { ProductSchema } from "../products/schemas"
 
 export const CartSchemaDetailed = z.object({
@@ -8,26 +8,19 @@ export const CartSchemaDetailed = z.object({
   quantity: z.number(),
 })
 
-export const CartSchema = z.object({
+export const CartItemSchema = z.object({
   productId: z.uuidv4(),
   quantity: z.number(),
 })
 
-const CartDetailedSuccessSchema = z.object({
+export const CartDetailedResponseSchema = z.object({
   status: z.literal("success"),
   cart: z.array(CartSchemaDetailed),
 })
-const CartSuccessSchema = z.object({
+export const CartResponseSchema = z.object({
   status: z.literal("success"),
-  cart: z.array(CartSchema),
+  cart: z.array(CartItemSchema),
 })
 
-export const CartDetailedResponseSchema = z.discriminatedUnion("status", [
-  CartDetailedSuccessSchema,
-  ErrorWithMessageSchema,
-])
 
-export const CartResponseSchema = z.discriminatedUnion("status", [
-  CartSuccessSchema,
-  ErrorWithMessageSchema,
-])
+

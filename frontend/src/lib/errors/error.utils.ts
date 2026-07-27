@@ -9,14 +9,14 @@ export function validateOrThrow<T>(schema: z.ZodType<T>, data: unknown): T {
 
   if (!response.success) {
     console.warn("Schema mismatch", response.error, data) //TODO:remove log
-    throw new HttpError("Unexpected server response.")
+    throw new HttpError("Unexpected server response.", 500)
   }
   return response.data
 }
 
 export function throwHttpErrorFromAxios(error: unknown): never {
   if (isAxiosError(error)) {
-    const statusCode = error.response?.status
+    const statusCode = error.response?.status || 500
     const data = error.response?.data
     const fields = data?.fields
     const message = data?.message ?? error.response?.statusText

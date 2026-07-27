@@ -4,8 +4,10 @@ import { useUpdateUser } from "../hooks"
 import FormInput from "./FormInput"
 import Button from "../../../components/Button"
 import ValidationError from "./ValidationError"
+import type { User } from "../types"
+import type { HttpError } from "../../../lib/errors/HttpError"
 
-export default function ProfileForm({ user }) {
+export default function ProfileForm({ user }: { user: User }) {
   const { mutate, isSuccess, isPending, error, isError } = useUpdateUser()
   const [formData, setFormData] = useState({
     fullName: user?.fullName ?? "",
@@ -27,14 +29,14 @@ export default function ProfileForm({ user }) {
   }
 
   if (isSuccess) {
-    return <ProfileUpdated  />
+    return <ProfileUpdated />
   }
 
   return (
     <div className="w-full max-w-lg bg-[#1a1a1a] rounded-2xl shadow-lg p-8 mt-20 mx-auto">
       <div className="h-24">
         <h2 className="text-2xl font-semibold text-white">User Profile</h2>
-        {isError && <ValidationError error={error} />}
+        {isError && <ValidationError error={error as HttpError} />}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5 mt-2">

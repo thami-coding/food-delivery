@@ -24,9 +24,10 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard title="Total Orders" value={totalOrders} />
         <StatCard title="Pending Orders" value={totalOrdersPending} />
-        <StatCard title="Products" value="42" />
+        <StatCard title="Products" value={42} />
+        {/* TODO: change this hard coded value */}
       </div>
-      <div className=" mt-10">
+      <div className="mt-10">
         <SalesChart />
       </div>
     </div>

@@ -1,10 +1,13 @@
+import { ErrorAlert } from "../../../components/ErrorAlert"
 import LoadingSpinner from "../../../components/LoadingSpinner"
+import { useUser } from "../../user/hooks"
 
-export default function Address({ isLoading, data }) {
-  if (isLoading) {
-    return <LoadingSpinner />
-  }
-  const user = data.user
+export default function Address() {
+  const { isLoading, isError, data } = useUser()
+  if (isLoading) return <LoadingSpinner />
+  if (isError) return <ErrorAlert />
+
+  const user = data!.user
   return (
     <>
       {user.streetAddress ? (

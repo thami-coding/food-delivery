@@ -6,8 +6,11 @@ import PaymentSummary from "./PaymentSummary"
 import { usePaymentSignature } from "../hooks"
 import LoadingSpinner from "../../../components/LoadingSpinner"
 import { ErrorAlert } from "../../../components/ErrorAlert"
+import type { Order } from "../../admin/schemas"
 
-export default function Payment({ order }) {
+export default function Payment({ order }: { order: Order }) {
+  console.log(order);
+  
   const { isPending, isError, data: signature } = usePaymentSignature(order)
   const { setCurrentStep } = useStep()
   const delivery = toCents(20)
@@ -17,9 +20,7 @@ export default function Payment({ order }) {
     setCurrentStep(3)
   }, [setCurrentStep])
 
-  if (isError) {
-    return <ErrorAlert />
-  }
+  if (isError) return <ErrorAlert />
 
   return (
     <div className="min-h-[70vh] grid place-content-center  mt-10">
