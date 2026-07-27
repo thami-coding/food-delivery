@@ -3,8 +3,16 @@ import cookieParser from "cookie-parser"
 import { errorHandler } from "./middleware/errorHandler"
 import v1Routes from "./api/v1/routes"
 import { Database } from "./db/database"
+import cors from "cors"
 
 const app = express()
+app.use(
+  cors({
+    origin: "https://food-delivery-ydng-peach.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }),
+)
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
