@@ -1,8 +1,8 @@
 import rateLimit from "express-rate-limit"
 
 export const loginRateLimiter = rateLimit({
-  windowMs: Number(process.env.LOGIN_RATE_LIMIT_WINDOW_MS),
-  max: Number(process.env.LOGIN_RATE_LIMIT_MAX),
+  windowMs: Number(process.env.LOGIN_RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: Number(process.env.LOGIN_RATE_LIMIT_MAX) || 5,
   standardHeaders: true,
   legacyHeaders: false,
   message: {
