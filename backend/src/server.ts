@@ -6,6 +6,8 @@ import { Database } from "./db/database"
 import cors from "cors"
 
 const app = express()
+
+app.set("trust proxy", 1)
 app.use(
   cors({
     origin: "https://food-delivery-ydng-peach.vercel.app",
