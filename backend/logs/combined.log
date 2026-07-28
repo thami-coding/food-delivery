@@ -1467,3 +1467,5 @@
 {"level":"warn","message":"Auth Failed: You are Unauthorized to access this route","timestamp":"2026-07-28T20:56:28.021Z"}
 {"level":"warn","message":"Auth Failed: You are Unauthorized to access this route","timestamp":"2026-07-28T20:59:52.671Z"}
 {"level":"warn","message":"Auth Failed: You are Unauthorized to access this route","timestamp":"2026-07-28T21:00:12.767Z"}
+{"level":"warn","message":"Auth Failed: Invalid or expired token provided for path /me","timestamp":"2026-07-28T21:07:45.165Z"}
+{"level":"warn","message":"Auth Failed: Invalid or expired token provided for path /me","timestamp":"2026-07-28T21:08:53.712Z"}
