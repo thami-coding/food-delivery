@@ -30,7 +30,7 @@ export const authenticate = async (
 ) => {
   const accessToken = req.cookies.accessToken
   if (!accessToken) {
-    logger.warn("access token is required")
+    logger.warn(`Auth Failed: No token provided for path ${req.path}`)
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "token is required",
@@ -44,12 +44,14 @@ export const authenticate = async (
       accessToken,
       process.env.ACCESS_TOKEN_SECRET as string,
     ) as AuthPayload
-    
+
     const { userId, role, tokenId } = decoded
     req.user = { id: userId, role, tokenId }
     next()
   } catch (error) {
-    logger.warn("Invalid or expired token")
+    logger.warn(
+      `Auth Failed:Invalid or expired token provided for path ${req.path}`,
+    )
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "Invalid or expired token",
