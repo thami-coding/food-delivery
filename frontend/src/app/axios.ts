@@ -53,8 +53,4 @@ AxiosInstance.interceptors.response.use(
 const cleanupAndRedirect = () => {
   queryClient.cancelQueries()
   queryClient.clear()
-
-  if (location.pathname !== "/products") {
-    window.location.replace("/login")
-  }
 }

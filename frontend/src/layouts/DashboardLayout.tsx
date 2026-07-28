@@ -2,7 +2,7 @@ import { CiGrid41 } from "react-icons/ci"
 import { GrHistory } from "react-icons/gr"
 import { MdExitToApp } from "react-icons/md"
 import { TbNotes } from "react-icons/tb"
-import { NavLink, Outlet, useNavigate } from "react-router"
+import {  NavLink, Outlet, useNavigate } from "react-router"
 import { RiEBikeLine } from "react-icons/ri"
 import { MdOutlineInventory } from "react-icons/md"
 import { useLogout } from "../features/auth/hooks"
@@ -47,6 +47,7 @@ const DashboardLayout = () => {
     navigate("/login")
     mutate()
   }
+
   return (
     <div className="min-h-screen flex bg-[#202020] text-white relative">
       <aside className="w-64 bg-[#1a1a1a] p-6 fixed h-dvh">

@@ -5,16 +5,21 @@ import { useEffect, useRef, useState } from "react"
 import { useProduct } from "../productStore"
 import { useDialog } from "../dialogStore"
 import { useAddCartItem } from "../../cart/hooks"
+import { useUser } from "../../user/hooks"
+import { useNavigate } from "react-router"
 
 export default function Product() {
+  const { data: user } = useUser()
   const [quantity, setQuantity] = useState(1)
   const containerRef = useRef<HTMLDivElement>(null)
   const toggleDialog = useDialog((state) => state.toggleDialog)
   const product = useProduct((state) => state.product)
-  const { mutate, isPending } = useAddCartItem()
+  const { mutate: addToCart, isPending } = useAddCartItem()
+  const navigate = useNavigate()
 
   const handleClick = () => {
-    mutate({
+    if (!user) navigate("/login")
+    addToCart({
       productId: id!,
       quantity,
     })
