@@ -10,22 +10,25 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../../utils/auth.utils"
+import { logger } from "../../../utils/logger"
 
 const isProduction = process.env.NODE_ENV === "production"
 
 export const login = async (req: Request, res: Response) => {
   const { accessToken, refreshToken, user } = await authService.login(req.body)
-
+  logger.info(`Running in Production:${isProduction}`) //TODO: Remove this
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? "strict" : "lax",
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   })
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? "strict" : "lax",
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   })
 
   res.status(StatusCodes.OK).json({ status: "success", user })
@@ -34,10 +37,10 @@ export const login = async (req: Request, res: Response) => {
 export const refreshToken = async (req: Request, res: Response) => {
   const refreshRepo = refreshTokenRepository()
   const refreshToken = req.cookies.refreshToken
-  const isProduction = process.env.NODE_ENV === "production"
 
   if (!refreshToken) {
-    res.status(401).json({ message: "No refresh token" })
+    logger.warn(`Auth Failed: No refresh token provided for path ${req.path}`)
+    res.status(401).json({ message: "Invalid refresh token" })
     return
   }
 
@@ -52,6 +55,9 @@ export const refreshToken = async (req: Request, res: Response) => {
     })
 
     if (!decoded.tokenId || !decoded.userId) {
+      logger.warn(
+        `Auth Failed: "Invalid token payload (missing token ID or userId) ${req.path}`,
+      )
       throw new Error("Invalid token payload: missing token ID or userId")
     }
 
@@ -93,14 +99,14 @@ export const refreshToken = async (req: Request, res: Response) => {
     res.cookie("refreshToken", newRefreshToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? "strict" : "lax",
+      sameSite: "none",
     })
 
     res.clearCookie("accessToken")
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction ? "strict" : "lax",
+      sameSite: "none",
     })
 
     res.json({ status: "sucess", message: "token refreshed" })

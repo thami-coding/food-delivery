@@ -14,7 +14,7 @@ export const hashPassword = async (password: string) => {
 export const authorize =
   (role: string) => async (req: Request, res: Response, next: NextFunction) => {
     if (req.user?.role !== role) {
-      logger.warn("You are Unauthorized to access this route")
+      logger.warn("Auth Failed: You are Unauthorized to access this route")
       res
         .status(StatusCodes.FORBIDDEN)
         .json({ message: "You are Unauthorized to access this route" })
@@ -50,7 +50,7 @@ export const authenticate = async (
     next()
   } catch (error) {
     logger.warn(
-      `Auth Failed:Invalid or expired token provided for path ${req.path}`,
+      `Auth Failed: Invalid or expired token provided for path ${req.path}`,
     )
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",

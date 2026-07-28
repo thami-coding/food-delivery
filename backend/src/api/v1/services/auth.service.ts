@@ -4,7 +4,7 @@ import { randomUUID } from "crypto"
 import bcrypt from "bcryptjs"
 import { Resend } from "resend"
 
-import { AuthPayload, ExpiresIn, UserRole } from "../../../types/common.types"
+import { AuthPayload, UserRole } from "../../../types/common.types"
 import {
   BadRequestError,
   ConflictError,
@@ -21,6 +21,7 @@ import {
   generateRefreshToken,
   hashPassword,
 } from "../../../utils/auth.utils"
+
 export const login = async ({ password, email }) => {
   const userRepo = userRepository()
   const refreshTokenRepo = refreshTokenRepository()
