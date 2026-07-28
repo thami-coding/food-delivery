@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
 import { StatusCodes } from "http-status-codes"
 import { AuthPayload } from "../types/common.types"
+import { logger } from "./logger"
 
 export const hashPassword = async (password: string) => {
   const encryptedString = await bcrypt.hash(password, 8)
@@ -13,6 +14,7 @@ export const hashPassword = async (password: string) => {
 export const authorize =
   (role: string) => async (req: Request, res: Response, next: NextFunction) => {
     if (req.user?.role !== role) {
+      logger.warn("You are Unauthorized to access this route")
       res
         .status(StatusCodes.FORBIDDEN)
         .json({ message: "You are Unauthorized to access this route" })
@@ -28,6 +30,7 @@ export const authenticate = async (
 ) => {
   const accessToken = req.cookies.accessToken
   if (!accessToken) {
+    logger.warn("access token is required")
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "token is required",
@@ -46,6 +49,7 @@ export const authenticate = async (
     req.user = { id: userId, role, tokenId }
     next()
   } catch (error) {
+    logger.warn("Invalid or expired token")
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "Invalid or expired token",
@@ -69,6 +73,6 @@ export const generateAccessToken = (payload: AuthPayload) => {
 
 export const generateRefreshToken = (payload: AuthPayload) => {
   return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET as string, {
-    expiresIn: "7d",
+    expiresIn: "1d",
   })
 }
