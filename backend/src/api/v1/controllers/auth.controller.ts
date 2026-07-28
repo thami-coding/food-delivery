@@ -16,7 +16,6 @@ const isProduction = process.env.NODE_ENV === "production"
 
 export const login = async (req: Request, res: Response) => {
   const { accessToken, refreshToken, user } = await authService.login(req.body)
-  logger.info(`Running in Production:${isProduction}`) //TODO: Remove this
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: isProduction,
