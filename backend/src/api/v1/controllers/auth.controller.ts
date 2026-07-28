@@ -1,16 +1,16 @@
-import { Request, Response } from "express"
-import * as authService from "../services/auth.service"
-import { StatusCodes } from "http-status-codes"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
-import { refreshTokenRepository } from "../../../repositories/repos"
+import * as authService from "../services/auth.service"
+import { Request, Response } from "express"
+import { logger } from "../../../utils/logger"
+import { StatusCodes } from "http-status-codes"
 import { randomUUID } from "crypto"
 import { AuthPayload } from "../../../types/common.types"
+import { refreshTokenRepository } from "../../../repositories/repos"
 import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../../utils/auth.utils"
-import { logger } from "../../../utils/logger"
 
 const isProduction = process.env.NODE_ENV === "production"
 
