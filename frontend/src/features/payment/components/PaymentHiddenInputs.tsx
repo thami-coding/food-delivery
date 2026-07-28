@@ -2,11 +2,15 @@ import type { Order } from "../../admin/schemas"
 
 interface PaymentHiddenInputsProps {
   order: Order
-  signature:string
-  totalAmount:string
+  signature: string
+  totalAmount: string
 }
 
-export default function PaymentHiddenInputs({ order, signature, totalAmount }:PaymentHiddenInputsProps) {
+export default function PaymentHiddenInputs({
+  order,
+  signature,
+  totalAmount,
+}: PaymentHiddenInputsProps) {
   const merchantId = import.meta.env.VITE_PAYFAST_MERCHATN_ID
   const merchantKey = import.meta.env.VITE_PAYFAST_MERCHATN_KEY
 

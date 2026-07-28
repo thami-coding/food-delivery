@@ -24,7 +24,7 @@ export const generatePaymentSignature = (body) => {
     item_name: "food",
   }
 
-  const passPhrase = process.env.PAYFAST_PASS_PHRASE
+  const passPhrase = process.env.PAYFAST_PASSPHRASE
   const signature = generateSignature(myData, passPhrase)
   return signature
 }

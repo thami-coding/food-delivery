@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from "express"
 import { StatusCodes } from "http-status-codes"
 import { AuthPayload } from "../types/common.types"
 import { logger } from "./logger"
+import { StringValue } from "ms"
 
 export const hashPassword = async (password: string) => {
   const encryptedString = await bcrypt.hash(password, 8)
@@ -69,12 +70,12 @@ export const comparePasswords = async (
 
 export const generateAccessToken = (payload: AuthPayload) => {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET as string, {
-    expiresIn: "30m",
+    expiresIn: process.env.ACCESS_TOKEN_EXPIRY as StringValue,
   })
 }
 
 export const generateRefreshToken = (payload: AuthPayload) => {
   return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET as string, {
-    expiresIn: "1d",
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRY as StringValue,
   })
 }

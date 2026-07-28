@@ -95,14 +95,13 @@ export const refreshToken = async (req: Request, res: Response) => {
       role: decoded.role,
     })
 
-    res.cookie("refreshToken", newRefreshToken, {
+    res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
       secure: isProduction,
       sameSite: "none",
     })
 
-    res.clearCookie("accessToken")
-    res.cookie("accessToken", newAccessToken, {
+    res.cookie("refreshToken", newRefreshToken, {
       httpOnly: true,
       secure: isProduction,
       sameSite: "none",
@@ -140,7 +139,17 @@ export const logout = async (req: Request, res: Response) => {
     await refreshRepo.update(decoded.tokenId, { revoked: true })
   }
 
-  res.clearCookie("refreshToken")
-  res.clearCookie("accessToken")
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "none",
+  })
+
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "none",
+  })
+  
   res.status(StatusCodes.NO_CONTENT).json(null)
 }

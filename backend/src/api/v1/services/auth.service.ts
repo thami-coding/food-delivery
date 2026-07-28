@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken"
-import { RegisterBody } from "../../../schemas/validation/auth.validation.schema"
-import { randomUUID } from "crypto"
 import bcrypt from "bcryptjs"
 import { Resend } from "resend"
-
+import { randomUUID } from "crypto"
+import { StringValue } from "ms"
+import { RegisterBody } from "../../../schemas/validation/auth.validation.schema"
 import { AuthPayload, UserRole } from "../../../types/common.types"
 import {
   BadRequestError,
@@ -12,15 +12,16 @@ import {
   UnauthorizedError,
 } from "../../../errors/AppError"
 import {
-  refreshTokenRepository,
-  userRepository,
-} from "../../../repositories/repos"
-import {
   comparePasswords,
   generateAccessToken,
   generateRefreshToken,
   hashPassword,
 } from "../../../utils/auth.utils"
+import {
+  refreshTokenRepository,
+  userRepository,
+} from "../../../repositories/repos"
+
 
 export const login = async ({ password, email }) => {
   const userRepo = userRepository()
@@ -102,7 +103,7 @@ export const forgotPassword = async (email: string) => {
     { email: email },
     process.env.ACCESS_TOKEN_SECRET as string,
     {
-      expiresIn: "1h",
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY as StringValue,
     },
   )
 
