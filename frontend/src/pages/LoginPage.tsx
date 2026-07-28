@@ -15,7 +15,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const { isPending, isSuccess, isError, error, data, mutate } = useLogin()
+  const { isPending, isSuccess, isError, error, data, mutate:login } = useLogin()
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -28,7 +28,7 @@ const LoginPage = () => {
       setErrors(errors)
       return
     }
-    mutate({ email, password })
+    login({ email, password })
   }
 
   useEffect(() => {

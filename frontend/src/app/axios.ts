@@ -45,7 +45,6 @@ AxiosInstance.interceptors.response.use(
     if (status === 401 || status === 403) {
       cleanupAndRedirect()
     }
-    console.log(error)
 
     return Promise.reject(error)
   },
