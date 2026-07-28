@@ -17,12 +17,12 @@ export default function PaymentHiddenInputs({ order, signature, totalAmount }:Pa
       <input
         type="hidden"
         name="return_url"
-        value="https://fd5e-168-210-105-91.ngrok-free.app/order-status"
+        value="https://food-delivery-ydng-peach.vercel.app/order-status"
       />
       <input
         type="hidden"
         name="notify_url"
-        value="https://fd5e-168-210-105-91.ngrok-free.app/api/payment/complete"
+        value="https://food-delivery-backend-xi-ten.vercel.app/api/payment/complete"
       />
       <input type="hidden" name="name_first" value={order.user.fullName!} />
       {/*TODO: fix fullName and others optional state  */}
