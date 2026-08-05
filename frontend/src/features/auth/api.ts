@@ -11,7 +11,6 @@ export async function login(payload: LoginData) {
     const { data } = await AxiosInstance.post("/auth/login", payload, {
       skipAuth: true,
     })
-    console.log(data);
     
     const { user } = validateOrThrow(AuthResponseSchema, data)
     return { user }

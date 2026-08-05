@@ -7,17 +7,21 @@ export default function AdminProtectedRoutes() {
   const { data, isPending, isError, error } = useUser()
   const user = data?.user
   const err = error as HttpError
-  
+
   if (isPending) {
-    return 
+    return null
   }
 
   if (isError && err.statusCode >= 500) {
     return <ErrorAlert />
   }
 
-  if (user?.role !== "admin") {
+  if (!user) {
     return <Navigate to="/login" replace />
+  }
+
+  if (user?.role !== "admin") {
+    return <Navigate to="/access-denied" />
   }
 
   return <Outlet />

@@ -1469,3 +1469,11 @@
 {"level":"warn","message":"Auth Failed: You are Unauthorized to access this route","timestamp":"2026-07-28T21:00:12.767Z"}
 {"level":"warn","message":"Auth Failed: Invalid or expired token provided for path /me","timestamp":"2026-07-28T21:07:45.165Z"}
 {"level":"warn","message":"Auth Failed: Invalid or expired token provided for path /me","timestamp":"2026-07-28T21:08:53.712Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T22:46:16.891Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T22:46:19.820Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T22:55:55.226Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T22:56:05.391Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T22:56:51.924Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T22:58:55.156Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T23:04:48.234Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T23:04:58.704Z"}

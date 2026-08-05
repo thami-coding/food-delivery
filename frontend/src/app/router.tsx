@@ -13,6 +13,7 @@ import PaymentPage from "../pages/PaymentPage"
 import { adminRoutes } from "../features/admin/adminRoutes"
 import OrderStatusPage from "../pages/OrderStatusPage"
 import ForgotPaswordPage from "../pages/ForgotPasswordPage"
+import ErrorPage from "../pages/ErrorPage"
 
 export const router = createBrowserRouter([
   { path: "login", element: <LoginPage /> },
@@ -54,4 +55,27 @@ export const router = createBrowserRouter([
     children: [{ path: "order-status", element: <OrderStatusPage /> }],
   },
   ...adminRoutes,
+  {
+    children: [
+      {
+        path: "access-denied",
+        element: <ErrorPage />,
+      },
+    ],
+  },
+  {
+    children: [
+      {
+        path: "*",
+        element: (
+          <ErrorPage
+            message="The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
+            statusCode={404}
+            statusText="Page Not Found"
+            statusLabel="Resource Not Found"
+          />
+        ),
+      },
+    ],
+  },
 ])
