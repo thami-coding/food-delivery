@@ -1,3 +1,4 @@
+![npm](https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![Zod](https://img.shields.io/badge/Zod-3E67B1?style=flat-square&logo=zod&logoColor=white)](https://zod.dev/)
@@ -11,7 +12,6 @@
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-<br />
 
 # Food Delivery
 
@@ -23,9 +23,6 @@ A full-stack food delivery platform with real-time order tracking, secure authen
 
 ## Screenshots
 ![text](screen-shots/page_1.PNG) ![text](screen-shots/page_2.PNG) ![text](screen-shots/page_3.PNG) ![text](screen-shots/page_4.PNG) ![text](screen-shots/page_5.PNG) ![text](screen-shots/page_6.PNG) ![text](screen-shots/page_7.PNG)
-
-
-### Admin Dashboard
 ![text](screen-shots/page_8.PNG)
 
 <br />
@@ -104,42 +101,28 @@ npm install
 
 **Backend (`backend/.env.local`)**
 ```env
-PORT=3000
-
-# Supabase
-SUPABASE_DB_URL=your_supabase_url
-
-# Auth
-ACCESS_TOKEN_SECRET=your_access_token_secret
-REFRESH_TOKEN_SECRET=your_refresh_token_secret
-ACCESS_TOKEN_EXPIRY=token_expiry
-REFRESH_TOKEN_EXPIRY=refresh_token_expiry
-
-# PayFast
-PAYFAST_MERCHATN_ID=your_merchant_id
-PAYFAST_MERCHATN_KEY=your_merchant_key
-PAYFAST_PASSPHRASE=your_passphrase
-
-# Rate limiting
-LOGIN_RATE_LIMIT_WINDOW_MS=rate_limit_in_miliseconds
-LOGIN_RATE_LIMIT_MAX=max_rate_limit_number
-
-RESEND_API_KEY=your_resend_api_key
-
-FRONT_END_URL=frontend_url
+PORT=
+SUPABASE_DB_URL=
+ACCESS_TOKEN_SECRET=
+REFRESH_TOKEN_SECRET=
+ACCESS_TOKEN_EXPIRY=
+REFRESH_TOKEN_EXPIRY=
+PAYFAST_MERCHATN_ID=
+PAYFAST_MERCHATN_KEY=
+PAYFAST_PASSPHRASE=
+LOGIN_RATE_LIMIT_WINDOW_MS=
+LOGIN_RATE_LIMIT_MAX=
 ```
 
 <br />
 
 **Frontend (`frontend/.env.local`)**
 ```env
-VITE_PAYFAST_MERCHATN_ID=your_payfast_merchant_id
-VITE_PAYFAST_MERCHATN_KEY=your_payfast_merchant_key
-
-VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
-VITE_SUPABASE_URL=your_supabase_url
-
-VITE_BACKEND_URL=backend_url
+VITE_PAYFAST_MERCHATN_ID=
+VITE_PAYFAST_MERCHATN_KEY=
+VITE_SUPABASE_PUBLISHABLE_KEY=
+VITE_SUPABASE_URL=
+VITE_BACKEND_URL=
 
 ```
 
