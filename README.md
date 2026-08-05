@@ -1,5 +1,3 @@
-### Tech Stack
-
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
@@ -12,21 +10,24 @@
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 
+<br />
+
 # Food Delivery
 
 A full-stack food delivery platform with real-time order tracking, secure authentication, and integrated payments — built as a single-page application with a layered backend architecture.
 
 **🔗 Live Demo:** [https://food-delivery-ydng-peach.vercel.app](https://food-delivery-ydng-peach.vercel.app)
 
----
+<br />
 
 ## Screenshots
 ![text](screen-shots/page_1.PNG) ![text](screen-shots/page_2.PNG) ![text](screen-shots/page_3.PNG) ![text](screen-shots/page_4.PNG) ![text](screen-shots/page_5.PNG) ![text](screen-shots/page_6.PNG) ![text](screen-shots/page_7.PNG)
 
 
-
 ### Admin Dashboard
-[text](screen-shots/page_8.PNG) ![text](screen-shots/page_9.PNG) ![text](screen-shots/page_10.PNG)
+![text](screen-shots/page_8.PNG)
+
+<br />
 
 ## Tech Stack
 
@@ -53,11 +54,13 @@ A full-stack food delivery platform with real-time order tracking, secure authen
 ### Payments
 - **PayFast** — payment gateway integration for order checkout
 
----
+<br />
 
 ## Features
 
 -  **Authentication** — secure login with HTTP-only cookies, access & refresh token rotation
+-  password reset
+-  optimistic updates
 -  **Rate-limited login** — protects against brute-force login attempts
 -  **Order creation & delivery** — full order lifecycle from cart to delivery
 -  **Real-time order tracking** — live status updates via Supabase Realtime
@@ -65,11 +68,12 @@ A full-stack food delivery platform with real-time order tracking, secure authen
 -  **Admin dashboard** — manage orders, users, and platform data
 -  **PayFast payment integration** — secure checkout flow
 -  **Single Page Application (SPA)** — smooth client-side navigation
+-  responsive layout
 -  **Layered backend architecture** — clear separation of concerns for maintainability
 -  **Centralized error handling** — uniform error responses and logging
 -  **Logging** — tracks requests and errors for observability
 
----
+<br />
 
 ## Getting Started
 
@@ -107,8 +111,8 @@ SUPABASE_DB_URL=your_supabase_url
 # Auth
 ACCESS_TOKEN_SECRET=your_access_token_secret
 REFRESH_TOKEN_SECRET=your_refresh_token_secret
-ACCESS_TOKEN_EXPIRY=15m
-REFRESH_TOKEN_EXPIRY=7d
+ACCESS_TOKEN_EXPIRY=token_expiry
+REFRESH_TOKEN_EXPIRY=refresh_token_expiry
 
 # PayFast
 PAYFAST_MERCHATN_ID=your_merchant_id
@@ -123,6 +127,8 @@ RESEND_API_KEY=your_resend_api_key
 
 FRONT_END_URL=frontend_url
 ```
+
+<br />
 
 **Frontend (`frontend/.env.local`)**
 ```env
@@ -159,7 +165,8 @@ The frontend will run on `http://localhost:5173` and the backend on `http://loca
 - Login endpoints are rate-limited to reduce brute-force risk.
 - All input is validated with **Zod** on the client and server.
 
----
+
+<br />
 
 ## Scripts
 
