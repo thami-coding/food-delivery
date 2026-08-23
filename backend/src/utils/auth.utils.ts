@@ -29,9 +29,13 @@ export const authenticate = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const accessToken = req.cookies.accessToken
+  const authHeader = req.headers.authorization
+  const cookies = req.cookies
+  const accessToken = cookies.accessToken || authHeader?.split(" ")[1]
+
   if (!accessToken) {
     logger.warn(`Auth Failed: No token provided for path ${req.path}`)
+    
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "token is required",
@@ -53,6 +57,7 @@ export const authenticate = async (
     logger.warn(
       `Auth Failed: Invalid or expired token provided for path ${req.path}`,
     )
+    
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "Invalid or expired token",

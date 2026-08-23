@@ -1477,3 +1477,5 @@
 {"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T22:58:55.156Z"}
 {"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T23:04:48.234Z"}
 {"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-04T23:04:58.704Z"}
+{"level":"warn","message":"Auth Failed: No token provided for path /me","timestamp":"2026-08-22T12:10:52.671Z"}
+{"level":"error","message":"Conflict","method":"POST","path":"/api/v1/auth/register","stack":"Error: Conflict\n    at Object.signup (C:\\Users\\thami\\Desktop\\food-delivery\\backend\\src\\api\\v1\\services\\auth.service.ts:77:11)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async signup (C:\\Users\\thami\\Desktop\\food-delivery\\backend\\src\\api\\v1\\controllers\\auth.controller.ts:120:16)","timestamp":"2026-08-22T12:32:52.676Z"}

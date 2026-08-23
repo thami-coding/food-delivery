@@ -5,14 +5,31 @@ import { Request, Response } from "express"
 export const updateUser = async (req: Request, res: Response) => {
   const body = req.body
   const id = req.user?.id
+  const user = await userServices.findUserById(id)
+  if (!user) {
+    res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ status: "fail", message: "User not found" })
+    return
+  }
+
   const updateData = { id, ...body }
-   await userServices.update(updateData)
-   const user = await userServices.findUserById(id!) //TOD FIX
-  res.status(StatusCodes.OK).json({ status: "success", user })
+  await userServices.update(updateData)
+  const updatedUser = await userServices.findUserById(id)
+  res.status(StatusCodes.OK).json({ status: "success", user: updatedUser })
 }
 
 export const deleteUser = async (req: Request, res: Response) => {
-  await userServices.remove(req.user?.id!) // TODO FIX
+  const userId = req.user?.id
+  const user = await userServices.findUserById(userId)
+  if (!user) {
+    res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ status: "fail", message: "User not found" })
+    return
+  }
+  
+  await userServices.remove(userId)
   res.status(StatusCodes.OK).json(null)
 }
 
@@ -22,7 +39,14 @@ export const getAllUsers = async (req: Request, res: Response) => {
 }
 
 export const getUser = async (req: Request, res: Response) => {
-  const userId = req.user?.id! //TODO FIX
+  const userId = req.user?.id
   const user = await userServices.findUserById(userId)
+  if (!user) {
+    res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ status: "fail", message: "User not found" })
+    return
+  }
+
   res.status(StatusCodes.OK).json({ status: "success", user })
 }

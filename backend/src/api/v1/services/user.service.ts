@@ -6,7 +6,8 @@ export const update = async (data: Partial<User>) => {
   return await userRepo.update(data.id!, data) // TODO FIX
 }
 
-export const remove = async (userId: string) => {
+export const remove = async (userId: string | undefined) => {
+  if (!userId) return null
   const userRepo = userRepository()
   return await userRepo.delete(userId)
 }
@@ -16,10 +17,9 @@ export const findAllUsers = async () => {
   return await userRepo.find()
 }
 
-export const findUserById = async (id: string) => {
-  if (!id) {
-    return null
-  }
+export const findUserById = async (id: string | undefined) => {
+  if (!id) return null
+
   const userRepo = userRepository()
   return await userRepo.findOne({
     where: { id },

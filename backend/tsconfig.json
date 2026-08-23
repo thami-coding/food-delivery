@@ -1,31 +1,11 @@
 {
-  "compilerOptions": {
-    "module": "nodenext",
-    "types": [
-      "node",
-      "jest"
-    ],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "moduleResolution": "nodenext",
-    "pretty": true,
-    "sourceMap": false,
-    "target": "ESNext",
-    "noImplicitAny": false,
-    "esModuleInterop": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "experimentalDecorators": true,
-    "alwaysStrict": true,
-    "forceConsistentCasingInFileNames": true,
-    "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true
+ "files": [],
+ "references": [
+  {
+   "path": "./tsconfig.src.json"
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  {
+   "path": "./tsconfig.jest.json"
+  }
+ ]
 }

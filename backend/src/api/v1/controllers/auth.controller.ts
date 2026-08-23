@@ -16,6 +16,7 @@ const isProduction = process.env.NODE_ENV === "production"
 
 export const login = async (req: Request, res: Response) => {
   const { accessToken, refreshToken, user } = await authService.login(req.body)
+
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: isProduction,
@@ -30,7 +31,7 @@ export const login = async (req: Request, res: Response) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   })
 
-  res.status(StatusCodes.OK).json({ status: "success", user })
+  res.status(StatusCodes.OK).json({ status: "success", accessToken, refreshToken, user })
 }
 
 export const refreshToken = async (req: Request, res: Response) => {
