@@ -13,8 +13,17 @@ export const getAllProducts = async (req: Request, res: Response) => {
   const paginatedData = await productService.getPaginatedProducts(req.query)
   res.status(StatusCodes.OK).json({ status: "success", ...paginatedData })
 }
+
 export const getProduct = async (req: Request, res: Response) => {
-  const product = await productService.getProduct(req.params.id)
+  const productId = req.params.id as string | undefined
+  const product = await productService.getProduct(productId)
+  if (!product) {
+    res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ status: "fail", message: "Product not found" })
+    return
+  }
+
   res.status(StatusCodes.OK).json({ status: "success", product })
 }
 
