@@ -107,10 +107,6 @@ test("should login registered user", async ({ request }) => {
     },
   });
 
-  console.log(email);
-  console.log(password);
-  console.log("auth:", await response.json()); //REMOVE
-
   expect(response.ok()).toBeTruthy();
   expect(await response.json()).toMatchObject({
     status: "success",

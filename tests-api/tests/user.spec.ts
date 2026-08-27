@@ -9,22 +9,19 @@ test.beforeAll(async () => {
     baseURL: "http://localhost:3000/api/v1/",
   });
 
-  const re = await authContext.post("auth/register", {
+  await authContext.post("auth/register", {
     data: {
       email,
       password,
       confirmPassword: password,
     },
   });
-  console.log("register response: ", await re.json()); //Remove
 
   const response = await authContext.post("auth/login", {
     data: { email, password },
   });
 
   const { accessToken } = await response.json();
-  console.log("token: ", accessToken); //Remove
-
   await authContext.dispose();
 
   apiContext = await request.newContext({
@@ -42,7 +39,6 @@ test.afterAll(async () => {
 
 test("should get logged in user's details", async () => {
   const response = await apiContext.get("users/me");
-  console.log("users: ",await response.json()); //REMOVE
 
   expect(response.ok()).toBeTruthy();
   expect(await response.json()).toMatchObject({
