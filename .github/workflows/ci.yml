@@ -41,6 +41,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Start Server
+        working-directory: ./backend
         run: |
           docker compose up --build -d
           npx wait-port http://localhost:3000/api/health -t 30000
