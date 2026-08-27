@@ -22,7 +22,7 @@ test.beforeAll(async () => {
   const response = await authContext.post("auth/login", {
     data: { email, password },
   });
-  console.log(await response.json()); //Remove
+  console.log("cart: ", await response.json()); //Remove
 
   const { accessToken, user } = await response.json();
   userId = user.id;
@@ -37,7 +37,7 @@ test.beforeAll(async () => {
 });
 
 test.afterAll(async () => {
-  await apiContext.delete("users");
+  // await apiContext.delete("users");
   // await apiContext.dispose();
 });
 

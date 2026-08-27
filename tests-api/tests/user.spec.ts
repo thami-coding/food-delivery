@@ -39,6 +39,7 @@ test.afterAll(async () => {
 
 test("should get logged in user's details", async () => {
   const response = await apiContext.get("users/me");
+  console.log("users: ",await response.json()); //REMOVE
 
   expect(response.ok()).toBeTruthy();
   expect(await response.json()).toMatchObject({
