@@ -1,5 +1,5 @@
-import { DataSource, ObjectType, Repository } from "typeorm"
-
+import fs from "fs"
+import { DataSource, ObjectType } from "typeorm"
 import { User } from "../entities/user.entity"
 import { Product } from "../entities/product.entity"
 import { Cart } from "../entities/cart.entity"
@@ -11,15 +11,36 @@ export class Database {
   private static dataSource: DataSource
 
   public static async initialize(): Promise<void> {
+    const isProduction = process.env.NODE_ENV === "production"
+    let dbPassword = ""
+
+    if (!isProduction) {
+      const passwordFilePath = process.env.POSTGRES_PASSWORD_FILE
+      if (passwordFilePath && fs.existsSync(passwordFilePath)) {
+        dbPassword = fs.readFileSync(passwordFilePath, "utf8").trim()
+      } else {
+        console.warn("Local dev: Could not find Docker secret file.")
+      }
+    }
     if (this.dataSource && this.dataSource.isInitialized) return
 
     this.dataSource = new DataSource({
       type: "postgres",
-      url: process.env.SUPABASE_DB_URL,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-      synchronize: true,
+      ...(isProduction
+        ? {
+            url: process.env.SUPABASE_DB_URL,
+            ssl: {
+              rejectUnauthorized: false,
+            },
+          }
+        : {
+            host: process.env.POSTGRES_SERVER || "db",
+            port: 5432,
+            username: process.env.POSTGRES_USER || "postgres",
+            password: dbPassword,
+            database: process.env.POSTGRES_DB || "food_app",
+          }),
+      synchronize: !isProduction,
       logging: false,
       entities: [User, Product, Cart, OrderItem, Order, RefreshToken],
     })
@@ -41,5 +62,9 @@ export class Database {
       )
     }
     return this.dataSource.getRepository(entity)
+  }
+
+  public static getDataSource(): DataSource {
+    return this.dataSource
   }
 }
