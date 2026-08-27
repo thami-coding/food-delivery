@@ -43,7 +43,8 @@ jobs:
       - name: Start Server
         run: |
           cd backend
-          ls -la
+          mkdir -p db
+          echo "postgres" > db/password.txt
           docker compose up --build -d
           npx wait-port http://localhost:3000/api/health -t 30000
 
