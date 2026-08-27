@@ -8,7 +8,9 @@ export const createProducts = async () => {
   return products
 }
 
-export const getProduct = async (id) => {
+export const getProduct = async (id: string | undefined) => {
+  if (!id) return null
+
   const productRepo = productRepository()
   const product = await productRepo.findOneBy({ id })
   return product
@@ -53,8 +55,8 @@ export const editProduct = async (productId: string, body) => {
   const productRepo = productRepository()
   const product = await productRepo.findOneBy({ id: productId })
 
-  if(!product) throw new NotFoundError()
-    
+  if (!product) throw new NotFoundError()
+
   product.name = body.name
   product.description = body.description
   product.category = body.category

@@ -8,6 +8,7 @@ const router = express.Router()
 
 router.post("/seed", productController.seedProducts)
 router.get("/", productController.getAllProducts)
+router.get("/:id", productController.getProduct);
 
 router
   .route("/")
@@ -17,8 +18,8 @@ router
 router
   .route("/:id")
   .all(authenticate, authorize("admin"))
-  .get(productController.getProduct)
   .delete(productController.removeProduct)
   .put(validate(ProductSchema), productController.editProduct)
+
 
 export default router
