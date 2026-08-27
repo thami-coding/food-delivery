@@ -16,18 +16,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "24"
           cache: "npm"
           cache-dependency-path: ./backend/package-lock.json
-
       - name: Install dependencies
         working-directory: ./backend
         run: npm ci
-
       - name: Run unit tests
         working-directory: ./backend
         run: npm test
@@ -35,11 +32,15 @@ jobs:
   api-tests:
     needs: [unit-tests-backend]
     runs-on: ubuntu-latest
+    env:
+      ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+      REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+      ACCESS_TOKEN_EXPIRY: ${{ secrets.ACCESS_TOKEN_EXPIRY }}
+      REFRESH_TOKEN_EXPIRY: ${{ secrets.REFRESH_TOKEN_EXPIRY }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Start Server
         run: |
           cd backend
@@ -47,7 +48,6 @@ jobs:
           echo "postgres" > db/password.txt
           docker compose up --build -d
           npx wait-port http://localhost:3000/api/health -t 30000
-
       - name: Run API Tests
         working-directory: ./tests-api
         run: |
