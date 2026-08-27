@@ -43,7 +43,7 @@ jobs:
       - name: Start Server
         run: |
           cd backend
-          la -la
+          ls -la
           docker compose up --build -d
           npx wait-port http://localhost:3000/api/health -t 30000
 
