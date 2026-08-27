@@ -23,7 +23,7 @@ authRegister.registerPath({
         },
       },
     },
-    400: {description: "validation error"},
+    400: { description: "validation error" },
   },
 })
 
