@@ -1,14 +1,13 @@
 {
  "compilerOptions": {
-  "module": "commonjs",
+  "module": "nodenext",
   "types": [
    "node",
    "jest"
   ],
   "outDir": "./dist",
   "rootDir": "./src",
-  "moduleResolution": "node",
-  "ignoreDeprecations": "6.0",
+  "moduleResolution": "nodenext",
   "pretty": true,
   "sourceMap": false,
   "target": "ESNext",
