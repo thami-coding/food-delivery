@@ -4,6 +4,7 @@ let apiContext: APIRequestContext;
 let userId: string;
 const email = "janeDoe@test.com";
 const password = "P@ssword!";
+const productId = "aa1eed3d-8560-4584-a6f1-81ab4db316b9";
 
 test.beforeAll(async () => {
   const authContext = await request.newContext({
@@ -40,8 +41,7 @@ test.afterAll(async () => {
 });
 
 test("should add cart item to cart", async () => {
-  const productId = "1b180a83-6bf4-4770-81f7-f4342fb1ed8d";
-  
+
   const response = await apiContext.post("cart", {
     data: {
       productId,
@@ -63,8 +63,7 @@ test("should add cart item to cart", async () => {
 });
 
 test("should increase cart item quantity", async () => {
-  const productId = "1b180a83-6bf4-4770-81f7-f4342fb1ed8d";
-
+  
   await apiContext.post("cart", {
     data: {
       productId,
@@ -93,7 +92,6 @@ test("should increase cart item quantity", async () => {
 });
 
 test("should delete cart item from cart", async () => {
-  const productId = "1b180a83-6bf4-4770-81f7-f4342fb1ed8d";
 
   await apiContext.post("cart", {
     data: {

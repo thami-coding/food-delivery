@@ -1,45 +1,44 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, request } from "@playwright/test";
 import { randomUUID } from "crypto";
 
-test("should login user", async ({ request }) => {
-  const response = await request.post(`auth/login`, {
-    data: {
-      email: "test@test.com",
-      password: "test@test",
-    },
-  });
+const password = "P@ssword!";
+const wrongPassword = "P@ssword12345";
+const email = "janeDoe@test.com";
 
-  expect(response.ok()).toBeTruthy();
-  expect(await response.json()).toMatchObject({
-    status: "success",
-    accessToken: expect.any(String),
-    refreshToken: expect.any(String),
-    user: {
-      id: expect.any(String),
-      role: "user",
-      email: "test@test.com",
+test.beforeAll(async ({ request }) => {
+  await request.post("auth/register", {
+    data: {
+      email,
+      password,
+      confirmPassword: password,
     },
   });
 });
 
-test("should fail login with invalid password", async ({ request }) => {
-  const response = await request.post(`auth/login`, {
-    data: {
-      email: `test@test.com`,
-      password: "test@test1234",
+test.afterAll(async () => {
+  const baseURL = "http://localhost:3000/api/v1/";
+
+  const authContext = await request.newContext({
+    baseURL,
+  });
+  const response = await authContext.post("auth/login", {
+    data: { email, password },
+  });
+
+  const { accessToken } = await response.json();
+  const apiContext = await request.newContext({
+    baseURL,
+    extraHTTPHeaders: {
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 
-  expect(response.status()).toBe(401);
-  expect(await response.json()).toMatchObject({
-    status: "fail",
-    fields: {
-      password: "The email or password you entered is incorrect",
-    },
-  });
+  await apiContext.delete("user");
+  await authContext.dispose();
+  await apiContext.dispose();
 });
 
-test("should register user", async ({ request }) => {
+test("should register new user", async ({ request }) => {
   const email = `${randomUUID()}@test.com`;
   const response = await request.post(`auth/register`, {
     data: {
@@ -63,12 +62,11 @@ test("should register user", async ({ request }) => {
 test("should fail registration when passwords do not match", async ({
   request,
 }) => {
-  const email = `${randomUUID()}@test.com`;
   const response = await request.post(`auth/register`, {
     data: {
-      email,
-      password: "test@test",
-      confirmPassword: "test@test1234",
+      email: "peter@test.com",
+      password,
+      confirmPassword: wrongPassword,
     },
   });
 
@@ -84,17 +82,12 @@ test("should fail registration when passwords do not match", async ({
 test("should fail registration when email already exists", async ({
   request,
 }) => {
-  const userData = {
-    email: "test123456@test.com",
-    password: "test@test",
-    confirmPassword: "test@test",
-  };
-
-  await request.post(`auth/register`, {
-    data: userData,
-  });
   const response = await request.post(`auth/register`, {
-    data: userData,
+    data: {
+      email,
+      password,
+      confirmPassword: password,
+    },
   });
 
   expect(response.status()).toBe(409);
@@ -102,6 +95,44 @@ test("should fail registration when email already exists", async ({
     status: "fail",
     fields: {
       email: "Email is already registered",
+    },
+  });
+});
+
+test("should login registered user", async ({ request }) => {
+  const response = await request.post(`auth/login`, {
+    data: {
+      email,
+      password,
+    },
+  });
+
+  expect(response.ok()).toBeTruthy();
+  expect(await response.json()).toMatchObject({
+    status: "success",
+    accessToken: expect.any(String),
+    refreshToken: expect.any(String),
+    user: {
+      id: expect.any(String),
+      role: "user",
+      email: "janeDoe@test.com",
+    },
+  });
+});
+
+test("should fail login with invalid password", async ({ request }) => {
+  const response = await request.post(`auth/login`, {
+    data: {
+      email,
+      password: "test1234$",
+    },
+  });
+
+  expect(response.status()).toBe(401);
+  expect(await response.json()).toMatchObject({
+    status: "fail",
+    fields: {
+      password: "The email or password you entered is incorrect",
     },
   });
 });

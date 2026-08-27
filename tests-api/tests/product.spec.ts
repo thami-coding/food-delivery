@@ -23,7 +23,7 @@ test("should get paginated products", async ({ request }) => {
 });
 
 test("should get single product", async ({ request }) => {
-  const productId = "1b180a83-6bf4-4770-81f7-f4342fb1ed8d";
+  const productId = "aa1eed3d-8560-4584-a6f1-81ab4db316b9";
 
   const response = await request.get(`products/${productId}`);
 
@@ -31,11 +31,11 @@ test("should get single product", async ({ request }) => {
     status: "success",
     product: {
       id: productId,
-      name: "Spicy jalapeño Burger",
-      ingredients: "bacon,jalapeño,beef",
+      name: "Classic Beef Burger",
+      ingredients: "cheese,bacon,jalapeño,beef",
       category: "burgers",
       description: expect.any(String),
-      price: "89.90",
+      price: "79.90",
       imageUrl: expect.any(String),
     },
   });
