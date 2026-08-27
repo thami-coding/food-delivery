@@ -1,9 +1,9 @@
 import { test, expect, request } from "@playwright/test";
 import { randomUUID } from "crypto";
 
+const email = "janeDoe@test.com";
 const password = "P@ssword!";
 const wrongPassword = "P@ssword12345";
-const email = "janeDoe@test.com";
 
 test.beforeAll(async ({ request }) => {
   await request.post("auth/register", {
@@ -106,6 +106,7 @@ test("should login registered user", async ({ request }) => {
       password,
     },
   });
+  console.log(await response.json()); //REMOVE
 
   expect(response.ok()).toBeTruthy();
   expect(await response.json()).toMatchObject({
@@ -115,7 +116,7 @@ test("should login registered user", async ({ request }) => {
     user: {
       id: expect.any(String),
       role: "user",
-      email: "janeDoe@test.com",
+      email,
     },
   });
 });

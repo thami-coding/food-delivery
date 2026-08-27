@@ -2,7 +2,7 @@ import { test, expect, request, APIRequestContext } from "playwright/test";
 
 let apiContext: APIRequestContext;
 let userId: string;
-const email = "janeDoe@test.com";
+const email = "thami@test.com";
 const password = "P@ssword!";
 const productId = "aa1eed3d-8560-4584-a6f1-81ab4db316b9";
 
@@ -22,6 +22,7 @@ test.beforeAll(async () => {
   const response = await authContext.post("auth/login", {
     data: { email, password },
   });
+  console.log(await response.json()); //Remove
 
   const { accessToken, user } = await response.json();
   userId = user.id;
@@ -37,11 +38,10 @@ test.beforeAll(async () => {
 
 test.afterAll(async () => {
   await apiContext.delete("users");
-  await apiContext.dispose();
+  // await apiContext.dispose();
 });
 
 test("should add cart item to cart", async () => {
-
   const response = await apiContext.post("cart", {
     data: {
       productId,
@@ -63,7 +63,6 @@ test("should add cart item to cart", async () => {
 });
 
 test("should increase cart item quantity", async () => {
-  
   await apiContext.post("cart", {
     data: {
       productId,
@@ -92,7 +91,6 @@ test("should increase cart item quantity", async () => {
 });
 
 test("should delete cart item from cart", async () => {
-
   await apiContext.post("cart", {
     data: {
       productId,
