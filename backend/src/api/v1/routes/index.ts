@@ -7,7 +7,6 @@ import orderRoutes from "./order.routes"
 import docsRouter from "./docs.routes"
 import paymentRouter from "./payment.routes"
 
-
 const router = express.Router()
 
 router.use("/auth", authRoutes)
@@ -16,7 +15,7 @@ router.use("/products", productRoutes)
 router.use("/cart", cartRoutes)
 router.use("/orders", orderRoutes)
 router.use("/payment", paymentRouter)
-router.use("/", docsRouter)
+router.use("/api-docs", docsRouter)
 
 router.get("/", (req, res) => {
   res.json({ message: "Welcome to the V1 API" })
