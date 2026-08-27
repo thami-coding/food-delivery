@@ -7,8 +7,9 @@ import { UserSchema } from "../../../schemas/validation/user.schema"
 
 const router = express.Router()
 
+router.delete("/me", authenticate, asyncHandler(userController.deleteUser))
+
 router.get("/me", authenticate, asyncHandler(userController.getUser))
-router.delete("/", authenticate, asyncHandler(userController.deleteUser))
 
 router.get(
   "/",
@@ -23,5 +24,13 @@ router.patch(
   validate(UserSchema),
   asyncHandler(userController.updateUser),
 )
+
+router.delete(
+  "/:id",
+  authenticate,
+  authorize("admin"),
+  asyncHandler(userController.deleteUserById),
+)
+
 
 export default router

@@ -16,6 +16,13 @@ export const updateUser = async (req: Request, res: Response) => {
   const updateData = { id, ...body }
   await userServices.update(updateData)
   const updatedUser = await userServices.findUserById(id)
+  if (!user) {
+    res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ status: "fail", message: "User not found" })
+    return
+  }
+
   res.status(StatusCodes.OK).json({ status: "success", user: updatedUser })
 }
 
@@ -28,7 +35,15 @@ export const deleteUser = async (req: Request, res: Response) => {
       .json({ status: "fail", message: "User not found" })
     return
   }
-  
+
+  await userServices.remove(userId)
+  res.status(StatusCodes.OK).json(null)
+}
+
+export const deleteUserById = async (req: Request, res: Response) => {
+  const userId = req.params?.id as string | undefined
+  const user = await userServices.findUserById(userId)
+
   await userServices.remove(userId)
   res.status(StatusCodes.OK).json(null)
 }
