@@ -10,7 +10,7 @@ import {
 import { Order } from "./order.entity"
 import { Product } from "./product.entity"
 
-@Entity()
+@Entity("order_item")
 export class OrderItem {
   @PrimaryGeneratedColumn("uuid")
   id!: string

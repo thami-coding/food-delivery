@@ -7,7 +7,7 @@ import {
 } from "typeorm"
 import { Product } from "./product.entity"
 
-@Entity()
+@Entity("cart")
 export class Cart {
   @PrimaryGeneratedColumn("uuid")
   id!: string
