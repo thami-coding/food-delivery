@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="2" failures="0" errors="0" time="19.634">
-  <testsuite name="getUser controller" errors="0" failures="0" skipped="0" timestamp="2026-08-24T01:39:19" time="18.019" tests="2">
-    <testcase classname="getUser controller returns user data with 200" name="getUser controller returns user data with 200" time="0.009">
+<testsuites name="jest tests" tests="2" failures="0" errors="0" time="25.41">
+  <testsuite name="getUser controller" errors="0" failures="0" skipped="0" timestamp="2026-08-26T21:39:12" time="24.97" tests="2">
+    <testcase classname="getUser controller returns user data with 200" name="getUser controller returns user data with 200" time="0.013">
     </testcase>
     <testcase classname="getUser controller returns 404 when user not found" name="getUser controller returns 404 when user not found" time="0.002">
     </testcase>
