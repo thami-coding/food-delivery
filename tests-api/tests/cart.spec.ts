@@ -11,18 +11,19 @@ test.beforeAll(async () => {
     baseURL: "http://localhost:3000/api/v1/",
   });
 
-  await authContext.post("auth/register", {
+  const re = await authContext.post("auth/register", {
     data: {
       email,
       password,
       confirmPassword: password,
     },
   });
-
+  console.log("cart reg: ", await re.json()); //Remove
   const response = await authContext.post("auth/login", {
     data: { email, password },
   });
-  console.log("cart: ", await response.json()); //Remove
+  console.log("cart login: ", await response.json()); //Remove
+  console.log("node: ", process.env.NODE_ENV);
 
   const { accessToken, user } = await response.json();
   userId = user.id;
