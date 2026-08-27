@@ -9,6 +9,7 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction,
 ) => {
+  console.log(err)
   logger.error({
     message: err.message,
     path: req.path,
@@ -17,10 +18,8 @@ export const errorHandler = (
   })
 
   if (err instanceof AppError) {
-    console.log(err)
-
     res.status(err.statusCode).json({
-      status: "error",
+      status: "fail",
       fields: err.fields,
     })
     return
