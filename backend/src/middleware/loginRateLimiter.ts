@@ -5,6 +5,7 @@ export const loginRateLimiter = rateLimit({
   max: Number(process.env.LOGIN_RATE_LIMIT_MAX) || 5,
   standardHeaders: true,
   legacyHeaders: false,
+  skip: () => process.env.NODE_ENV?.toLowerCase() !== "production",
   message: {
     status: "error",
     fields: { password: "Too many login attempts. Please try again later." },
