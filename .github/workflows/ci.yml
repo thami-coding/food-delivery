@@ -2,8 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - master
+    branches: [master, "dev"]
   pull_request:
     branches:
       - master
@@ -56,6 +55,7 @@ jobs:
 
   Deploy-Production:
     needs: [unit-tests-backend, api-tests]
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
