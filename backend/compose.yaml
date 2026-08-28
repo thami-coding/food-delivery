@@ -3,11 +3,6 @@ services:
   # image (includes tsx and dev tooling); the runner stage of the
   # Dockerfile is unused in development.
   server:
-    environment:
-      - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
-      - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
-      - ACCESS_TOKEN_EXPIRY=${ACCESS_TOKEN_EXPIRY}
-      - REFRESH_TOKEN_EXPIRY=${REFRESH_TOKEN_EXPIRY}
     build:
       context: .
       target: dev
@@ -18,6 +13,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=food_app
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+
     depends_on:
       db:
         condition: service_healthy
