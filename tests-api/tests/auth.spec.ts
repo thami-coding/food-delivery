@@ -106,7 +106,6 @@ test("should login registered user", async ({ request }) => {
       password,
     },
   });
-console.log("auth: ", await response.json());
 
   expect(response.ok()).toBeTruthy();
   expect(await response.json()).toMatchObject({
