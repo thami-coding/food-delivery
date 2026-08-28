@@ -99,7 +99,7 @@ npm install
 
 ### 3. Environment variables
 
-**Backend (`backend/.env.local`)**
+**Backend (`backend/.env`)**
 ```env
 PORT=
 SUPABASE_DB_URL=
