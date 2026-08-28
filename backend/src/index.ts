@@ -2,6 +2,6 @@
 import dotenv from "dotenv"
 import { startServer } from "./server"
 
-dotenv.config({ path: ".env.local" })
+dotenv.config()
 const port = Number(process.env.PORT) || 3000
 startServer(port)
