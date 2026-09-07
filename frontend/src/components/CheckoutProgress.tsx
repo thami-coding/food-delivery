@@ -20,7 +20,6 @@ export default function CheckoutProgress() {
               key={step.id}
               className="flex items-center flex-1 last:flex-none"
             >
-              {/* Step */}
               <div className="flex flex-col items-center shrink-0">
                 <div
                   className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${
@@ -37,7 +36,6 @@ export default function CheckoutProgress() {
                 </span>
               </div>
 
-              {/* Connector */}
               {index !== steps.length - 1 && (
                 <div className="flex-1 h-1 mx-2 rounded bg-gray-200 overflow-hidden">
                   <div

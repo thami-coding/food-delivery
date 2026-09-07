@@ -19,7 +19,7 @@ export class Database {
       if (passwordFilePath && fs.existsSync(passwordFilePath)) {
         dbPassword = fs.readFileSync(passwordFilePath, "utf8").trim()
       } else {
-        console.warn("Local dev: Could not find Docker secret file.")
+        console.warn("Could not find Docker secret file.")
       }
     }
     if (this.dataSource && this.dataSource.isInitialized) return
