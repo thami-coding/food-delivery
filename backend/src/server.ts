@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"
 import cookieParser from "cookie-parser"
 import { errorHandler } from "./middleware/errorHandler"
-import v1Routes from "./api/v1/routes"
+import v1Routes from "./routes"
 import { Database } from "./db/database"
 import cors from "cors"
 import { seedDatabase } from "./seed"
