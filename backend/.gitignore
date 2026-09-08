@@ -5,6 +5,8 @@ db/
 
 # build output
 dist/
+coverage/
+logs/
 
 # TypeScript cache
 *.tsbuildinfo
