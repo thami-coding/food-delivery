@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" errors="0" time="13.927">
-  <testsuite name="getProduct" errors="0" failures="0" skipped="0" timestamp="2026-09-08T00:40:01" time="13.704" tests="1">
-    <testcase classname="getProduct should return product when valid id is provided" name="getProduct should return product when valid id is provided" time="0.009">
+<testsuites name="jest tests" tests="16" failures="0" errors="0" time="12.855">
+  <testsuite name="getDetailedCart" errors="0" failures="0" skipped="0" timestamp="2026-09-09T20:15:59" time="12.53" tests="16">
+    <testcase classname="getDetailedCart should return detailed cart items with products" name="getDetailedCart should return detailed cart items with products" time="0.011">
+    </testcase>
+    <testcase classname="getDetailedCart should return empty array when cart is empty" name="getDetailedCart should return empty array when cart is empty" time="0.002">
+    </testcase>
+    <testcase classname="getDetailedCart should return empty array when userId is empty string" name="getDetailedCart should return empty array when userId is empty string" time="0.003">
+    </testcase>
+    <testcase classname="getDetailedCart should handle undefined userId gracefully" name="getDetailedCart should handle undefined userId gracefully" time="0.004">
+    </testcase>
+    <testcase classname="addCartItem should create and save new cart item when it does not exist" name="addCartItem should create and save new cart item when it does not exist" time="0.004">
+    </testcase>
+    <testcase classname="addCartItem should return all cart items after creating new item" name="addCartItem should return all cart items after creating new item" time="0.003">
+    </testcase>
+    <testcase classname="addCartItem should update quantity when item already exists" name="addCartItem should update quantity when item already exists" time="0.002">
+    </testcase>
+    <testcase classname="addCartItem should return all cart items after updating existing item" name="addCartItem should return all cart items after updating existing item" time="0.001">
+    </testcase>
+    <testcase classname="addCartItem should handle empty productId" name="addCartItem should handle empty productId" time="0.001">
+    </testcase>
+    <testcase classname="deleteCartItem should delete cart item and return remaining items" name="deleteCartItem should delete cart item and return remaining items" time="0.006">
+    </testcase>
+    <testcase classname="deleteCartItem should call delete with correct userId and productId" name="deleteCartItem should call delete with correct userId and productId" time="0.004">
+    </testcase>
+    <testcase classname="deleteCartItem should call findBy with correct userId" name="deleteCartItem should call findBy with correct userId" time="0.001">
+    </testcase>
+    <testcase classname="deleteCartItem should return empty array when last item is deleted" name="deleteCartItem should return empty array when last item is deleted" time="0.002">
+    </testcase>
+    <testcase classname="deleteCartItem should return all items when item does not exist" name="deleteCartItem should return all items when item does not exist" time="0.002">
+    </testcase>
+    <testcase classname="deleteCartItem should delete one item from cart with multiple items" name="deleteCartItem should delete one item from cart with multiple items" time="0.003">
+    </testcase>
+    <testcase classname="deleteCartItem should handle both empty userId and productId" name="deleteCartItem should handle both empty userId and productId" time="0.002">
     </testcase>
   </testsuite>
 </testsuites>

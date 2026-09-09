@@ -1,7 +1,9 @@
 import { NotFoundError } from "../errors/AppError"
 import { cartRepository } from "../repositories/repos"
 
-export const getDetailedCart = async (userId: string) => {
+export const getDetailedCart = async (userId: string | undefined) => {
+  if (!userId) return []
+
   const cartRepo = cartRepository()
   const detailedCart = await cartRepo.find({
     where: { userId },
@@ -12,9 +14,18 @@ export const getDetailedCart = async (userId: string) => {
   return detailedCart
 }
 
-export const addCartItem = async ({ productId, userId, quantity }) => {
+export interface AddCartItemInput {
+  productId: string
+  userId: string | undefined
+  quantity: number
+}
+export const addCartItem = async ({
+  productId,
+  userId,
+  quantity,
+}: AddCartItemInput) => {
   const cartRepo = cartRepository()
-
+  if (!userId || !productId) return []
   const exists = await cartRepo.findOne({
     where: {
       productId,

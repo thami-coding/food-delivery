@@ -4,16 +4,16 @@ import { StatusCodes } from "http-status-codes"
 
 export const createCartItem = async (req: Request, res: Response) => {
   const userId = req.user?.id
-
   const productId = req.body.productId
   const quantity = req.body.quantity
   const cart = await cartService.addCartItem({ userId, productId, quantity })
+
   res.status(StatusCodes.CREATED).json({ status: "success", cart })
 }
 
 export const getDetailedCart = async (req: Request, res: Response) => {
   const userId = req.user?.id
-  const cart = await cartService.getDetailedCart(userId!)
+  const cart = await cartService.getDetailedCart(userId)
   res.status(StatusCodes.OK).json({ status: "success", cart })
 }
 

@@ -1,4 +1,5 @@
 import { products as allProducts } from "../dummy-data"
+import { Categories } from "../entities/product.entity"
 import { NotFoundError } from "../errors/AppError"
 import { productRepository } from "../repositories/repos"
 
@@ -16,10 +17,14 @@ export const getProduct = async (id: string | undefined) => {
   return product
 }
 
-export const getPaginatedProducts = async (query) => {
+export interface PaginationQuery {
+  category?: string
+  page?: string
+  limit?: string
+}
+export const getPaginatedProducts = async (query: PaginationQuery) => {
   const productRepo = productRepository()
-  let category = query.category ?? "all"
-  category = category !== "all" ? query.category : null
+  let category = (query.category ?? "all") as Categories
 
   const page = parseInt(query.page as string) || 1
   const take = parseInt(query.limit as string) || 10

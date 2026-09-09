@@ -290,10 +290,10 @@ export const products = [
 export const users = [
   {
     fullName: "Ava Patel",
-    email: "ava.patel@example.com",
-    password: "AvaP@tel#2026!",
+    email: "test@test.com",
+    password: "test@test",
     phoneNumber: "0821234567",
-    role: "user",
+    role: "admin",
     streetAddress: "1420 Maple Ave",
     city: "Seattle",
     suburb: "Capitol Hill",
