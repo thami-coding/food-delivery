@@ -7,6 +7,7 @@ db/
 dist/
 coverage/
 logs/
+*.log
 
 # TypeScript cache
 *.tsbuildinfo
