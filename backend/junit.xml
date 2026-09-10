@@ -1,37 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="16" failures="0" errors="0" time="12.855">
-  <testsuite name="getDetailedCart" errors="0" failures="0" skipped="0" timestamp="2026-09-09T20:15:59" time="12.53" tests="16">
-    <testcase classname="getDetailedCart should return detailed cart items with products" name="getDetailedCart should return detailed cart items with products" time="0.011">
+<testsuites name="jest tests" tests="47" failures="0" errors="0" time="13.843">
+  <testsuite name="update" errors="0" failures="0" skipped="0" timestamp="2026-09-10T13:03:10" time="9.207" tests="13">
+    <testcase classname="update updates the user and returns the repository&apos;s result when id is present" name="update updates the user and returns the repository&apos;s result when id is present" time="0.027">
     </testcase>
-    <testcase classname="getDetailedCart should return empty array when cart is empty" name="getDetailedCart should return empty array when cart is empty" time="0.002">
+    <testcase classname="update passes through partial data untouched to the repository&apos;s update call" name="update passes through partial data untouched to the repository&apos;s update call" time="0.003">
     </testcase>
-    <testcase classname="getDetailedCart should return empty array when userId is empty string" name="getDetailedCart should return empty array when userId is empty string" time="0.003">
+    <testcase classname="update returns null and never touches the repository when id is missing" name="update returns null and never touches the repository when id is missing" time="0.007">
     </testcase>
-    <testcase classname="getDetailedCart should handle undefined userId gracefully" name="getDetailedCart should handle undefined userId gracefully" time="0.004">
+    <testcase classname="update returns null when data itself is undefined/null, without throwing" name="update returns null when data itself is undefined/null, without throwing" time="0.005">
     </testcase>
-    <testcase classname="addCartItem should create and save new cart item when it does not exist" name="addCartItem should create and save new cart item when it does not exist" time="0.004">
+    <testcase classname="findUserById returns the user when a valid id is provided" name="findUserById returns the user when a valid id is provided" time="0.005">
     </testcase>
-    <testcase classname="addCartItem should return all cart items after creating new item" name="addCartItem should return all cart items after creating new item" time="0.003">
+    <testcase classname="findUserById queries with the correct id and select fields, excluding sensitive data like password" name="findUserById queries with the correct id and select fields, excluding sensitive data like password" time="0.002">
     </testcase>
-    <testcase classname="addCartItem should update quantity when item already exists" name="addCartItem should update quantity when item already exists" time="0.002">
+    <testcase classname="findUserById returns null and never queries the repository when id is undefined" name="findUserById returns null and never queries the repository when id is undefined" time="0.005">
+    </testcase>
+    <testcase classname="findUserById returns null when the repository finds no matching user" name="findUserById returns null when the repository finds no matching user" time="0.004">
+    </testcase>
+    <testcase classname="remove deletes the user and returns the repository&apos;s result when userId is present" name="remove deletes the user and returns the repository&apos;s result when userId is present" time="0.002">
+    </testcase>
+    <testcase classname="remove calls delete with the exact userId provided, unmodified" name="remove calls delete with the exact userId provided, unmodified" time="0.002">
+    </testcase>
+    <testcase classname="remove returns null and never touches the repository when userId is undefined" name="remove returns null and never touches the repository when userId is undefined" time="0.002">
+    </testcase>
+    <testcase classname="remove returns null and never touches the repository when userId is an empty string" name="remove returns null and never touches the repository when userId is an empty string" time="0.001">
+    </testcase>
+    <testcase classname="findAllUsers returns an empty array when there are no users" name="findAllUsers returns an empty array when there are no users" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="getProduct" errors="0" failures="0" skipped="0" timestamp="2026-09-10T13:03:10" time="9.419" tests="15">
+    <testcase classname="getProduct should return product when valid id is provided" name="getProduct should return product when valid id is provided" time="0.018">
+    </testcase>
+    <testcase classname="getProduct should return null when id is undefined" name="getProduct should return null when id is undefined" time="0.002">
+    </testcase>
+    <testcase classname="getProduct should return null when id is empty string" name="getProduct should return null when id is empty string" time="0.002">
+    </testcase>
+    <testcase classname="getProduct should return null when product not found" name="getProduct should return null when product not found" time="0.002">
+    </testcase>
+    <testcase classname="getPaginatedProducts should return paginated products with default pagination" name="getPaginatedProducts should return paginated products with default pagination" time="0.003">
+    </testcase>
+    <testcase classname="getPaginatedProducts should call findAndCount with correct default parameters" name="getPaginatedProducts should call findAndCount with correct default parameters" time="0.002">
+    </testcase>
+    <testcase classname="getPaginatedProducts should return paginated products with custom page and limit" name="getPaginatedProducts should return paginated products with custom page and limit" time="0.002">
+    </testcase>
+    <testcase classname="getPaginatedProducts should calculate correct skip value based on page and limit" name="getPaginatedProducts should calculate correct skip value based on page and limit" time="0.001">
+    </testcase>
+    <testcase classname="getPaginatedProducts should use provided category when not &apos;all&apos;" name="getPaginatedProducts should use provided category when not &apos;all&apos;" time="0.002">
+    </testcase>
+    <testcase classname="getPaginatedProducts should default to page 1 when page is invalid" name="getPaginatedProducts should default to page 1 when page is invalid" time="0.001">
+    </testcase>
+    <testcase classname="getPaginatedProducts should default to limit 10 when limit is invalid" name="getPaginatedProducts should default to limit 10 when limit is invalid" time="0.002">
+    </testcase>
+    <testcase classname="getPaginatedProducts should handle zero page as default 1" name="getPaginatedProducts should handle zero page as default 1" time="0.001">
+    </testcase>
+    <testcase classname="getPaginatedProducts should calculate totalPages correctly when total not divisible by limit" name="getPaginatedProducts should calculate totalPages correctly when total not divisible by limit" time="0.002">
+    </testcase>
+    <testcase classname="getPaginatedProducts should calculate totalPages as 1 when total equals limit" name="getPaginatedProducts should calculate totalPages as 1 when total equals limit" time="0.002">
+    </testcase>
+    <testcase classname="getPaginatedProducts should handle empty results" name="getPaginatedProducts should handle empty results" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="createOrder" errors="0" failures="0" skipped="0" timestamp="2026-09-10T13:03:10" time="9.372" tests="2">
+    <testcase classname="createOrder creates an order with correct total amount when cart has items" name="createOrder creates an order with correct total amount when cart has items" time="0.045">
+    </testcase>
+    <testcase classname="createOrder deletes the user&apos;s cart after successfully saving the order" name="createOrder deletes the user&apos;s cart after successfully saving the order" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="login" errors="0" failures="0" skipped="0" timestamp="2026-09-10T13:03:20" time="0.776" tests="4">
+    <testcase classname="login returns access token, refresh token, and user details on valid credentials" name="login returns access token, refresh token, and user details on valid credentials" time="0.006">
+    </testcase>
+    <testcase classname="login persists a hashed refresh token with a 7-day expiry tied to the correct user and tokenId" name="login persists a hashed refresh token with a 7-day expiry tied to the correct user and tokenId" time="0.002">
+    </testcase>
+    <testcase classname="login throws UnauthorizedError with a generic message when the email doesn&apos;t exist (no user enumeration)" name="login throws UnauthorizedError with a generic message when the email doesn&apos;t exist (no user enumeration)" time="0.005">
+    </testcase>
+    <testcase classname="login throws UnauthorizedError with the SAME message when the password is wrong, not revealing which field was incorrect" name="login throws UnauthorizedError with the SAME message when the password is wrong, not revealing which field was incorrect" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="getDetailedCart" errors="0" failures="0" skipped="0" timestamp="2026-09-10T13:03:20" time="3.337" tests="13">
+    <testcase classname="getDetailedCart should return detailed cart items with products" name="getDetailedCart should return detailed cart items with products" time="0.002">
+    </testcase>
+    <testcase classname="getDetailedCart should return empty array when userId is empty string" name="getDetailedCart should return empty array when userId is empty string" time="0.001">
+    </testcase>
+    <testcase classname="getDetailedCart should handle undefined userId gracefully" name="getDetailedCart should handle undefined userId gracefully" time="0.001">
+    </testcase>
+    <testcase classname="addCartItem should create and save new cart item when it does not exist" name="addCartItem should create and save new cart item when it does not exist" time="0.002">
+    </testcase>
+    <testcase classname="addCartItem should return all cart items after creating new item" name="addCartItem should return all cart items after creating new item" time="0.001">
+    </testcase>
+    <testcase classname="addCartItem should update quantity when item already exists" name="addCartItem should update quantity when item already exists" time="0.001">
     </testcase>
     <testcase classname="addCartItem should return all cart items after updating existing item" name="addCartItem should return all cart items after updating existing item" time="0.001">
     </testcase>
     <testcase classname="addCartItem should handle empty productId" name="addCartItem should handle empty productId" time="0.001">
     </testcase>
-    <testcase classname="deleteCartItem should delete cart item and return remaining items" name="deleteCartItem should delete cart item and return remaining items" time="0.006">
+    <testcase classname="deleteCartItem should delete cart item and return remaining items" name="deleteCartItem should delete cart item and return remaining items" time="0.001">
     </testcase>
-    <testcase classname="deleteCartItem should call delete with correct userId and productId" name="deleteCartItem should call delete with correct userId and productId" time="0.004">
+    <testcase classname="deleteCartItem should call delete with correct userId and productId" name="deleteCartItem should call delete with correct userId and productId" time="0.001">
     </testcase>
     <testcase classname="deleteCartItem should call findBy with correct userId" name="deleteCartItem should call findBy with correct userId" time="0.001">
     </testcase>
-    <testcase classname="deleteCartItem should return empty array when last item is deleted" name="deleteCartItem should return empty array when last item is deleted" time="0.002">
+    <testcase classname="deleteCartItem throws NotFoundError when no cart item exists for the given productId and userId" name="deleteCartItem throws NotFoundError when no cart item exists for the given productId and userId" time="0.004">
     </testcase>
-    <testcase classname="deleteCartItem should return all items when item does not exist" name="deleteCartItem should return all items when item does not exist" time="0.002">
-    </testcase>
-    <testcase classname="deleteCartItem should delete one item from cart with multiple items" name="deleteCartItem should delete one item from cart with multiple items" time="0.003">
-    </testcase>
-    <testcase classname="deleteCartItem should handle both empty userId and productId" name="deleteCartItem should handle both empty userId and productId" time="0.002">
+    <testcase classname="deleteCartItem should handle both empty userId and productId" name="deleteCartItem should handle both empty userId and productId" time="0">
     </testcase>
   </testsuite>
 </testsuites>

@@ -34,7 +34,7 @@ export class Database {
             },
           }
         : {
-            host: process.env.POSTGRES_SERVER || "db",
+            // host: process.env.POSTGRES_SERVER || "db",
             port: 5432,
             username: process.env.POSTGRES_USER || "postgres",
             password: dbPassword,

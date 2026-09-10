@@ -1,13 +1,19 @@
 import { OrderStatus } from "../entities/order.entity"
 import { convertToCents } from "../utils/cents-converter"
 import { DateRange, getDateRange } from "../utils/date-filter"
+import { NotFoundError } from "../errors/AppError"
 import {
   cartRepository,
   orderRepository,
   userRepository,
 } from "../repositories/repos"
-import { NotFoundError } from "../errors/AppError"
 
+const ALLOWED_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
+  [OrderStatus.PREPARING]: [OrderStatus.DELIVERY, OrderStatus.CANCELLED],
+  [OrderStatus.DELIVERY]: [OrderStatus.DONE, OrderStatus.CANCELLED],
+  [OrderStatus.DONE]: [],
+  [OrderStatus.CANCELLED]: [],
+}
 export const createOrder = async (body) => {
   const cartRepo = cartRepository()
   const orderRepo = orderRepository()
@@ -46,6 +52,7 @@ export const createOrder = async (body) => {
   })
 
   const newOrder = await orderRepo.save({ ...order })
+
   await cartRepo.delete({ userId })
 
   return newOrder
@@ -112,6 +119,10 @@ export const updateOrder = async (body) => {
     throw new NotFoundError()
   }
 
+  const allowedNextStatuses = ALLOWED_TRANSITIONS[order.status]
+  if (!allowedNextStatuses.includes(status)) {
+    throw new Error(`Cannot transition order from ${order.status} to ${status}`)
+  }
   order.status = status
   const updatedOrder = await oderRepo.save(order)
   return updatedOrder
