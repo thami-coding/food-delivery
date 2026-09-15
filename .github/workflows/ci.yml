@@ -46,7 +46,7 @@ jobs:
           mkdir -p db
           echo "postgres" > db/password.txt
           docker compose up --build -d
-          docker compose logs backend-server-1
+          docker compose logs -f
           npx wait-port http://localhost:3000/api/health -t 30000
       - name: Run API Tests
         working-directory: ./tests-api
