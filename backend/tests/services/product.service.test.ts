@@ -118,7 +118,7 @@ describe("getPaginatedProducts", () => {
     await getPaginatedProducts(query)
 
     expect(mockRepository.findAndCount).toHaveBeenCalledWith({
-      where: { category: "all" },
+      where: { category: null },
       skip: 0,
       take: 10,
     })
@@ -157,7 +157,7 @@ describe("getPaginatedProducts", () => {
     await getPaginatedProducts(query)
 
     expect(mockRepository.findAndCount).toHaveBeenCalledWith({
-      where: { category: "all" },
+      where: { category: null },
       skip: 20,
       take: 10,
     })
@@ -192,7 +192,7 @@ describe("getPaginatedProducts", () => {
     await getPaginatedProducts(query)
 
     expect(mockRepository.findAndCount).toHaveBeenCalledWith({
-      where: { category: "all" },
+      where: { category: null },
       skip: 0,
       take: 10,
     })

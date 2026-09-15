@@ -24,7 +24,15 @@ export interface PaginationQuery {
 }
 export const getPaginatedProducts = async (query: PaginationQuery) => {
   const productRepo = productRepository()
-  let category = query.category == "all" ? null : query.category as Categories
+  let category: Categories | null
+  if (
+    query.category &&
+    Object.values(Categories).includes(query.category as Categories)
+  ) {
+    category = query.category as Categories
+  } else {
+    category = null
+  }
 
   const page = parseInt(query.page as string) || 1
   const take = parseInt(query.limit as string) || 10
