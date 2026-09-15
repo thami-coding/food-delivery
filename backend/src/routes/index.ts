@@ -17,8 +17,4 @@ router.use("/orders", orderRoutes)
 router.use("/payment", paymentRouter)
 router.use("/api-docs", docsRouter)
 
-router.get("/", (req, res) => {
-  res.json({ message: "Welcome to the V1 API" })
-})
-
 export default router

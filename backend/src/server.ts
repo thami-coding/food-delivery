@@ -26,7 +26,7 @@ app.use("/api/v1", v1Routes)
 app.use(errorHandler)
 
 app.get("/", (req: Request, res: Response) => {
-  res.redirect("/api/v1/api-docs")
+  res.redirect("/api/health")
 })
 
 app.get("/api/health", (req: Request, res: Response) => {
