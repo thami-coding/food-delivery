@@ -2,8 +2,9 @@ import { User } from "../entities/user.entity"
 import { userRepository } from "../repositories/repos"
 
 export const update = async (data: Partial<User>) => {
+  if (!data?.id) return null
   const userRepo = userRepository()
-  return await userRepo.update(data.id!, data) // TODO FIX
+  return await userRepo.update(data.id, data)
 }
 
 export const remove = async (userId: string | undefined) => {
@@ -32,7 +33,6 @@ export const findUserById = async (id: string | undefined) => {
       "streetAddress",
       "city",
       "suburb",
-      "city",
       "postalCode",
     ],
   })

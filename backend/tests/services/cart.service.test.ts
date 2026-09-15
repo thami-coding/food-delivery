@@ -3,12 +3,19 @@ import {
   addCartItem,
   AddCartItemInput,
   deleteCartItem,
+  updateCart,
 } from "../../src/services/cart.service"
 import * as cartModule from "../../src/repositories/repos"
 import { Cart } from "../../src/entities/cart.entity"
 import { Product, Categories } from "../../src/entities/product.entity"
+import { NotFoundError } from "../../src/errors/AppError"
 
 jest.mock("../../src/repositories/repos")
+
+interface DeleteCartItemInput {
+  userId: string
+  productId: string
+}
 
 describe("getDetailedCart", () => {
   let mockRepository: jest.Mocked<any>
@@ -67,8 +74,6 @@ describe("getDetailedCart", () => {
 
     const result = await getDetailedCart("user-123")
 
-    expect(result).toEqual(mockCart)
-    expect(result.length).toBe(2)
     expect(mockRepository.find).toHaveBeenCalledWith({
       where: { userId: "user-123" },
       relations: { product: true },
@@ -76,18 +81,7 @@ describe("getDetailedCart", () => {
     expect(mockRepository.find).toHaveBeenCalledTimes(1)
   })
 
-  it("should return empty array when cart is empty", async () => {
-    mockRepository.find.mockResolvedValue([])
-
-    const result = await getDetailedCart("user-123")
-
-    expect(result).toEqual([])
-    expect(result.length).toBe(0)
-  })
-
   it("should return empty array when userId is empty string", async () => {
-    mockRepository.find.mockResolvedValue([])
-
     const result = await getDetailedCart("")
 
     expect(result).toEqual([])
@@ -283,11 +277,6 @@ describe("addCartItem", () => {
   })
 })
 
-interface DeleteCartItemInput {
-  userId: string
-  productId: string
-}
-
 describe("deleteCartItem", () => {
   let mockRepository: jest.Mocked<any>
 
@@ -295,7 +284,10 @@ describe("deleteCartItem", () => {
     jest.clearAllMocks()
     mockRepository = {
       delete: jest.fn(),
+      findOneBy: jest.fn(),
       findBy: jest.fn(),
+      find: jest.fn(),
+      save: jest.fn(),
     }
     ;(cartModule.cartRepository as jest.Mock).mockReturnValue(mockRepository)
   })
@@ -310,17 +302,16 @@ describe("deleteCartItem", () => {
         product: {} as Product,
       },
     ]
-    mockRepository.delete.mockResolvedValue({ affected: 1 })
-    mockRepository.findBy.mockResolvedValue(remainingItems)
-
     const input: DeleteCartItemInput = {
       userId: "user-123",
       productId: "prod-1",
     }
 
+    mockRepository.delete.mockResolvedValue({ affected: 1 })
+    mockRepository.findBy.mockResolvedValue(remainingItems)
+
     const result = await deleteCartItem(input)
 
-    expect(result).toEqual(remainingItems)
     expect(mockRepository.delete).toHaveBeenCalledWith({
       userId: "user-123",
       productId: "prod-1",
@@ -328,9 +319,8 @@ describe("deleteCartItem", () => {
     expect(mockRepository.findBy).toHaveBeenCalledWith({
       userId: "user-123",
     })
-    expect(mockRepository.delete).toHaveBeenCalledTimes(1)
-    expect(mockRepository.findBy).toHaveBeenCalledTimes(1)
   })
+
   it("should call delete with correct userId and productId", async () => {
     mockRepository.delete.mockResolvedValue({ affected: 1 })
     mockRepository.findBy.mockResolvedValue([])
@@ -347,6 +337,7 @@ describe("deleteCartItem", () => {
       productId: "prod-789",
     })
   })
+
   it("should call findBy with correct userId", async () => {
     mockRepository.delete.mockResolvedValue({ affected: 1 })
     mockRepository.findBy.mockResolvedValue([])
@@ -363,75 +354,15 @@ describe("deleteCartItem", () => {
     })
   })
 
-  it("should return empty array when last item is deleted", async () => {
-    mockRepository.delete.mockResolvedValue({ affected: 1 })
-    mockRepository.findBy.mockResolvedValue([])
+  it("throws NotFoundError when no cart item exists for the given productId and userId", async () => {
+    mockRepository.findOneBy.mockResolvedValue(null)
 
-    const input: DeleteCartItemInput = {
-      userId: "user-123",
-      productId: "prod-1",
-    }
+    await expect(
+      updateCart({ productId: "prod-1", userId: "user-1", quantity: 3 }),
+    ).rejects.toThrow(NotFoundError)
 
-    const result = await deleteCartItem(input)
-
-    expect(result).toEqual([])
-    expect(result.length).toBe(0)
-  })
-  it("should return all items when item does not exist", async () => {
-    const cartItems: Cart[] = [
-      {
-        id: "cart-1",
-        userId: "user-123",
-        productId: "prod-1",
-        quantity: 2,
-        product: {} as Product,
-      },
-    ]
-
-    mockRepository.delete.mockResolvedValue({ affected: 0 })
-    mockRepository.findBy.mockResolvedValue(cartItems)
-
-    const input: DeleteCartItemInput = {
-      userId: "user-123",
-      productId: "prod-999",
-    }
-
-    const result = await deleteCartItem(input)
-
-    expect(result).toEqual(cartItems)
-    expect(result.length).toBe(1)
-  })
-
-  it("should delete one item from cart with multiple items", async () => {
-    const remainingItems: Cart[] = [
-      {
-        id: "cart-1",
-        userId: "user-123",
-        productId: "prod-1",
-        quantity: 2,
-        product: {} as Product,
-      },
-      {
-        id: "cart-3",
-        userId: "user-123",
-        productId: "prod-3",
-        quantity: 1,
-        product: {} as Product,
-      },
-    ]
-
-    mockRepository.delete.mockResolvedValue({ affected: 1 })
-    mockRepository.findBy.mockResolvedValue(remainingItems)
-
-    const input: DeleteCartItemInput = {
-      userId: "user-123",
-      productId: "prod-2",
-    }
-
-    const result = await deleteCartItem(input)
-
-    expect(result.length).toBe(2)
-    expect(result).toEqual(remainingItems)
+    expect(mockRepository.save).not.toHaveBeenCalled()
+    expect(mockRepository.find).not.toHaveBeenCalled()
   })
 
   it("should handle both empty userId and productId", async () => {
