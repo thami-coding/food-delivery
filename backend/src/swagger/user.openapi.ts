@@ -4,7 +4,6 @@ import { UserSchema } from "../schemas/validation/user.schema"
 
 export const userRegistry = new OpenAPIRegistry()
 
-// GET /users (admin)
 userRegistry.registerPath({
   method: "get",
   path: "/users",
@@ -29,7 +28,6 @@ userRegistry.registerPath({
   },
 })
 
-// GET /users/me
 userRegistry.registerPath({
   method: "get",
   path: "/users/me",
@@ -48,7 +46,6 @@ userRegistry.registerPath({
   },
 })
 
-// PATCH /users/me
 userRegistry.registerPath({
   method: "patch",
   path: "/users/me",
