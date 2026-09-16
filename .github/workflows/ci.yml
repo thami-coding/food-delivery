@@ -58,7 +58,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
-    
+
     runs-on: ubuntu-latest
     outputs:
       deployment-url: ${{ steps.deploy.outputs.deployment-url }}
@@ -82,7 +82,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BACKEND }}
-    
+
     runs-on: ubuntu-latest
     outputs:
       deployment-url: ${{ steps.deploy.outputs.deployment-url }}
@@ -101,10 +101,8 @@ jobs:
           echo "deployment-url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
           echo "Deployed to: $DEPLOYMENT_URL"
 
-
-
-  Deploy-Backend-Production:
-    needs: [unit-tests-backend, api-tests]
+  deploy-backend-production:
+    needs: [deploy-backend-staging,deploy-frontend-staging]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     env:
@@ -122,8 +120,8 @@ jobs:
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-  Deploy-Frontend-Production:
-    needs: [unit-tests-backend, api-tests]
+  deploy-frontend-production:
+    needs: deploy-backend-production
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     env:
