@@ -9,7 +9,10 @@ import { seedDatabase } from "./seed"
 const app = express()
 const isProduction = process.env.NODE_ENV === "production"
 const allowedOrigins = isProduction
-  ? "https://food-delivery-ydng-peach.vercel.app"
+  ? [
+      "https://food-delivery-ydng-peach.vercel.app",
+      "https://food-delivery-frontend-2m4iv4364-thamis-projects-6f381ad9.vercel.app",
+    ]
   : "*"
 app.set("trust proxy", 1)
 app.use(

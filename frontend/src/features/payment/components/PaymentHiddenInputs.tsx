@@ -11,8 +11,8 @@ export default function PaymentHiddenInputs({
   signature,
   totalAmount,
 }: PaymentHiddenInputsProps) {
-  const merchantId = import.meta.env.VITE_PAYFAST_MERCHATN_ID
-  const merchantKey = import.meta.env.VITE_PAYFAST_MERCHATN_KEY
+  const merchantId = import.meta.env.VITE_PAYFAST_MERCHATN_ID //remove
+  const merchantKey = import.meta.env.VITE_PAYFAST_MERCHATN_KEY // remove
 
   return (
     <>
@@ -29,11 +29,11 @@ export default function PaymentHiddenInputs({
         value="https://food-delivery-backend-xi-ten.vercel.app/api/payment/complete"
       />
       <input type="hidden" name="name_first" value={order.user.fullName!} />
-      {/*TODO: fix fullName and others optional state  */}
       <input type="hidden" name="email_address" value={order.user.email} />
       <input type="hidden" name="m_payment_id" value={order.id} />
       <input type="hidden" name="amount" value={totalAmount} />
-      <input type="hidden" name="item_name" value="food" />
+      {/* Change food item value */}
+      <input type="hidden" name="item_name" value="food" /> 
       <input type="hidden" name="signature" value={signature} />
     </>
   )
