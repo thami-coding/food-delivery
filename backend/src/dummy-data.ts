@@ -291,7 +291,7 @@ export const users = [
   {
     fullName: "Ava Patel",
     email: "test@test.com",
-    password: "test@test",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0821234567",
     role: "admin",
     streetAddress: "1420 Maple Ave",
@@ -302,7 +302,7 @@ export const users = [
   {
     fullName: "Noah Kim",
     email: "noah.kim@example.com",
-    password: "N0ahK!m_2026",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0832345678",
     role: "user",
     streetAddress: "88 Pine Street",
@@ -313,7 +313,7 @@ export const users = [
   {
     fullName: "Sophia Nguyen",
     email: "sophia.nguyen@example.com",
-    password: "S0ph!aNg#26",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0843456789",
     role: "user",
     streetAddress: "501 Lakeview Dr",
@@ -324,7 +324,7 @@ export const users = [
   {
     fullName: "Ethan Johnson",
     email: "ethan.johnson@example.com",
-    password: "Eth@nJ0hnson26!",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0724567890",
     role: "user",
     streetAddress: "27 Crescent Rd",
@@ -335,7 +335,7 @@ export const users = [
   {
     fullName: "Mia Rodriguez",
     email: "mia.rodriguez@example.com",
-    password: "MiaR0d#2026!!",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0735678901",
     role: "user",
     streetAddress: "910 Orchard Blvd",
@@ -346,7 +346,7 @@ export const users = [
   {
     fullName: "Liam O'Connor",
     email: "liam.oconnor@example.com",
-    password: "LiamO'C0nn0r@26",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0746789012",
     role: "user",
     streetAddress: "63 Harbor Way",
@@ -357,7 +357,7 @@ export const users = [
   {
     fullName: "Isabella Chen",
     email: "isabella.chen@example.com",
-    password: "Is@bellA_Ch3n26",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0767890123",
     role: "user",
     streetAddress: "155 Sunrise Terrace",
@@ -368,7 +368,7 @@ export const users = [
   {
     fullName: "Jackson Smith",
     email: "jackson.smith@example.com",
-    password: "Jacks0nSm!th#26",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0788901234",
     role: "user",
     streetAddress: "402 Forest Lane",
@@ -379,7 +379,7 @@ export const users = [
   {
     fullName: "Olivia Brown",
     email: "olivia.brown@example.com",
-    password: "0liviaBr0wn@2026",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0799012345",
     role: "user",
     streetAddress: "770 Riverbend St",
@@ -390,7 +390,7 @@ export const users = [
   {
     fullName: "William Davis",
     email: "william.davis@example.com",
-    password: "W!lliamDav1s_26",
+    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
     phoneNumber: "0810123456",
     role: "user",
     streetAddress: "19 Meadowbrook Ct",
