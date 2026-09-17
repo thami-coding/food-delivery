@@ -13,11 +13,9 @@ const app = express()
 const isProduction = process.env.NODE_ENV === "production"
 
 const allowedOrigins = isProduction
-  ? [
-      "https://food-delivery-ydng-peach.vercel.app",
-      "https://food-delivery-frontend-git-dev-thamis-projects-6f381ad9.vercel.app",
-    ]
+  ? [process.env.FRONTEND_PROD_URL, process.env.FRONTEND_STAGING_URL] as string[]
   : "*"
+  
 app.set("trust proxy", 1)
 app.use(
   cors({
