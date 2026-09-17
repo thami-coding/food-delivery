@@ -6,8 +6,6 @@ db/
 # build output
 dist/
 coverage/
-logs/
-*.log
 
 # TypeScript cache
 *.tsbuildinfo
@@ -17,6 +15,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+logs/
+logs
+*.log
+junit.xml 
 
 # environment files
 .env
