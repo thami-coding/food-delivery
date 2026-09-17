@@ -37,7 +37,7 @@ export class Database {
             host: process.env.POSTGRES_SERVER || "localhost",
             port: 5432,
             username: process.env.POSTGRES_USER || "postgres",
-            password: dbPassword,
+            password: dbPassword || process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB || "food_app",
           }),
       synchronize: !isProduction,

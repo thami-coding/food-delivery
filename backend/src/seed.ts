@@ -1,4 +1,4 @@
-import { products } from "./dummy-data"
+import { products, user } from "./dummy-data"
 import {
   cartRepository,
   productRepository,
@@ -14,12 +14,7 @@ export async function seedDatabase() {
     console.log("Clearing existing data...")
 
     console.log("Seeding users...")
-    const adminUser = userRepo.create({
-      email: "admin@admin.com",
-      password: "test@test",
-      role: "admin",
-      fullName: "Admin",
-    })
+    const adminUser = userRepo.create(user)
     await userRepo.save(adminUser)
 
     console.log("Seeding products...")

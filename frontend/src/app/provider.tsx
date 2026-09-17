@@ -14,7 +14,7 @@ export function AppProviders({ children }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <ToastContainer theme="dark" autoClose={2000} />
+      <ToastContainer theme="dark" autoClose={1000} style={{ top: "60px" }} />
       <ConfirmDialog />
       <ReactQueryDevtools initialIsOpen={false} />
       {children}

@@ -8,8 +8,9 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build:staging": "vite build --mode staging",
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "prettier": {
     "semi": false

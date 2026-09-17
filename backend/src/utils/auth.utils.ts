@@ -8,8 +8,8 @@ import { logger } from "./logger"
 import { StringValue } from "ms"
 
 export const hashPassword = async (password: string) => {
-  const encryptedString = await bcrypt.hash(password, 8)
-  return encryptedString
+  const hashedPassword = await bcrypt.hash(password, 10)
+  return hashedPassword
 }
 
 export const authorize =
@@ -35,7 +35,7 @@ export const authenticate = async (
 
   if (!accessToken) {
     logger.warn(`Auth Failed: No token provided for path ${req.path}`)
-    
+
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "token is required",
@@ -57,7 +57,7 @@ export const authenticate = async (
     logger.warn(
       `Auth Failed: Invalid or expired token provided for path ${req.path}`,
     )
-    
+
     res.status(StatusCodes.UNAUTHORIZED).json({
       status: "error",
       message: "Invalid or expired token",

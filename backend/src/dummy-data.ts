@@ -1,4 +1,6 @@
 import { Categories } from "./entities/product.entity"
+import { UserRole } from "./types/common.types"
+import bcrypt from "bcryptjs"
 
 const { BURGERS, WINGS, DESSERTS, PIZZAS, COMBOS, RIBS } = Categories
 
@@ -291,111 +293,113 @@ export const users = [
   {
     fullName: "Ava Patel",
     email: "test@test.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+    password: bcrypt.hashSync("Password1", 10),
     phoneNumber: "0821234567",
-    role: "admin",
+    role: "admin" as UserRole,
     streetAddress: "1420 Maple Ave",
     city: "Seattle",
     suburb: "Capitol Hill",
     postalCode: "4037",
   },
-  {
-    fullName: "Noah Kim",
-    email: "noah.kim@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0832345678",
-    role: "user",
-    streetAddress: "88 Pine Street",
-    city: "San Francisco",
-    suburb: "SoMa",
-    postalCode: "9410",
-  },
-  {
-    fullName: "Sophia Nguyen",
-    email: "sophia.nguyen@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0843456789",
-    role: "user",
-    streetAddress: "501 Lakeview Dr",
-    city: "Chicago",
-    suburb: "Lincoln Park",
-    postalCode: "6061",
-  },
-  {
-    fullName: "Ethan Johnson",
-    email: "ethan.johnson@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0724567890",
-    role: "user",
-    streetAddress: "27 Crescent Rd",
-    city: "Austin",
-    suburb: "South Congress",
-    postalCode: "7870",
-  },
-  {
-    fullName: "Mia Rodriguez",
-    email: "mia.rodriguez@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0735678901",
-    role: "user",
-    streetAddress: "910 Orchard Blvd",
-    city: "Denver",
-    suburb: "Capitol Hill",
-    postalCode: "8020",
-  },
-  {
-    fullName: "Liam O'Connor",
-    email: "liam.oconnor@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0746789012",
-    role: "user",
-    streetAddress: "63 Harbor Way",
-    city: "Boston",
-    suburb: "Seaport",
-    postalCode: "0221",
-  },
-  {
-    fullName: "Isabella Chen",
-    email: "isabella.chen@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0767890123",
-    role: "user",
-    streetAddress: "155 Sunrise Terrace",
-    city: "Miami",
-    suburb: "Brickell",
-    postalCode: "3313",
-  },
-  {
-    fullName: "Jackson Smith",
-    email: "jackson.smith@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0788901234",
-    role: "user",
-    streetAddress: "402 Forest Lane",
-    city: "Portland",
-    suburb: "Pearl District",
-    postalCode: "9720",
-  },
-  {
-    fullName: "Olivia Brown",
-    email: "olivia.brown@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0799012345",
-    role: "user",
-    streetAddress: "770 Riverbend St",
-    city: "Phoenix",
-    suburb: "Downtown",
-    postalCode: "8500",
-  },
-  {
-    fullName: "William Davis",
-    email: "william.davis@example.com",
-    password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
-    phoneNumber: "0810123456",
-    role: "user",
-    streetAddress: "19 Meadowbrook Ct",
-    city: "Los Angeles",
-    suburb: "Culver City",
-    postalCode: "9023",
-  },
+  // {
+  //   fullName: "Noah Kim",
+  //   email: "noah.kim@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0832345678",
+  //   role: "user",
+  //   streetAddress: "88 Pine Street",
+  //   city: "San Francisco",
+  //   suburb: "SoMa",
+  //   postalCode: "9410",
+  // },
+  // {
+  //   fullName: "Sophia Nguyen",
+  //   email: "sophia.nguyen@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0843456789",
+  //   role: "user",
+  //   streetAddress: "501 Lakeview Dr",
+  //   city: "Chicago",
+  //   suburb: "Lincoln Park",
+  //   postalCode: "6061",
+  // },
+  // {
+  //   fullName: "Ethan Johnson",
+  //   email: "ethan.johnson@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0724567890",
+  //   role: "user",
+  //   streetAddress: "27 Crescent Rd",
+  //   city: "Austin",
+  //   suburb: "South Congress",
+  //   postalCode: "7870",
+  // },
+  // {
+  //   fullName: "Mia Rodriguez",
+  //   email: "mia.rodriguez@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0735678901",
+  //   role: "user",
+  //   streetAddress: "910 Orchard Blvd",
+  //   city: "Denver",
+  //   suburb: "Capitol Hill",
+  //   postalCode: "8020",
+  // },
+  // {
+  //   fullName: "Liam O'Connor",
+  //   email: "liam.oconnor@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0746789012",
+  //   role: "user",
+  //   streetAddress: "63 Harbor Way",
+  //   city: "Boston",
+  //   suburb: "Seaport",
+  //   postalCode: "0221",
+  // },
+  // {
+  //   fullName: "Isabella Chen",
+  //   email: "isabella.chen@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0767890123",
+  //   role: "user",
+  //   streetAddress: "155 Sunrise Terrace",
+  //   city: "Miami",
+  //   suburb: "Brickell",
+  //   postalCode: "3313",
+  // },
+  // {
+  //   fullName: "Jackson Smith",
+  //   email: "jackson.smith@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0788901234",
+  //   role: "user",
+  //   streetAddress: "402 Forest Lane",
+  //   city: "Portland",
+  //   suburb: "Pearl District",
+  //   postalCode: "9720",
+  // },
+  // {
+  //   fullName: "Olivia Brown",
+  //   email: "olivia.brown@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0799012345",
+  //   role: "user",
+  //   streetAddress: "770 Riverbend St",
+  //   city: "Phoenix",
+  //   suburb: "Downtown",
+  //   postalCode: "8500",
+  // },
+  // {
+  //   fullName: "William Davis",
+  //   email: "william.davis@example.com",
+  //   password: "$2b$10$1qh8MXtJTFZJfP8G5Qf0kuHNmKRBu/J0d5QqO5g5K0g5K0g5K0g5K", //Password1
+  //   phoneNumber: "0810123456",
+  //   role: "user",
+  //   streetAddress: "19 Meadowbrook Ct",
+  //   city: "Los Angeles",
+  //   suburb: "Culver City",
+  //   postalCode: "9023",
+  // },
 ]
+
+export const user = users[0]
