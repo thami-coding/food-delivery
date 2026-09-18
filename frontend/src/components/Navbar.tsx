@@ -47,7 +47,10 @@ const Navbar = () => {
           <NavLink to="/cart" className="mr-5 relative cursor-pointer">
             <IoCartOutline className="text-2xl" />
             {!isPending && !isError && (
-              <span className="text-gray-950 bg-yellow-400 px-1.5  h-5 text-center  rounded-full font-bold absolute -top-3 left-3">
+              <span
+                data-testid="cart-link"
+                className="text-gray-950 bg-yellow-400 px-1.5  h-5 text-center rounded-full font-bold absolute -top-3 left-3"
+              >
                 {totalItems}
               </span>
             )}
