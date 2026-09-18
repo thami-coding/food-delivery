@@ -15,8 +15,9 @@ const isProduction = process.env.NODE_ENV === "production"
 const allowedOrigins = isProduction
   ? [process.env.FRONTEND_PROD_URL, process.env.FRONTEND_STAGING_URL] as string[]
   : "*"
-  console.log("isProduction:", isProduction)
-  console.log("Origin:", allowedOrigins)
+  
+console.log(process.env.FRONTEND_PROD_URL, process.env.FRONTEND_STAGING_URL)
+
 app.set("trust proxy", 1)
 app.use(
   cors({
