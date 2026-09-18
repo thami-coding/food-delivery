@@ -112,7 +112,6 @@ jobs:
         with:
           node-version: lts/*
       - name: Install dependencies
-        working-directory: ./tests-e2e
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
