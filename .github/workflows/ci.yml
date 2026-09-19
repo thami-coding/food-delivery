@@ -55,6 +55,7 @@ jobs:
 
   deploy-backend-staging:
     needs: api-tests
+    if: github.ref == 'refs/heads/dev'
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BACKEND }}
@@ -76,6 +77,7 @@ jobs:
 
   deploy-frontend-staging:
     needs: deploy-backend-staging
+    if: github.ref == 'refs/heads/dev'
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
