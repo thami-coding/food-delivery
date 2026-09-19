@@ -100,6 +100,7 @@ jobs:
     needs: deploy-frontend-staging
     env:
       BASE_URL: ${{secrets.BASE_URL}}
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     defaults:
